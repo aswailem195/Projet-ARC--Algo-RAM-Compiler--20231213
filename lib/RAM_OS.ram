@@ -1,0 +1,26 @@
+NOP         ;; RAM_OS programme a charger avant le lancement d'un programme compilé ;;
+LOAD #32    ;
+STORE 2     ; Initialisation du registre de pile
+LOAD #64    ;
+STORE 8     ; Initialisation de la constante pile_max
+LOAD #65    ;
+STORE 3     ; Initialisation du registre de tas
+LOAD #1023  ;
+STORE 9     ; Initialisation de la constante tas_max
+LOAD #26    ;
+STORE 10    ; Initialisation de la constante code_offset
+NOP         ;
+READ        ; lit l'adresse de démarage du programme
+STORE 4     ; charge dans le registre d'adressage
+JUMP @4     ; saute a l'instruction de debut de programme
+NOP         ; FONCTION EMPILER( ADR_RETOUR )
+ADD 10      ; ajoute code_offset a ACC pour l'adresse reelle en memoire
+STORE 4     ; stocke l'adresse de retour dans le registre ADR
+LOAD 2      ; charge la valeur du registre de pile
+SUB 8       ; soustrait la valeur de pile_max
+JUMG 23     ; si negatif souslève erreur STACK_OVERFLOW = 1
+INC 2       ; sinon incrémente la pile
+JUMP @4     ; retour au programme
+LOAD #1     ; Charge l'erreur STACK_OVERFLOW = 1
+WRITE       ; Ecrit l'erreur
+STOP        ; arrete le programme

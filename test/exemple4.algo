@@ -1,0 +1,52 @@
+//echange les éléments des cases d'indices i et j
+ALGO ECHANGER( @T,i,j)
+VAR temp
+DEBUT
+	temp <- T[i]
+	T[i] <- T[j]
+	T[j] <- temp
+FIN
+
+// Renvoie l'indice de la plus petite valeur du tableau 'T' entre 'i' et 'n'	
+ALGO Selection( @T, n, i )
+VAR imin <- i
+DEBUT
+	i <- i+1
+	TQ i < n FAIRE
+	   SI T[imin] > T[i] ALORS
+	      imin <- i
+	   FSI
+	   i <- i+1
+	FTQ
+	RENVOYER imin
+FIN
+
+PROGRAMME()
+VAR taille, @T
+VAR i, imin
+DEBUT
+	//stockage des donnees dans un tableau dynamique
+	taille <- LIRE()
+	ALLOUER( T, taille )
+	i <- 0
+	TQ i < taille FAIRE
+	   T[i] <- LIRE()
+	   i <- i+1
+	FTQ
+
+	//Tri selection
+	i <- 0
+	TQ i < taille FAIRE
+	   ECHANGER( T, i, Selection(T, taille, i))
+	   i <- i+1
+	FTQ
+
+	//Affichage du tableau trie
+	i <- 0
+	TQ i < taille FAIRE
+	   ECRIRE(T[i])
+	   i <- i+1
+	FTQ
+	
+	RENVOYER 0
+FIN

@@ -1,0 +1,8 @@
+PROGRAMME()
+VAR toto, titi, tutu
+DEBUT
+	toto <- 12
+	titi <- 5
+	tutu <- 2*(a-b)
+	toto <- (tutu < 0)
+FIN

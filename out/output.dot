@@ -1,0 +1,13 @@
+digraph ASA {
+node0x5557778167f0 [label="DECLA_VAR\n", shape=box];
+node0x5557778167f0 -> node0x555777816830;
+node0x555777816830 [label="ID\ntoto", shape=box];
+node0x5557778167f0 -> node0x555777816770;
+node0x555777816770 [label="DECLA_VAR\n", shape=box];
+node0x555777816770 -> node0x5557778167b0;
+node0x5557778167b0 [label="ID\ntiti", shape=box];
+node0x555777816770 -> node0x5557778166f0;
+node0x5557778166f0 [label="DECLA_VAR\n", shape=box];
+node0x5557778166f0 -> node0x555777816730;
+node0x555777816730 [label="ID\ntutu", shape=box];
+}

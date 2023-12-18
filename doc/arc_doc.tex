@@ -1,0 +1,337 @@
+\documentclass[a4paper,10pt, oneside]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[french]{babel}
+\usepackage{fullpage,graphicx,}
+\usepackage{hyperref}
+\usepackage[procnames]{listingsutf8}
+\usepackage[svgnames]{xcolor}
+\usepackage{fancyheadings}
+\usepackage{pifont}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\lstnewenvironment{algo}[1][]
+{   
+  \lstset{ %this is the stype
+    frame=tB,
+    numbers=left, 
+    numberstyle=\tiny,
+    basicstyle=\ttfamily\small,
+    identifierstyle=\color{black}\bfseries,
+    keywordstyle=\color{LightSeaGreen}\bfseries,
+    keywords={ALGORITHME, PROGRAMME, ALGO, VAR, DONNEES, VARIABLES,
+      DEBUT, FIN, SI, ALORS, FSI, SINON, ET,OU, NON, TQ, FTQ, FAIRE,
+      POUR, FPOUR, ALLOUER, RENVOYER},
+    numbers=left,
+    stepnumber=1,
+    xleftmargin=.04\textwidth
+  }
+}
+{}
+
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{LightSeaGreen}\bfseries,
+  commentstyle=\color{SeaGreen}\slshape,
+  stringstyle=\color{IndianRed}\ttfamily,
+  showstringspaces=false,	
+  numbers=left, numberstyle=\tiny, stepnumber=0, numbersep=5pt, firstnumber=1,
+  showspaces=false, showtabs=false, 
+  backgroundcolor=\color{Lavender},
+  procnamestyle=\color{DodgerBlue}
+}
+
+
+%%%
+\newcounter{exo}
+\setcounter{exo}{0}
+\newenvironment{exercice}%
+{\stepcounter{exo}%
+\par\noindent%
+\fcolorbox{white}{lightgray}{\textsc{Exercice \theexo.}}
+}%
+{\vspace{4mm}}
+%%%
+\fancyhf{}
+%\rhead{Université de Toulon -L1 Maths/SI/PC-}
+\cfoot{Compilation}
+\lfoot{Nicolas Méloni}
+\rfoot{\thepage}
+
+\begin{document}
+\title{I53 - Projet de fin de semestre\\Conception d'un compilateur ALGO / RAM}
+
+\date{Licence 3 - 2022/2023}
+\maketitle
+
+\section*{Introduction}
+
+Le but de ce TP est de construire un compilateur du langage
+algorithmique vers la machine RAM du cours d'algorithmique de 2ème
+année (\texttt{arc} pour
+\textbf{A}lgo-\textbf{R}am-\textbf{C}ompiler). Pour cela nous
+utiliserons conjointement \texttt{Flex} et \texttt{Bison} pour
+construire l'arbre syntaxique abstrait du programme, une table de
+symbole sous forme de double liste chaînée et un module chargé de
+gérer l'arbre abstrait et de produire le code cible.
+
+L'archive \texttt{ProjetARC.tar} contient une version élémentaire du
+programme. Celui-ci peut être compilé à l'aide de la commande
+\texttt{make}. La structure du projet est présentée ci-dessous. Une
+étude du \texttt{makefile} permettra de bien comprendre la structure
+générale du projet. Quelques exemples de programmes ALGO que le
+compilateur doit être en mesure de gérer sont proposés dans le
+répertoire \texttt{test}.
+
+
+\begin{lstlisting}[]
+>> ls *
+makefile
+
+bin:
+
+doc:
+arc_doc.tex
+
+include:
+asa.h  codegen.h  parser.h  ram_os.h  semantic.h  ts.h
+
+lib:
+RAM_OS.ram
+
+obj:
+
+src:
+asa.c  codegen.c  lexer.lex  parser.y  semantic.c  ts.c
+
+test:
+asa  exemple1.algo  exemple2.algo  exemple3.algo  exemple4.algo  ts
+
+\end{lstlisting}
+
+
+La compilation du programme peut être décomposé en les étapes
+suivantes:
+
+\begin{enumerate}
+\item \textbf{construction de l'arbre abstrait:} on utilise Bison et Flex pour
+  construire un analyseur syntaxique et les fonctions du fichiers
+  \texttt{asa.h} pour générer un arbre abstrait à partir des feuilles.
+\item \textbf{Analyse sémantique:} on parcours l'arbre abstrait en
+  profondeur pour remplir la table de symbole, vérifier les règles
+  sémantiques (déclaration avant utilisaion, valeurs min/max des
+  entiers etc) et calculer au cours des retours arrières le nombre
+  d'instructions correspondant à chaque noeud.
+\item \textbf{Génération de code:} on parcours l'arbre abstrait en
+  profondeur et on utilise les informations de la table de symbole et
+  les nombres d'instructions pour produire le code RAM.
+
+\end{enumerate}
+
+\subsection*{Table de symboles}
+
+Les fichiers \texttt{ts.[ch]} sont fournis complets: ce sont les seuls
+qui n'ont pas besoin d'être modifiés. La table de symbole est une
+structure de double liste chaînée. La liste principale est une liste
+de contextes représentant la portée d'un ensemble
+d'identificateurs. Chaque sous liste est la liste des identificateurs
+du contexte en question.
+
+\begin{lstlisting}[language=C]
+typedef struct symbole{
+  char id[ID_SIZE_MAX];
+  int type; 
+  int size;
+  int adr;
+  struct symbole *next;
+} symbole;
+
+typedef struct contexte{
+  char name[ID_SIZE_MAX];
+  symbole * liste_symbole;
+  struct contexte * next;
+} contexte;
+\end{lstlisting}
+
+\subsection*{Arbre de syntaxe abstrait}
+
+Afin de produire du code pour la machine RAM il est nécessaire de
+construire une représentation abstraite du programme analysé. Cette
+construction se fera à l'aide de la structure \texttt{struct asa}
+définie dans le fichier \texttt{asa.h}. Un noeud de l'arbre sera
+composé d'un type (correspondant chacun à une construction de la
+grammaire) et d'une structure correspondant au type en question.
+
+Le type des noeuds est simplement un type énuméré :
+
+\begin{lstlisting}[language=C]
+  typedef enum {typeNB, typeOP} typeNoeud;
+\end{lstlisting}
+
+et chaque type correspondra à une structure propre:
+
+\begin{lstlisting}[language=C]
+typedef struct {
+  int val;
+} feuilleNB;
+
+typedef struct {
+  int ope;
+  struct asa * noeud[2];
+} noeudOP;
+
+typedef struct asa{
+  typeNoeud type;
+  int memadr;
+  int codelen;
+  union {
+    feuilleNb nb;
+    noeudOp op;
+  };
+} asa;
+\end{lstlisting}
+
+\section*{Norme du langage ALGO}
+
+La norme d'un veritable langage est un document bien trop pour être
+conçu avec rigueur dans un simple sujet de travaux pratiques. Nous
+nous contenterons ici de décrire les prinpales caractéristiques du
+langage.
+
+
+\subsection*{Structure d'un programme}
+
+Un programme ALGO est constitué d'un seul fichier source l'extension
+\texttt{.algo}. Celui-ci doit comporter la définition de zéro, un ou
+plusieurs alogrithmes, zéro une ou plusieurs variables ainsi qu'une
+fonction principale nomée \texttt{PROGRAMME()} qui sera exécutée par
+la machine cible. Celle-ci  renvoie une valeur entière en fin
+d'exécution (0 par défaut).
+
+\subsection*{Types de données}
+
+\begin{enumerate}
+\item \texttt{ENTIER}: nombre sur 16 bits (compris entre
+  \texttt{ENTIER\_MIN}$=-2^{15}$ et \texttt{ENTIER\_MAX}$=2^{15}-1$. 
+\item \texttt{TABLEAU}: suite de cases consécutives en mémoires,
+  adressé à l'aide de l'opérateur d'incidage [ ]. Le premier élément
+  est indicé par 0.
+\item \texttt{POINTEUR}: Adresse d'une donnée. Obtenu par l'opérateur
+  de déreférencement @.
+  
+\end{enumerate}
+
+\subsection*{Portée des identifiants}
+
+Chaque identificateur possède une portée définie au moment de sa
+déclaration.
+
+\begin{enumerate}
+\item Un identificateur déclaré à l'intérieur d'une fonction n'est
+  visible qu'à l'intérieur de celle-ci. 
+\item Un identificateur déclaré en dehors de toute fonction est
+  considéré de porté globale et est visible depuis n'importe quelle
+  fonction.
+\item Si un identificateur de portée globale porte le même nom qu'un
+  identificateur au sein d'une fonction, l'identificateur global est
+  ignoré.
+\end{enumerate}
+
+
+\section*{Langage ALGO}
+
+\subsection*{Lexique du langage}
+
+
+\begin{enumerate}
+\item \textbf{Mots Clés}: \texttt{PROGRAMME, ALGO, DEBUT, FIN, VAR,
+    TQ, FAIRE, FTQ, SI, ALORS, SINON, FSI, ET, OU, NON, VRAI,
+    FAUX, LIRE, ECRIRE, ALLOUER, RENVOYER}
+\item \textbf{Ponctuateurs}: \texttt{+ - * /  \% ( ) <-  = != <= >= , [ ] @ \textbackslash n} 
+\item \textbf{Blancs}: \verb|' ' \t|
+\item \textbf{Nombres}: entiers décimaux sans 0 superflus
+\item \textbf{Identificateurs}: chaînes de caractères alpha-numériques
+  commençcant par un caractère
+\end{enumerate}
+
+\subsection*{Grammaire du langage}
+
+
+\begin{enumerate}
+\item Un programme est suite d'algorithmes définis par le mot clé
+  \texttt{ALGO} un identificateur est un liste de paramètres de type
+  \texttt{ENTIER} (aucun marquage) ou \texttt{POINTEUR} (\texttt{id}
+  précédé d'un \texttt{@}).
+\item Le corps d'une fonction commence par un suite de zero, une ou
+  plusieurs déclarations de variables (avec ou sans affectation) suivi
+  du mot clé \texttt{DEBUT}, une série d'instructions et le mot clé
+  \texttt{FIN} (on utilisera le ponctuateurs \texttt{\textbackslash n}
+  comme séparateur d'instructions).
+\end{enumerate}
+
+La grammaire est celle manipulée en cours depuis la 1ère
+année. L'algorithme suivant permet de voir a peu près toutes les
+constructions nécessaires.
+
+\begin{algo}
+//echange les elements des cases d indices i et j
+ALGO ECHANGER( @T,i,j)
+VAR temp
+DEBUT
+	temp <- T[i]
+	T[i] <- T[j]
+	T[j] <- temp
+FIN
+
+// Renvoie l indice de la plus petite valeur du tableau T entre i et n	
+ALGO Selection( @T, n, i )
+VAR imin <- i
+DEBUT
+	i <- i+1
+	TQ i < n FAIRE
+	   SI T[imin] > T[i] ALORS
+	      imin <- i
+	   FSI
+	   i <- i+1
+	FTQ
+	RENVOYER imin
+FIN
+
+PROGRAMME()
+VAR taille, @T
+VAR i, imin
+DEBUT
+	//stockage des donnees dans un tableau dynamique
+	taille <- LIRE()
+	ALLOUER( T, taille )
+	i <- 0
+	TQ i < taille FAIRE
+	   T[i] <- LIRE()
+	   i <- i+1
+	FTQ
+
+	//Tri selection
+	i <- 0
+	TQ i < taille FAIRE
+	   ECHANGER( T, i, Selection(T, taille, i))
+	   i <- i+1
+	FTQ
+
+	//Affichage du tableau trie
+	i <- 0
+	TQ i < taille FAIRE
+	   ECRIRE(T[i])
+	   i <- i+1
+	FTQ
+	
+	RENVOYER 0
+FIN
+\end{algo}
+
+
+
+\end{document}

@@ -1,0 +1,9 @@
+PROGRAMME()
+VAR  T[2]
+VAR  somme
+DEBUT
+	T[0] <- LIRE()
+	T[1] <- LIRE()
+	somme <- T[0] + T[1]
+	ECRIRE( somme )
+FIN
