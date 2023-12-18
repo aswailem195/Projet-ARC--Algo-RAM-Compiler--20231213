@@ -151,6 +151,20 @@ asa * creer_noeudDECLA_TAB( char* id  ,int value ){
   return p;
 }
 
+asa * creer_noeudDECLA_POIN( char* id ){
+    asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeDECLA_POIN;
+  p->decla_poin.id= creer_feuilleID(id);
+  
+
+  return p;
+
+}
+
 
 
 
@@ -290,6 +304,11 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeDECLA_TAB:
     fprintf(output, "DECLA_TAB\\n");
     break;
+  case typeDECLA_POIN:
+    fprintf(output, "DECLA_POIN @\\n");
+    break;
+
+
 
 
   //__________________________________________________________________________________ 
@@ -384,7 +403,13 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_edge(output, p, p->decla_tab.taille);
     print_asa_dot_recursive(output, p->decla_tab.taille);
     break;
+  
+  case typeDECLA_POIN:
+    
+    print_asa_dot_edge(output, p, p->decla_poin.id);
+    print_asa_dot_recursive(output, p->decla_poin.id);
 
+    break;
 
 
 

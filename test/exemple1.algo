@@ -1,6 +1,7 @@
 PROGRAMME()
 VAR toto, titi, tutu ,t[5]
-VAR  somme
+VAR  somme , @m
+VAR momo[5]
 DEBUT
 	toto <- 12
 	titi <- 5
