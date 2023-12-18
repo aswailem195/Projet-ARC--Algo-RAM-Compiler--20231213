@@ -30,7 +30,7 @@
 %define parse.error verbose
 %locations
 
-%type <tree> PROGRAMME_ALGO EXP AFFECT INST LIST_INST DECLA_VAR
+%type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR
 
 
 
@@ -56,12 +56,11 @@
 
 
 PROGRAMME_ALGO : 
-
 PROGRAMME '(' ')'  SEP
 VAR DECLA_VAR SEP
 DEBUT SEP
 LIST_INST 
-FIN SEP{ $$ = $6 ; ARBRE_ABSTRAIT = $$; } 
+FIN SEP  { $$  = creer_noeudMAIN( $6,$10 ) ; ARBRE_ABSTRAIT = $$;  }
 ;
 
 SEP: '\n' | SEP '\n'

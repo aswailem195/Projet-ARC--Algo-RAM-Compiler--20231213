@@ -97,7 +97,25 @@ asa *creer_noeudAffic(char *id, asa *p1) {
 
   return p;
 }
+asa * creer_noeudMAIN( asa* p1 ,asa* p2 ){
 
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeMAIN;
+  p->main.INST= p2;
+  p->main.DECLA = p1;
+
+  return p;
+
+}
+
+
+
+
+//_________________________________free______________
 void free_asa(asa *p) {
   if (!p)
     return;
@@ -220,6 +238,9 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeDECLA_VAR :
     fprintf(output, "DECLA_VAR\\n");
     break;
+  case typeMAIN :
+    fprintf(output, "MAIN\\n");
+    break;
   default:
     fprintf(output, "UNKNOWN");
   }
@@ -277,7 +298,15 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     print_asa_dot_edge(output, p, p->decla_var.next);
     print_asa_dot_recursive(output, p->decla_var.next);
+
+    break;
+  case typeMAIN:
     
+    print_asa_dot_edge(output, p, p->main.DECLA);
+    print_asa_dot_recursive(output, p->main.DECLA);
+
+    print_asa_dot_edge(output, p, p->main.INST);
+    print_asa_dot_recursive(output, p->main.INST);
 
   default:
     break;
