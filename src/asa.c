@@ -112,7 +112,31 @@ asa * creer_noeudMAIN( asa* p1 ,asa* p2 ){
 
 }
 
+asa * creer_noeudDECS(asa* p1 ,asa* p2) {
+   asa *p;
 
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeDECS;
+  p->decs.DEC= p1;
+  p->decs.next = p2;
+
+  return p;
+}
+asa * creer_noeudLIST_DECLA(asa* p1 ,asa* p2) {
+
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeLIST_DECLA;
+  p->list_decla.DEC= p1;
+  p->list_decla.next = p2;
+
+  return p;
+}
 
 
 //_________________________________free______________
@@ -241,6 +265,16 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeMAIN :
     fprintf(output, "MAIN\\n");
     break;
+  case typeDECS:
+    fprintf(output, "DECS\\n");
+    break;
+
+  case typeLIST_DECLA:
+    fprintf(output, "LIST_DECLA\\n");
+    break;
+
+
+  //__________________________________________________________________________________ 
   default:
     fprintf(output, "UNKNOWN");
   }
@@ -307,6 +341,31 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     print_asa_dot_edge(output, p, p->main.INST);
     print_asa_dot_recursive(output, p->main.INST);
+    break;
+  case typeDECS:
+    
+    print_asa_dot_edge(output, p, p->decs.DEC);
+    print_asa_dot_recursive(output, p->decs.DEC);
+
+    print_asa_dot_edge(output, p, p->decs.next);
+    print_asa_dot_recursive(output, p->decs.next);
+    break;
+  case typeLIST_DECLA:
+    
+    print_asa_dot_edge(output, p, p->list_decla.DEC);
+    print_asa_dot_recursive(output, p->list_decla.DEC);
+
+    print_asa_dot_edge(output, p, p->list_decla.next);
+    print_asa_dot_recursive(output, p->list_decla.next);
+    break;
+
+
+
+
+
+
+
+
 
   default:
     break;

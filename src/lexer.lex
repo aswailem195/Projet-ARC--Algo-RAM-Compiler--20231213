@@ -59,10 +59,10 @@ IDENT    [a-z]+
 
 
 
-[-*+/=%\n(),]      {return *yytext;}
+[-*+/=%\n(),@]      {return *yytext;}
 
-
-
+"]"      {return *yytext;}
+"["      {return *yytext;}
 
 [ \t]           { /* ignorer les blancs */ }
 .         {           
