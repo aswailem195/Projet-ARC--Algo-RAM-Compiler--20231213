@@ -1,5 +1,5 @@
 PROGRAMME()
-VAR toto, titi, tutu
+VAR toto, titi, tutu ,t[5]
 VAR  somme
 DEBUT
 	toto <- 12

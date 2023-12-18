@@ -18,7 +18,7 @@
 #define TYPE_PTR     'p'
 #define TYPE_FCT     'f'
 //___________________type__________________
-typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typeMAIN ,typeDECS,typeLIST_DECLA} typeNoeud;
+typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typeMAIN ,typeDECS,typeLIST_DECLA,typeDECLA_TAB} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -79,6 +79,12 @@ typedef struct {
   struct asa *DEC;
   struct asa *next ;
 }noeudLIST_DECLA ;
+
+
+typedef struct {
+  struct asa *id ;
+  struct asa *taille ;
+}noeudDECLA_TAB;
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -95,6 +101,7 @@ typedef struct asa{
     noeudMAIN main;
     noeudDECS decs ;
     noeudLIST_DECLA list_decla;
+    noeudDECLA_TAB  decla_tab ;
   };
 } asa;
 
@@ -114,6 +121,7 @@ asa * creer_noeudDECLA_VAR( char* id   ,asa* p1 );
 asa * creer_noeudMAIN( asa* p1 ,asa* p2 );
 asa * creer_noeudDECS(asa* p1 ,asa* p2) ;
 asa * creer_noeudLIST_DECLA(asa* p1 ,asa* p2) ;
+asa * creer_noeudDECLA_TAB( char* id  ,int value );
 
 
 

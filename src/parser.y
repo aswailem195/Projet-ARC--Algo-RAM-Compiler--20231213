@@ -30,7 +30,7 @@
 %define parse.error verbose
 %locations
 
-%type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS
+%type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS DECLA_TAB
 
 
 
@@ -74,13 +74,20 @@ DECS : VAR LIST_DECLA SEP    {$$ = creer_noeudDECS($2,NULL);}
     ; 
 
 LIST_DECLA : DECLA_VAR     {$$ = creer_noeudLIST_DECLA($1,NULL);}
+|DECLA_TAB                  {$$ = creer_noeudLIST_DECLA($1,NULL);}
 | DECLA_VAR ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
+|DECLA_TAB   ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
  
 ;
 
 DECLA_VAR : ID   {$$ = creer_noeudDECLA_VAR( $1  ,NULL );}     
 
 ;
+
+
+DECLA_TAB : ID '[' NB ']'  {$$ = creer_noeudDECLA_TAB( $1  ,$3 );}    
+;
+
 //___________________________inistraction _____________________
 
 LIST_INST : INST {$$  = creer_noeudLIST_INST( $1,NULL );}
