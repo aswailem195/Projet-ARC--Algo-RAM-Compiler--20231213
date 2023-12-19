@@ -19,7 +19,8 @@
 #define TYPE_FCT     'f'
 //___________________type__________________
 typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typeMAIN ,
-typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN} typeNoeud;
+typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
+typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -90,6 +91,27 @@ typedef struct {
 typedef struct {
   struct asa *id ;
 }noeudDECLA_POIN;
+typedef struct {
+  struct asa * EXP ;
+}noeudINST_ECRIRE ;
+
+typedef struct {
+  struct asa * ID ;
+}noeudINST_LIRE ;
+
+
+typedef struct {
+  struct asa *condition;
+  struct asa * inst ;
+}noeudSTRUCT_TQ ;
+
+
+typedef struct {
+  struct asa *condition;
+  struct asa * inst_si ;
+  struct asa * inst_si_non ;
+}noeudSTRUCT_SI ;
+
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -108,6 +130,10 @@ typedef struct asa{
     noeudLIST_DECLA list_decla;
     noeudDECLA_TAB  decla_tab ;
     noeudDECLA_POIN decla_poin ;
+    noeudINST_ECRIRE inst_ecrire ;
+    noeudINST_LIRE   inst_lire ;
+    noeudSTRUCT_TQ  struct_tq ;
+    noeudSTRUCT_SI  struct_si ;
   };
 } asa;
 
@@ -129,8 +155,10 @@ asa * creer_noeudDECS(asa* p1 ,asa* p2) ;
 asa * creer_noeudLIST_DECLA(asa* p1 ,asa* p2) ;
 asa * creer_noeudDECLA_TAB( char* id  ,int value );
 asa * creer_noeudDECLA_POIN( char* id );
-
-
+asa * creer_noeudINST_ECRIRE(asa * p1);
+asa * creer_noeudINST_LIRE( char* id  );
+asa * creer_noeudSTRUCT_TQ(asa* p1 ,asa* p2);
+asa * creer_noeudSTRUCT_SI(asa* p1 ,asa* p2 ,asa* p3);
 
 
 

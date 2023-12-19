@@ -65,6 +65,21 @@ IDENT    [a-z]+
 "["      {return *yytext;}
 
 [ \t]           { /* ignorer les blancs */ }
+
+
+
+"ECRIRE"  {return ECRIRE ;}
+"LIRE"   {return LIRE ;}
+
+"FSI"   {return FSI;}
+"SINON"  {return SINON ; }
+"ALORS" {return ALORS;}
+"SI"   {return SI;}
+"FTQ" {return FTQ; }
+"FAIRE" {return FAIRE;}
+"TQ" {return TQ ;}
+
+
 .         {           
 	    sprintf(errmsg,charerr, yytext[0]);
             yyerror(errmsg);

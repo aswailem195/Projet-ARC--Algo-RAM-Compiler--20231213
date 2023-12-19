@@ -13,6 +13,7 @@
 
   table_symb TABLE_SYMBOLES = NULL;
   struct asa * ARBRE_ABSTRAIT = NULL;
+  char CTXTglo[32] = "GLOBAL";
 
   void yyerror(const char * s);
 
@@ -31,14 +32,15 @@
 %locations
 
 %type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS DECLA_TAB DECLA_POIN
-
+%type <tree> INST_ECRIRE INST_LIRE 
+%type <tree> STRUCT_TQ STRUCT_SI
 
 
 %token <nb> NB
 %token <id> ID
-%token PROGRAMME DEBUT FIN VAR
+%token PROGRAMME DEBUT FIN VAR ECRIRE LIRE
 %start PROGRAMME_ALGO
-
+%token TQ FAIRE FTQ SI ALORS SINON FSI
 
 
 %right AFF
@@ -64,6 +66,31 @@ FIN SEP   {$$ = creer_noeudMAIN( $5 ,$8 );ARBRE_ABSTRAIT=$$;}
 ;
 
 SEP: '\n' | SEP '\n'  
+
+
+;
+
+////___________________________TQ _____________________
+STRUCT_TQ : TQ EXP FAIRE SEP LIST_INST  FTQ  {$$ = creer_noeudSTRUCT_TQ($2,$5);}
+;
+////___________________________si _____________________
+STRUCT_SI: 
+  SI EXP ALORS SEP 
+      LIST_INST
+  SINON SEP 
+      LIST_INST
+  FSI   {$$ = creer_noeudSTRUCT_SI($2, $5, $8);}
+| SI EXP ALORS SEP
+    LIST_INST 
+  FSI  {$$ = creer_noeudSTRUCT_SI($2, $5, NULL);}
+;
+
+////___________________________LIRE _____________________
+INST_LIRE : ID AFF LIRE '(' ')' {$$ = creer_noeudINST_LIRE($1);}
+;
+////___________________________ECRIRE _____________________
+
+INST_ECRIRE :ECRIRE '(' EXP ')' {$$ = creer_noeudINST_ECRIRE($3);}
 ;
 
 //___________________________declaration _____________________
@@ -92,17 +119,22 @@ DECLA_POIN : '@' ID   {$$ = creer_noeudDECLA_POIN( $2 );}
 
 //___________________________inistraction _____________________
 
-LIST_INST : INST {$$  = creer_noeudLIST_INST( $1,NULL );}
-|INST LIST_INST   {$$  = creer_noeudLIST_INST( $1,$2 );}
+LIST_INST : INST SEP {$$  = creer_noeudLIST_INST( $1,NULL );}
+|INST SEP LIST_INST   {$$  = creer_noeudLIST_INST( $1,$3 );}
 
 ;
-INST : AFFECT  {$$ = creer_noeudINST($1) ;}
-|EXP SEP {$$ = creer_noeudINST($1) ;}
+
+INST : AFFECT  {$$= $1 ;}
+|EXP  {$$= $1 ;}
+|INST_ECRIRE {$$= $1 ;}
+|INST_LIRE {$$= $1 ;}
+|STRUCT_TQ {$$= $1 ;}
+|STRUCT_SI {$$= $1 ;}
 ;
 
 
 //___________________________affictation _____________________
-AFFECT: ID AFF EXP SEP     { $$ = creer_noeudAffic($1, $3); }
+AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
       | ID AFF AFFECT      { $$ = creer_noeudAffic($1, $3); }
       ;
 
@@ -177,7 +209,11 @@ int main( int argc, char * argv[] ) {
   fprintf(exefile, "LOAD #%-7d ;\n", init);
   fprintf(exefile, "STORE @%-6d ;\n", registre);
 
+
+
+  TABLE_SYMBOLES = ts_init_table(CTXTglo) ;
   semantic(ARBRE_ABSTRAIT);
+  
 
 
   
@@ -187,6 +223,8 @@ int main( int argc, char * argv[] ) {
   
   print_asa(ARBRE_ABSTRAIT);
   codegen(ARBRE_ABSTRAIT);
+  ts_print(TABLE_SYMBOLES);
+  
 
 
 

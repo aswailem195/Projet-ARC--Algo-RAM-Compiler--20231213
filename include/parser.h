@@ -60,14 +60,23 @@ extern int yydebug;
     DEBUT = 261,                   /* DEBUT  */
     FIN = 262,                     /* FIN  */
     VAR = 263,                     /* VAR  */
-    AFF = 264,                     /* AFF  */
-    OU = 265,                      /* OU  */
-    ET = 266,                      /* ET  */
-    NON = 267,                     /* NON  */
-    EGAL = 268,                    /* EGAL  */
-    SUPEGAL = 269,                 /* SUPEGAL  */
-    INFEGAL = 270,                 /* INFEGAL  */
-    DIFF = 271                     /* DIFF  */
+    ECRIRE = 264,                  /* ECRIRE  */
+    LIRE = 265,                    /* LIRE  */
+    TQ = 266,                      /* TQ  */
+    FAIRE = 267,                   /* FAIRE  */
+    FTQ = 268,                     /* FTQ  */
+    SI = 269,                      /* SI  */
+    ALORS = 270,                   /* ALORS  */
+    SINON = 271,                   /* SINON  */
+    FSI = 272,                     /* FSI  */
+    AFF = 273,                     /* AFF  */
+    OU = 274,                      /* OU  */
+    ET = 275,                      /* ET  */
+    NON = 276,                     /* NON  */
+    EGAL = 277,                    /* EGAL  */
+    SUPEGAL = 278,                 /* SUPEGAL  */
+    INFEGAL = 279,                 /* INFEGAL  */
+    DIFF = 280                     /* DIFF  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -76,14 +85,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "src/parser.y"
+#line 25 "src/parser.y"
 
   int nb;
   struct asa * tree;
   char id[32];
  
 
-#line 87 "src/parser.h"
+#line 96 "src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

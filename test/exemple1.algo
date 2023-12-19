@@ -3,8 +3,24 @@ VAR toto, titi, tutu ,t[5]
 VAR  somme , @m
 VAR momo[5]
 DEBUT
-	toto <- 12
-	titi <- 5
-	tutu <- 2*(a-b)
-	toto <- (tutu < 0)
+	5+9/3-7
+	39+2
+	ECRIRE( somme )
+	o <- LIRE()
+	l <- LIRE()
+	TQ i < taille FAIRE
+	   l <- LIRE()
+	   i <- i+1
+	FTQ
+	i <- i+1
+	TQ i < n FAIRE
+	   SI d > d ALORS
+	      imin <- i
+	   SINON 
+	   	l <- 5
+	   FSI
+	   i <- i+1
+	FTQ
+
+
 FIN

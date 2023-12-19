@@ -165,7 +165,61 @@ asa * creer_noeudDECLA_POIN( char* id ){
 
 }
 
+asa * creer_noeudINST_ECRIRE(asa * p1){
+  asa *p;
 
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeINST_ECRIRE;
+  p->inst_ecrire.EXP =p1 ;
+  
+
+  return p;
+
+
+}
+asa * creer_noeudINST_LIRE( char* id  ){
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeINST_LIRE;
+  p->inst_lire.ID = creer_feuilleID(id);
+  
+
+  return p;
+
+}
+
+asa * creer_noeudSTRUCT_TQ(asa* p1 ,asa* p2){
+
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeSTRUCT_TQ;
+  p->struct_tq.condition= p1;
+  p->struct_tq.inst= p2;
+
+  return p;
+
+}
+asa * creer_noeudSTRUCT_SI(asa* p1 ,asa* p2 ,asa* p3){
+    asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeSTRUCT_SI;
+  p->struct_si.condition= p1;
+  p->struct_si.inst_si =p2 ;
+  p->struct_si.inst_si_non=p3 ;  
+  
+  return p;
+}
 
 
 //_________________________________free______________
@@ -269,46 +323,58 @@ void print_asa_dot_node(FILE *output, asa *p) {
   fprintf(output, "node%p [label=\"", p);
   switch (p->type) {
   case typeNB:
-    fprintf(output, "NB\\n%d", p->nb.val);
+    fprintf(output, "NB\\n%d \n tailcode:%d adr:%d \\n", p->nb.val,p->codelen ,p->memadr);
     break;
   case typeID:
-    fprintf(output, "ID\\n%s", p->id.nom);
+    fprintf(output, "ID\\n%s\n tailcode:%d adr:%d \\n", p->id.nom,p->codelen ,p->memadr);
     break;
 
   case typeOP:
-    fprintf(output, "OP\\n%c", p->op.ope);
+    fprintf(output, "OP\\n%c \n tailcode:%d adr:%d \\n", p->op.ope,p->codelen ,p->memadr);
     break;
 
   case typeAFF:
-    fprintf(output, "AFF\\n");
+    fprintf(output, "AFF\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeLIST_INST:
-    fprintf(output, "LIST_INST\\n");
+    fprintf(output, "LIST_INST\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeINST:
-    fprintf(output, "INST\\n");
+    fprintf(output, "INST\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeDECLA_VAR :
-    fprintf(output, "DECLA_VAR\\n");
+    fprintf(output, "DECLA_VAR\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeMAIN :
-    fprintf(output, "MAIN\\n");
+    fprintf(output, "MAIN\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeDECS:
-    fprintf(output, "DECS\\n");
+    fprintf(output, "DECS\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
 
   case typeLIST_DECLA:
-    fprintf(output, "LIST_DECLA\\n");
+    fprintf(output, "LIST_DECLA\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeDECLA_TAB:
-    fprintf(output, "DECLA_TAB\\n");
+    fprintf(output, "DECLA_TAB\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeDECLA_POIN:
-    fprintf(output, "DECLA_POIN @\\n");
+    fprintf(output, "DECLA_POIN @\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
 
+  case typeINST_ECRIRE:
+    fprintf(output, "INST_ECRIRE\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
 
+  case typeINST_LIRE:
+    fprintf(output, "INST_LIRE\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeSTRUCT_TQ:
+    fprintf(output, "STRUCT_TQ\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeSTRUCT_SI:
+    fprintf(output, "STRUCT_SI\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
 
 
   //__________________________________________________________________________________ 
@@ -411,8 +477,37 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     break;
 
+  case typeINST_ECRIRE:
+    
+    print_asa_dot_edge(output, p, p->inst_ecrire.EXP);
+    print_asa_dot_recursive(output, p->inst_ecrire.EXP);
 
+    break;
+  case typeINST_LIRE:
+    
+    print_asa_dot_edge(output, p, p->inst_lire.ID);
+    print_asa_dot_recursive(output, p->inst_lire.ID);
 
+    break;
+  case typeSTRUCT_TQ:
+    
+    print_asa_dot_edge(output, p, p->struct_tq.condition);
+    print_asa_dot_recursive(output, p->struct_tq.condition);
+
+    print_asa_dot_edge(output, p, p->struct_tq.inst);
+    print_asa_dot_recursive(output, p->struct_tq.inst);
+    break;
+  case typeSTRUCT_SI:
+    
+    print_asa_dot_edge(output, p, p->struct_si.condition);
+    print_asa_dot_recursive(output, p->struct_si.condition);
+
+    print_asa_dot_edge(output, p, p->struct_si.inst_si);
+    print_asa_dot_recursive(output, p->struct_si.inst_si);
+
+    print_asa_dot_edge(output, p, p->struct_si.inst_si_non);
+    print_asa_dot_recursive(output, p->struct_si.inst_si_non);
+    break;
 
 
 

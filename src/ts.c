@@ -1,4 +1,4 @@
-#include "ts.h"
+#include "../include/ts.h"
 
 static const char str_type[][ID_SIZE_MAX] =  {"ENTIER","TABLEAU","POINTEUR","FONCTION"};
 static const char str_field[][ID_SIZE_MAX] = {IDE,TYPE,ADR,SIZE};
@@ -94,6 +94,7 @@ contexte * ts_rechercher_contexte(table_symb table, char *context_name){
       context = context->next;
   return NULL;
 }
+
 
 /*
  * FUNCTION: ts_rechercher_identificateur

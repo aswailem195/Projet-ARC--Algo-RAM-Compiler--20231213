@@ -1,107 +1,321 @@
 digraph ASA {
-node0x55ddd6f6c3f0 [label="MAIN\n", shape=box];
-node0x55ddd6f6c3f0 -> node0x55ddd6f6bd30;
-node0x55ddd6f6bd30 [label="DECS\n", shape=box];
-node0x55ddd6f6bd30 -> node0x55ddd6f6b9f0;
-node0x55ddd6f6b9f0 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6b9f0 -> node0x55ddd6f6b6f0;
-node0x55ddd6f6b6f0 [label="DECLA_VAR\n", shape=box];
-node0x55ddd6f6b6f0 -> node0x55ddd6f6b730;
-node0x55ddd6f6b730 [label="ID\ntoto", shape=box];
-node0x55ddd6f6b9f0 -> node0x55ddd6f6b9b0;
-node0x55ddd6f6b9b0 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6b9b0 -> node0x55ddd6f6b770;
-node0x55ddd6f6b770 [label="DECLA_VAR\n", shape=box];
-node0x55ddd6f6b770 -> node0x55ddd6f6b7b0;
-node0x55ddd6f6b7b0 [label="ID\ntiti", shape=box];
-node0x55ddd6f6b9b0 -> node0x55ddd6f6b970;
-node0x55ddd6f6b970 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6b970 -> node0x55ddd6f6b7f0;
-node0x55ddd6f6b7f0 [label="DECLA_VAR\n", shape=box];
-node0x55ddd6f6b7f0 -> node0x55ddd6f6b830;
-node0x55ddd6f6b830 [label="ID\ntutu", shape=box];
-node0x55ddd6f6b970 -> node0x55ddd6f6b930;
-node0x55ddd6f6b930 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6b930 -> node0x55ddd6f6b870;
-node0x55ddd6f6b870 [label="DECLA_TAB\n", shape=box];
-node0x55ddd6f6b870 -> node0x55ddd6f6b8b0;
-node0x55ddd6f6b8b0 [label="ID\nt", shape=box];
-node0x55ddd6f6b870 -> node0x55ddd6f6b8f0;
-node0x55ddd6f6b8f0 [label="NB\n5", shape=box];
-node0x55ddd6f6bd30 -> node0x55ddd6f6bcf0;
-node0x55ddd6f6bcf0 [label="DECS\n", shape=box];
-node0x55ddd6f6bcf0 -> node0x55ddd6f6bb70;
-node0x55ddd6f6bb70 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6bb70 -> node0x55ddd6f6ba30;
-node0x55ddd6f6ba30 [label="DECLA_VAR\n", shape=box];
-node0x55ddd6f6ba30 -> node0x55ddd6f6ba70;
-node0x55ddd6f6ba70 [label="ID\nsomme", shape=box];
-node0x55ddd6f6bb70 -> node0x55ddd6f6bb30;
-node0x55ddd6f6bb30 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6bb30 -> node0x55ddd6f6bab0;
-node0x55ddd6f6bab0 [label="DECLA_POIN @\n", shape=box];
-node0x55ddd6f6bab0 -> node0x55ddd6f6baf0;
-node0x55ddd6f6baf0 [label="ID\nm", shape=box];
-node0x55ddd6f6bcf0 -> node0x55ddd6f6bcb0;
-node0x55ddd6f6bcb0 [label="DECS\n", shape=box];
-node0x55ddd6f6bcb0 -> node0x55ddd6f6bc70;
-node0x55ddd6f6bc70 [label="LIST_DECLA\n", shape=box];
-node0x55ddd6f6bc70 -> node0x55ddd6f6bbb0;
-node0x55ddd6f6bbb0 [label="DECLA_TAB\n", shape=box];
-node0x55ddd6f6bbb0 -> node0x55ddd6f6bbf0;
-node0x55ddd6f6bbf0 [label="ID\nmomo", shape=box];
-node0x55ddd6f6bbb0 -> node0x55ddd6f6bc30;
-node0x55ddd6f6bc30 [label="NB\n5", shape=box];
-node0x55ddd6f6c3f0 -> node0x55ddd6f6c3b0;
-node0x55ddd6f6c3b0 [label="LIST_INST\n", shape=box];
-node0x55ddd6f6c3b0 -> node0x55ddd6f6be30;
-node0x55ddd6f6be30 [label="INST\n", shape=box];
-node0x55ddd6f6be30 -> node0x55ddd6f6bdb0;
-node0x55ddd6f6bdb0 [label="AFF\n", shape=box];
-node0x55ddd6f6bdb0 -> node0x55ddd6f6bdf0;
-node0x55ddd6f6bdf0 [label="ID\ntoto", shape=box];
-node0x55ddd6f6bdb0 -> node0x55ddd6f6bd70;
-node0x55ddd6f6bd70 [label="NB\n12", shape=box];
-node0x55ddd6f6c3b0 -> node0x55ddd6f6c370;
-node0x55ddd6f6c370 [label="LIST_INST\n", shape=box];
-node0x55ddd6f6c370 -> node0x55ddd6f6bf30;
-node0x55ddd6f6bf30 [label="INST\n", shape=box];
-node0x55ddd6f6bf30 -> node0x55ddd6f6beb0;
-node0x55ddd6f6beb0 [label="AFF\n", shape=box];
-node0x55ddd6f6beb0 -> node0x55ddd6f6bef0;
-node0x55ddd6f6bef0 [label="ID\ntiti", shape=box];
-node0x55ddd6f6beb0 -> node0x55ddd6f6be70;
-node0x55ddd6f6be70 [label="NB\n5", shape=box];
-node0x55ddd6f6c370 -> node0x55ddd6f6c330;
-node0x55ddd6f6c330 [label="LIST_INST\n", shape=box];
-node0x55ddd6f6c330 -> node0x55ddd6f6c130;
-node0x55ddd6f6c130 [label="INST\n", shape=box];
-node0x55ddd6f6c130 -> node0x55ddd6f6c0b0;
-node0x55ddd6f6c0b0 [label="AFF\n", shape=box];
-node0x55ddd6f6c0b0 -> node0x55ddd6f6c0f0;
-node0x55ddd6f6c0f0 [label="ID\ntutu", shape=box];
-node0x55ddd6f6c0b0 -> node0x55ddd6f6c070;
-node0x55ddd6f6c070 [label="OP\n*", shape=box];
-node0x55ddd6f6c070 -> node0x55ddd6f6bf70;
-node0x55ddd6f6bf70 [label="NB\n2", shape=box];
-node0x55ddd6f6c070 -> node0x55ddd6f6c030;
-node0x55ddd6f6c030 [label="OP\n-", shape=box];
-node0x55ddd6f6c030 -> node0x55ddd6f6bfb0;
-node0x55ddd6f6bfb0 [label="ID\na", shape=box];
-node0x55ddd6f6c030 -> node0x55ddd6f6bff0;
-node0x55ddd6f6bff0 [label="ID\nb", shape=box];
-node0x55ddd6f6c330 -> node0x55ddd6f6c2f0;
-node0x55ddd6f6c2f0 [label="LIST_INST\n", shape=box];
-node0x55ddd6f6c2f0 -> node0x55ddd6f6c2b0;
-node0x55ddd6f6c2b0 [label="INST\n", shape=box];
-node0x55ddd6f6c2b0 -> node0x55ddd6f6c230;
-node0x55ddd6f6c230 [label="AFF\n", shape=box];
-node0x55ddd6f6c230 -> node0x55ddd6f6c270;
-node0x55ddd6f6c270 [label="ID\ntoto", shape=box];
-node0x55ddd6f6c230 -> node0x55ddd6f6c1f0;
-node0x55ddd6f6c1f0 [label="OP\n<", shape=box];
-node0x55ddd6f6c1f0 -> node0x55ddd6f6c170;
-node0x55ddd6f6c170 [label="ID\ntutu", shape=box];
-node0x55ddd6f6c1f0 -> node0x55ddd6f6c1b0;
-node0x55ddd6f6c1b0 [label="NB\n0", shape=box];
+node0x5619cef80db0 [label="MAIN
+ tailcode:31 
+ adr:0 \n", shape=box];
+node0x5619cef80db0 -> node0x5619cef7fd30;
+node0x5619cef7fd30 [label="DECS
+ tailcode:15 
+ adr:0 \n", shape=box];
+node0x5619cef7fd30 -> node0x5619cef7f9f0;
+node0x5619cef7f9f0 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7f9f0 -> node0x5619cef7f6f0;
+node0x5619cef7f6f0 [label="DECLA_VAR
+ tailcode:3 
+ adr:0 \n", shape=box];
+node0x5619cef7f6f0 -> node0x5619cef7f730;
+node0x5619cef7f730 [label="ID\ntoto
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7f9f0 -> node0x5619cef7f9b0;
+node0x5619cef7f9b0 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7f9b0 -> node0x5619cef7f770;
+node0x5619cef7f770 [label="DECLA_VAR
+ tailcode:3 
+ adr:0 \n", shape=box];
+node0x5619cef7f770 -> node0x5619cef7f7b0;
+node0x5619cef7f7b0 [label="ID\ntiti
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7f9b0 -> node0x5619cef7f970;
+node0x5619cef7f970 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7f970 -> node0x5619cef7f7f0;
+node0x5619cef7f7f0 [label="DECLA_VAR
+ tailcode:3 
+ adr:0 \n", shape=box];
+node0x5619cef7f7f0 -> node0x5619cef7f830;
+node0x5619cef7f830 [label="ID\ntutu
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7f970 -> node0x5619cef7f930;
+node0x5619cef7f930 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7f930 -> node0x5619cef7f870;
+node0x5619cef7f870 [label="DECLA_TAB
+ tailcode:2 
+ adr:0 \n", shape=box];
+node0x5619cef7f870 -> node0x5619cef7f8b0;
+node0x5619cef7f8b0 [label="ID\nt
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7f870 -> node0x5619cef7f8f0;
+node0x5619cef7f8f0 [label="NB\n5 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fd30 -> node0x5619cef7fcf0;
+node0x5619cef7fcf0 [label="DECS
+ tailcode:10 
+ adr:0 \n", shape=box];
+node0x5619cef7fcf0 -> node0x5619cef7fb70;
+node0x5619cef7fb70 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7fb70 -> node0x5619cef7fa30;
+node0x5619cef7fa30 [label="DECLA_VAR
+ tailcode:3 
+ adr:0 \n", shape=box];
+node0x5619cef7fa30 -> node0x5619cef7fa70;
+node0x5619cef7fa70 [label="ID\nsomme
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fb70 -> node0x5619cef7fb30;
+node0x5619cef7fb30 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7fb30 -> node0x5619cef7fab0;
+node0x5619cef7fab0 [label="DECLA_POIN @
+ tailcode:2 
+ adr:0 \n", shape=box];
+node0x5619cef7fab0 -> node0x5619cef7faf0;
+node0x5619cef7faf0 [label="ID\nm
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fcf0 -> node0x5619cef7fcb0;
+node0x5619cef7fcb0 [label="DECS
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7fcb0 -> node0x5619cef7fc70;
+node0x5619cef7fc70 [label="LIST_DECLA
+ tailcode:5 
+ adr:0 \n", shape=box];
+node0x5619cef7fc70 -> node0x5619cef7fbb0;
+node0x5619cef7fbb0 [label="DECLA_TAB
+ tailcode:2 
+ adr:0 \n", shape=box];
+node0x5619cef7fbb0 -> node0x5619cef7fbf0;
+node0x5619cef7fbf0 [label="ID\nmomo
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fbb0 -> node0x5619cef7fc30;
+node0x5619cef7fc30 [label="NB\n5 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80db0 -> node0x5619cef80d70;
+node0x5619cef80d70 [label="LIST_INST
+ tailcode:16 
+ adr:0 \n", shape=box];
+node0x5619cef80d70 -> node0x5619cef7fef0;
+node0x5619cef7fef0 [label="OP\n- 
+ tailcode:16 adr:0 \n", shape=box];
+node0x5619cef7fef0 -> node0x5619cef7fe70;
+node0x5619cef7fe70 [label="OP\n+ 
+ tailcode:11 adr:0 \n", shape=box];
+node0x5619cef7fe70 -> node0x5619cef7fd70;
+node0x5619cef7fd70 [label="NB\n5 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fe70 -> node0x5619cef7fe30;
+node0x5619cef7fe30 [label="OP\n/ 
+ tailcode:6 adr:0 \n", shape=box];
+node0x5619cef7fe30 -> node0x5619cef7fdb0;
+node0x5619cef7fdb0 [label="NB\n9 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fe30 -> node0x5619cef7fdf0;
+node0x5619cef7fdf0 [label="NB\n3 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7fef0 -> node0x5619cef7feb0;
+node0x5619cef7feb0 [label="NB\n7 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80d70 -> node0x5619cef80d30;
+node0x5619cef80d30 [label="LIST_INST
+ tailcode:6 
+ adr:0 \n", shape=box];
+node0x5619cef80d30 -> node0x5619cef7ffb0;
+node0x5619cef7ffb0 [label="OP\n+ 
+ tailcode:6 adr:0 \n", shape=box];
+node0x5619cef7ffb0 -> node0x5619cef7ff30;
+node0x5619cef7ff30 [label="NB\n39 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef7ffb0 -> node0x5619cef7ff70;
+node0x5619cef7ff70 [label="NB\n2 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80d30 -> node0x5619cef80cf0;
+node0x5619cef80cf0 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80cf0 -> node0x5619cef80030;
+node0x5619cef80030 [label="INST_ECRIRE
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80030 -> node0x5619cef7fff0;
+node0x5619cef7fff0 [label="ID\nsomme
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80cf0 -> node0x5619cef80cb0;
+node0x5619cef80cb0 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80cb0 -> node0x5619cef80070;
+node0x5619cef80070 [label="INST_LIRE
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80070 -> node0x5619cef800b0;
+node0x5619cef800b0 [label="ID\no
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80cb0 -> node0x5619cef80c70;
+node0x5619cef80c70 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80c70 -> node0x5619cef800f0;
+node0x5619cef800f0 [label="INST_LIRE
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef800f0 -> node0x5619cef80130;
+node0x5619cef80130 [label="ID\nl
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80c70 -> node0x5619cef80c30;
+node0x5619cef80c30 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80c30 -> node0x5619cef80470;
+node0x5619cef80470 [label="STRUCT_TQ
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80470 -> node0x5619cef801f0;
+node0x5619cef801f0 [label="OP\n< 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef801f0 -> node0x5619cef80170;
+node0x5619cef80170 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef801f0 -> node0x5619cef801b0;
+node0x5619cef801b0 [label="ID\ntaille
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80470 -> node0x5619cef80430;
+node0x5619cef80430 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80430 -> node0x5619cef80230;
+node0x5619cef80230 [label="INST_LIRE
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80230 -> node0x5619cef80270;
+node0x5619cef80270 [label="ID\nl
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80430 -> node0x5619cef803f0;
+node0x5619cef803f0 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef803f0 -> node0x5619cef80370;
+node0x5619cef80370 [label="AFF
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80370 -> node0x5619cef803b0;
+node0x5619cef803b0 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80370 -> node0x5619cef80330;
+node0x5619cef80330 [label="OP\n+ 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80330 -> node0x5619cef802b0;
+node0x5619cef802b0 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80330 -> node0x5619cef802f0;
+node0x5619cef802f0 [label="NB\n1 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80c30 -> node0x5619cef80bf0;
+node0x5619cef80bf0 [label="LIST_INST
+ tailcode:7 
+ adr:0 \n", shape=box];
+node0x5619cef80bf0 -> node0x5619cef80570;
+node0x5619cef80570 [label="AFF
+ tailcode:7 
+ adr:0 \n", shape=box];
+node0x5619cef80570 -> node0x5619cef805b0;
+node0x5619cef805b0 [label="ID\ni
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80570 -> node0x5619cef80530;
+node0x5619cef80530 [label="OP\n+ 
+ tailcode:6 adr:0 \n", shape=box];
+node0x5619cef80530 -> node0x5619cef804b0;
+node0x5619cef804b0 [label="ID\ni
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80530 -> node0x5619cef804f0;
+node0x5619cef804f0 [label="NB\n1 
+ tailcode:1 adr:0 \n", shape=box];
+node0x5619cef80bf0 -> node0x5619cef80bb0;
+node0x5619cef80bb0 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80bb0 -> node0x5619cef80b70;
+node0x5619cef80b70 [label="STRUCT_TQ
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80b70 -> node0x5619cef80670;
+node0x5619cef80670 [label="OP\n< 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80670 -> node0x5619cef805f0;
+node0x5619cef805f0 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80670 -> node0x5619cef80630;
+node0x5619cef80630 [label="ID\nn
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80b70 -> node0x5619cef80b30;
+node0x5619cef80b30 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80b30 -> node0x5619cef80970;
+node0x5619cef80970 [label="STRUCT_SI
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80970 -> node0x5619cef80730;
+node0x5619cef80730 [label="OP\n> 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80730 -> node0x5619cef806b0;
+node0x5619cef806b0 [label="ID\nd
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80730 -> node0x5619cef806f0;
+node0x5619cef806f0 [label="ID\nd
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80970 -> node0x5619cef80830;
+node0x5619cef80830 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80830 -> node0x5619cef807b0;
+node0x5619cef807b0 [label="AFF
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef807b0 -> node0x5619cef807f0;
+node0x5619cef807f0 [label="ID\nimin
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef807b0 -> node0x5619cef80770;
+node0x5619cef80770 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80970 -> node0x5619cef80930;
+node0x5619cef80930 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80930 -> node0x5619cef808b0;
+node0x5619cef808b0 [label="AFF
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef808b0 -> node0x5619cef808f0;
+node0x5619cef808f0 [label="ID\nl
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef808b0 -> node0x5619cef80870;
+node0x5619cef80870 [label="NB\n5 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80b30 -> node0x5619cef80af0;
+node0x5619cef80af0 [label="LIST_INST
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80af0 -> node0x5619cef80a70;
+node0x5619cef80a70 [label="AFF
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x5619cef80a70 -> node0x5619cef80ab0;
+node0x5619cef80ab0 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80a70 -> node0x5619cef80a30;
+node0x5619cef80a30 [label="OP\n+ 
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80a30 -> node0x5619cef809b0;
+node0x5619cef809b0 [label="ID\ni
+ tailcode:0 adr:0 \n", shape=box];
+node0x5619cef80a30 -> node0x5619cef809f0;
+node0x5619cef809f0 [label="NB\n1 
+ tailcode:0 adr:0 \n", shape=box];
 }

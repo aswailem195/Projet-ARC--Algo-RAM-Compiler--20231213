@@ -21,6 +21,7 @@
 
 #define MIN_SIZE 10
 
+
 enum  { ENTIER=0, TABLEAU, POINTEUR, FONCTION};
 
 typedef struct symbole{
