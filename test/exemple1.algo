@@ -1,26 +1,12 @@
-PROGRAMME()
-VAR toto, titi, tutu ,t[5]
-VAR  somme , @m
-VAR momo[5]
+VAR j
+ALGO echanger( )
+VAR temp
 DEBUT
-	5+9/3-7
-	39+2
-	ECRIRE( somme )
-	o <- LIRE()
-	l <- LIRE()
-	TQ i < taille FAIRE
-	   l <- LIRE()
-	   i <- i+1
-	FTQ
-	i <- i+1
-	TQ i < n FAIRE
-	   SI d > d ALORS
-	      imin <- i
-	   SINON 
-	   	l <- 5
-	   FSI
-	   i <- i+1
-	FTQ
-
+	to <- 5
+FIN
+PROGRAMME()
+VAR toto 
+DEBUT
+	toto <- 5+1
 
 FIN

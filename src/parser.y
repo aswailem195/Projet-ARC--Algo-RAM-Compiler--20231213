@@ -34,6 +34,7 @@
 %type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS DECLA_TAB DECLA_POIN
 %type <tree> INST_ECRIRE INST_LIRE 
 %type <tree> STRUCT_TQ STRUCT_SI
+%type <tree> LIS_DEC_FON DEC_FON PROG PARAM
 
 
 %token <nb> NB
@@ -41,7 +42,7 @@
 %token PROGRAMME DEBUT FIN VAR ECRIRE LIRE
 %start PROGRAMME_ALGO
 %token TQ FAIRE FTQ SI ALORS SINON FSI
-
+%token  ALGO
 
 %right AFF
 %left OU
@@ -57,16 +58,39 @@
 %%
 
 
-PROGRAMME_ALGO : 
+PROGRAMME_ALGO : DECS
+                 LIS_DEC_FON
+                 PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 );ARBRE_ABSTRAIT=$$; }
+;
+
+
+
+LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON
+|DEC_FON SEP 
+|%empty 
+;
+
+DEC_FON:ALGO ID '(' PARAM ')' SEP 
+      DECS 
+      DEBUT SEP
+      LIST_INST 
+      FIN     {$$ = creer_noeudDEC_FON($2, $4, $7 , $10 );}
+;
+
+PARAM : LIST_DECLA     {$$ = creer_noeudPARAM( $1 );}
+|%empty
+;
+
+//_____________________
+PROG :
 PROGRAMME '(' ')'  SEP
 DECS
 DEBUT SEP
 LIST_INST 
-FIN SEP   {$$ = creer_noeudMAIN( $5 ,$8 );ARBRE_ABSTRAIT=$$;}
+FIN SEP   {$$ = creer_noeudPROG( $5 ,$8 );}
 ;
 
 SEP: '\n' | SEP '\n'  
-
 
 ;
 
@@ -103,7 +127,7 @@ DECS : VAR LIST_DECLA SEP    {$$ = creer_noeudDECS($2,NULL);}
 LIST_DECLA : DECLA_VAR     {$$ = creer_noeudLIST_DECLA($1,NULL);}
 |DECLA_TAB                  {$$ = creer_noeudLIST_DECLA($1,NULL);}
 |DECLA_POIN                 {$$ = creer_noeudLIST_DECLA($1,NULL);}
-| DECLA_VAR ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
+|DECLA_VAR ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
 |DECLA_TAB   ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
 |DECLA_POIN   ',' LIST_DECLA {$$ = creer_noeudLIST_DECLA($1,$3);}
 
@@ -222,7 +246,7 @@ int main( int argc, char * argv[] ) {
 
   
   print_asa(ARBRE_ABSTRAIT);
-  codegen(ARBRE_ABSTRAIT);
+  //codegen(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
   
 

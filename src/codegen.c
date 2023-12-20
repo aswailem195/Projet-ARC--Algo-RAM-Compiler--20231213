@@ -7,17 +7,100 @@ void codegen(asa *p)
 
 
   switch (p->type){
+  case typePROG:
+    codePROG(p);
+    break;
+  case typeDECS:
+    codeDECS(p);
+    break;
+  case typeLIST_DECLA:
+    codeLIST_DECLA(p);
+    break;
+  case typeDECLA_VAR:
+    codeDECLA_VAR(p);
+    break;
+  
+  case typeLIST_INST:
+    codeLIST_INST(p);
+    break;
+
   case typeNB:
     codeNB(p);
     break;
   case typeOP:
     codeOP(p);
+  case typeAFF : 
+     codeAFF(p) ;
+
+  case typeID :
+      codeID(p) ;
+  
+
   default:
     break;
   }
 }
 
 
+//________________________________
+
+void codePROG(asa * p ) {
+  codegen(p->prog.DECLA) ;
+  codegen(p->prog.INST) ;
+
+}
+
+void codeDECS(asa * p ) { 
+  codegen(p->decs.DEC); 
+  codegen(p->decs.next) ;
+
+
+}
+void codeLIST_DECLA(asa * p ) {
+  codegen(p->list_decla.DEC) ;
+  codegen(p->list_decla.next) ;
+}
+void codeLIST_INST(asa * p ) {
+  codegen(p->list_inst.INST) ;
+  codegen(p->list_inst.next) ;
+}
+
+
+
+
+void codeID(asa * p){ 
+  p->affect.id->memadr = 0 ;
+  int adr = p->affect.id->memadr ;
+  //adr += 32 ;  //ici cest la valeur
+  fprintf(exefile,"LOAD #%-8d ;\n", adr );
+  fprintf(exefile,"ADD 5 ;\n" ); //
+  fprintf(exefile, "STORE 1 ;\n" ) ;
+  
+  
+
+
+}
+
+void codeDECLA_VAR(asa * p ){
+  
+}
+
+void codeAFF(asa * p){  
+  int adr = p->affect.id->memadr ;
+  //adr += 32 ;  //ici cest la valeur
+  codeID(p->affect.id) ;
+  codeNB(p->affect.droit) ;
+  fprintf(exefile,"STORE @1  ;\n");
+
+  
+
+  
+
+
+
+
+
+}
 
 void codeNB(asa * p){
   //on stocke la valeur de l'entier dans l'ACC

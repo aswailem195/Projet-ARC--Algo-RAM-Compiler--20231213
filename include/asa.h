@@ -18,9 +18,10 @@
 #define TYPE_PTR     'p'
 #define TYPE_FCT     'f'
 //___________________type__________________
-typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typeMAIN ,
+typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typePROG ,
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
-typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI} typeNoeud;
+typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
+typeMAIN ,typeDEC_FON , typePARAM} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -62,14 +63,14 @@ typedef struct {
 
 
 typedef struct {
-  struct asa *DECLA ;
-  struct asa *next ;
+  struct asa *ID ;
+  struct asa *inst_mis ;
 }noeudDECLA_VAR ;
 
 typedef struct {
   struct asa *DECLA ;
   struct asa *INST ;
-}noeudMAIN ;
+}noeudPROG ;
 
 typedef struct {
   struct asa *DEC;
@@ -112,6 +113,23 @@ typedef struct {
   struct asa * inst_si_non ;
 }noeudSTRUCT_SI ;
 
+typedef struct {
+  struct asa *DEC;
+  struct asa * DEC_FN ;
+  struct asa * PROG;
+}noeudMAIN ;
+
+typedef struct {
+  struct asa * ID;
+  struct asa * PARAM ;
+  struct asa * DECS;
+  struct asa * LIST_INST;
+}noeudDEC_FON;
+
+typedef struct {
+  struct asa * LIST_DECLA;
+}noeudPARAM;
+
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -125,7 +143,7 @@ typedef struct asa{
     noeudINST  inst;
     noeudLIST_INST  list_inst;
     noeudDECLA_VAR decla_var ;
-    noeudMAIN main;
+    noeudPROG prog;
     noeudDECS decs ;
     noeudLIST_DECLA list_decla;
     noeudDECLA_TAB  decla_tab ;
@@ -134,6 +152,9 @@ typedef struct asa{
     noeudINST_LIRE   inst_lire ;
     noeudSTRUCT_TQ  struct_tq ;
     noeudSTRUCT_SI  struct_si ;
+    noeudMAIN  main ;
+    noeudDEC_FON dec_fon;
+    noeudPARAM param;
   };
 } asa;
 
@@ -150,7 +171,7 @@ asa * creer_noeudAffic( char* id , asa * p1 );
 asa * creer_noeudINST(asa* p1) ;
 asa * creer_noeudLIST_INST(asa* p1 ,asa* p2) ;
 asa * creer_noeudDECLA_VAR( char* id   ,asa* p1 );
-asa * creer_noeudMAIN( asa* p1 ,asa* p2 );
+asa * creer_noeudPROG( asa* p1 ,asa* p2 );
 asa * creer_noeudDECS(asa* p1 ,asa* p2) ;
 asa * creer_noeudLIST_DECLA(asa* p1 ,asa* p2) ;
 asa * creer_noeudDECLA_TAB( char* id  ,int value );
@@ -159,6 +180,9 @@ asa * creer_noeudINST_ECRIRE(asa * p1);
 asa * creer_noeudINST_LIRE( char* id  );
 asa * creer_noeudSTRUCT_TQ(asa* p1 ,asa* p2);
 asa * creer_noeudSTRUCT_SI(asa* p1 ,asa* p2 ,asa* p3);
+asa * creer_noeudMAIN( asa* p1 ,asa* p2 ,asa* p3 );
+asa * creer_noeudDEC_FON(char* id ,asa* p2 ,asa* p3, asa* p4);
+asa * creer_noeudPARAM(asa* p1 );
 
 
 

@@ -78,6 +78,7 @@ IDENT    [a-z]+
 "FTQ" {return FTQ; }
 "FAIRE" {return FAIRE;}
 "TQ" {return TQ ;}
+"ALGO"  {return ALGO ;}
 
 
 .         {           

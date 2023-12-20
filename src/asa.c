@@ -76,8 +76,8 @@ asa *creer_noeudDECLA_VAR(char *id, asa *p1) {
     error_asa("echec allocation mémoire");
 
   p->type = typeDECLA_VAR;
-  p->decla_var.DECLA = creer_feuilleID(id);
-  p->decla_var.next = p1;
+  p->decla_var.ID = creer_feuilleID(id);
+  p->decla_var.inst_mis = p1;
 
   return p;
 }
@@ -97,16 +97,16 @@ asa *creer_noeudAffic(char *id, asa *p1) {
 
   return p;
 }
-asa * creer_noeudMAIN( asa* p1 ,asa* p2 ){
+asa * creer_noeudPROG( asa* p1 ,asa* p2 ){
 
   asa *p;
 
   if ((p = malloc(sizeof(asa))) == NULL)
     error_asa("echec allocation mémoire");
 
-  p->type = typeMAIN;
-  p->main.INST= p2;
-  p->main.DECLA = p1;
+  p->type = typePROG;
+  p->prog.INST= p2;
+  p->prog.DECLA = p1;
 
   return p;
 
@@ -219,6 +219,48 @@ asa * creer_noeudSTRUCT_SI(asa* p1 ,asa* p2 ,asa* p3){
   p->struct_si.inst_si_non=p3 ;  
   
   return p;
+}
+
+asa * creer_noeudMAIN( asa* p1 ,asa* p2 ,asa* p3 ){
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeMAIN;
+  p->main.DEC= p1;
+  p->main.DEC_FN =p2 ;
+  p->main.PROG= p3 ;  
+  
+  return p;
+}
+
+asa * creer_noeudDEC_FON(char* id ,asa* p2 ,asa* p3, asa *p4){
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeDEC_FON;
+  p->dec_fon.ID = creer_feuilleID(id);
+  p->dec_fon.PARAM =p2 ;
+  p->dec_fon.DECS = p3 ; 
+  p->dec_fon.LIST_INST = p4 ;  
+  
+  return p;
+}
+asa * creer_noeudPARAM(asa* p1 ){
+   asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typePARAM;
+  
+  p->param.LIST_DECLA= p1 ;  
+  
+  return p;
+
 }
 
 
@@ -345,8 +387,8 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeDECLA_VAR :
     fprintf(output, "DECLA_VAR\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
-  case typeMAIN :
-    fprintf(output, "MAIN\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+  case typePROG :
+    fprintf(output, "PROG\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeDECS:
     fprintf(output, "DECS\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
@@ -374,6 +416,15 @@ void print_asa_dot_node(FILE *output, asa *p) {
     break;
   case typeSTRUCT_SI:
     fprintf(output, "STRUCT_SI\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeMAIN:
+    fprintf(output, "MAIN\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeDEC_FON:
+    fprintf(output, "DEC_FON\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typePARAM:
+    fprintf(output, "PARAM\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
 
 
@@ -430,20 +481,20 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
   case typeDECLA_VAR:
     
-    print_asa_dot_edge(output, p, p->decla_var.DECLA);
-    print_asa_dot_recursive(output, p->decla_var.DECLA);
+    print_asa_dot_edge(output, p, p->decla_var.ID);
+    print_asa_dot_recursive(output, p->decla_var.ID);
 
-    print_asa_dot_edge(output, p, p->decla_var.next);
-    print_asa_dot_recursive(output, p->decla_var.next);
+    print_asa_dot_edge(output, p, p->decla_var.inst_mis);
+    print_asa_dot_recursive(output, p->decla_var.inst_mis);
 
     break;
-  case typeMAIN:
+  case typePROG:
     
-    print_asa_dot_edge(output, p, p->main.DECLA);
-    print_asa_dot_recursive(output, p->main.DECLA);
+    print_asa_dot_edge(output, p, p->prog.DECLA);
+    print_asa_dot_recursive(output, p->prog.DECLA);
 
-    print_asa_dot_edge(output, p, p->main.INST);
-    print_asa_dot_recursive(output, p->main.INST);
+    print_asa_dot_edge(output, p, p->prog.INST);
+    print_asa_dot_recursive(output, p->prog.INST);
     break;
   case typeDECS:
     
@@ -507,6 +558,37 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     print_asa_dot_edge(output, p, p->struct_si.inst_si_non);
     print_asa_dot_recursive(output, p->struct_si.inst_si_non);
+    break;
+  case typeMAIN:
+    
+    print_asa_dot_edge(output, p, p->main.DEC);
+    print_asa_dot_recursive(output, p->main.DEC);
+
+    print_asa_dot_edge(output, p, p->main.DEC_FN);
+    print_asa_dot_recursive(output, p->main.DEC_FN);
+
+    print_asa_dot_edge(output, p, p->main.PROG);
+    print_asa_dot_recursive(output, p->main.PROG);
+    break;
+
+  case typeDEC_FON:
+    
+    print_asa_dot_edge(output, p, p->dec_fon.ID);
+    print_asa_dot_recursive(output, p->dec_fon.ID);
+
+    print_asa_dot_edge(output, p, p->dec_fon.PARAM);
+    print_asa_dot_recursive(output, p->dec_fon.PARAM);
+
+    print_asa_dot_edge(output, p, p->dec_fon.DECS);
+    print_asa_dot_recursive(output, p->dec_fon.DECS);
+
+    print_asa_dot_edge(output, p, p->dec_fon.LIST_INST);
+    print_asa_dot_recursive(output, p->dec_fon.LIST_INST);
+    break;
+  
+  case typePARAM :
+    print_asa_dot_edge(output, p, p->param.LIST_DECLA);
+    print_asa_dot_recursive(output, p->param.LIST_DECLA);
     break;
 
 

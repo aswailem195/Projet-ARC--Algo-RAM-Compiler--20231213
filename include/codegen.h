@@ -10,4 +10,12 @@ void codegen(asa *p);
 
 void codeNB(asa * p);
 void codeOP(asa * p);
+void codeAFF(asa * p) ;
+void codePROG(asa * p ) ;
+void codeDECS(asa * p ) ;
+void codeLIST_DECLA(asa * p ) ; 
+void codeLIST_INST(asa * p ) ;
+void codeDECLA_VAR(asa * p ) ;
+
+void codeID(asa * p) ;
 #endif
