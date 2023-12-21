@@ -1,12 +1,8 @@
-VAR j
-ALGO echanger( )
-VAR temp
-DEBUT
-	to <- 5
-FIN
 PROGRAMME()
-VAR toto 
+VAR toto ,momo
 DEBUT
-	toto <- 5+1
-
+	momo <- 5
+      toto <- 6
+      momo <-((toto +5+3)/7)*100
+      ECRIRE( momo)
 FIN

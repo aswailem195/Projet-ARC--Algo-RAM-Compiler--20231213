@@ -25,6 +25,7 @@ void semantic_MAIN(asa * p) ;
 void semantic_LIST_INST(asa * p) ;
 void semantic_INST(asa * p) ;
 void semantic_AFF(asa * p) ;
+void semanticINST_LIRE(asa *p) ;
 
 
 

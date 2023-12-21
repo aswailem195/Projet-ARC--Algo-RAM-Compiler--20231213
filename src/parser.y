@@ -60,7 +60,7 @@
 
 PROGRAMME_ALGO : DECS
                  LIS_DEC_FON
-                 PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 );ARBRE_ABSTRAIT=$$; }
+                 PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 ); ARBRE_ABSTRAIT=$3; }
 ;
 
 
@@ -219,6 +219,7 @@ int main( int argc, char * argv[] ) {
     print_file_error(argv[0],"aucun fichier en entree");
     exit(1);
   }
+  strcpy(exename, "out.ram");
   if (argc == 3){
     strcpy(exename, argv[2]);
   }
@@ -231,7 +232,9 @@ int main( int argc, char * argv[] ) {
   int init = 128;
   int registre = 2;
   fprintf(exefile, "LOAD #%-7d ;\n", init);
-  fprintf(exefile, "STORE @%-6d ;\n", registre);
+  fprintf(exefile, "STORE %-6d ; deput pile\n", registre);
+  fprintf(exefile, "STORE 3 ; sommet pile \n");
+
 
 
 
@@ -245,9 +248,12 @@ int main( int argc, char * argv[] ) {
   print_asa_dot( ARBRE_ABSTRAIT);
 
   
-  print_asa(ARBRE_ABSTRAIT);
-  //codegen(ARBRE_ABSTRAIT);
+  //print_asa(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
+  codegen(ARBRE_ABSTRAIT);
+  ts_print(TABLE_SYMBOLES);
+
+  fprintf(exefile, "STOP ; ");
   
 
 

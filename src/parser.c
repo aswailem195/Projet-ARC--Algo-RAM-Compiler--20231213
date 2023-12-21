@@ -1613,7 +1613,7 @@ yyreduce:
     {
   case 2: /* PROGRAMME_ALGO: DECS LIS_DEC_FON PROG  */
 #line 63 "src/parser.y"
-                        {(yyval.tree) = creer_noeudMAIN( (yyvsp[-2].tree) ,(yyvsp[-1].tree) , (yyvsp[0].tree) );ARBRE_ABSTRAIT=(yyval.tree); }
+                        {(yyval.tree) = creer_noeudMAIN( (yyvsp[-2].tree) ,(yyvsp[-1].tree) , (yyvsp[0].tree) ); ARBRE_ABSTRAIT=(yyvsp[0].tree); }
 #line 1618 "src/parser.c"
     break;
 
@@ -2135,6 +2135,7 @@ int main( int argc, char * argv[] ) {
     print_file_error(argv[0],"aucun fichier en entree");
     exit(1);
   }
+  strcpy(exename, "out.ram");
   if (argc == 3){
     strcpy(exename, argv[2]);
   }
@@ -2147,7 +2148,9 @@ int main( int argc, char * argv[] ) {
   int init = 128;
   int registre = 2;
   fprintf(exefile, "LOAD #%-7d ;\n", init);
-  fprintf(exefile, "STORE @%-6d ;\n", registre);
+  fprintf(exefile, "STORE %-6d ; deput pile\n", registre);
+  fprintf(exefile, "STORE 3 ; sommet pile \n");
+
 
 
 
@@ -2161,9 +2164,12 @@ int main( int argc, char * argv[] ) {
   print_asa_dot( ARBRE_ABSTRAIT);
 
   
-  print_asa(ARBRE_ABSTRAIT);
-  //codegen(ARBRE_ABSTRAIT);
+  //print_asa(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
+  codegen(ARBRE_ABSTRAIT);
+  ts_print(TABLE_SYMBOLES);
+
+  fprintf(exefile, "STOP ; ");
   
 
 

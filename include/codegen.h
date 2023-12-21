@@ -16,6 +16,9 @@ void codeDECS(asa * p ) ;
 void codeLIST_DECLA(asa * p ) ; 
 void codeLIST_INST(asa * p ) ;
 void codeDECLA_VAR(asa * p ) ;
+void codeMAIN(asa *p ) ;
+void codeIST_ECRIRE(asa *p ) ;
+void codeINST_LIRE(asa *p) ;
 
 void codeID(asa * p) ;
 #endif

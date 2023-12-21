@@ -1,0 +1,11 @@
+PROGRAMME()
+VAR toto ,ho,momo
+DEBUT
+	ho <- 1+9
+	momo <- 1000
+	toto <- 2
+	ECRIRE( ho)
+	ECRIRE( momo)
+	
+
+FIN
