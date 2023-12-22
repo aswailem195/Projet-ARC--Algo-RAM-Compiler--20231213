@@ -8,12 +8,15 @@
   #include "semantic.h"
   #include "codegen.h"
   
+  
   extern int yylex();
   static void print_file_error(char * s, char *errmsg);
 
   table_symb TABLE_SYMBOLES = NULL;
   struct asa * ARBRE_ABSTRAIT = NULL;
   char CTXTglo[32] = "GLOBAL";
+
+
 
   void yyerror(const char * s);
 
@@ -37,9 +40,9 @@
 %type <tree> LIS_DEC_FON DEC_FON PROG PARAM
 
 
-%token <nb> NB
+%token <nb> NB VRAI FAUX 
 %token <id> ID
-%token PROGRAMME DEBUT FIN VAR ECRIRE LIRE
+%token PROGRAMME DEBUT FIN VAR ECRIRE LIRE NON  
 %start PROGRAMME_ALGO
 %token TQ FAIRE FTQ SI ALORS SINON FSI
 %token  ALGO
@@ -60,7 +63,7 @@
 
 PROGRAMME_ALGO : DECS
                  LIS_DEC_FON
-                 PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 ); ARBRE_ABSTRAIT=$3; }
+                 PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 ); ARBRE_ABSTRAIT=$$; }
 ;
 
 
@@ -156,7 +159,6 @@ INST : AFFECT  {$$= $1 ;}
 |STRUCT_SI {$$= $1 ;}
 ;
 
-
 //___________________________affictation _____________________
 AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
       | ID AFF AFFECT      { $$ = creer_noeudAffic($1, $3); }
@@ -168,6 +170,8 @@ AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
 //___________________________EXP_____________________
 EXP : '(' EXP ')'            { $$ = $2; }
 |NB                 { $$ = creer_feuilleNB(yyval.nb); }
+|VRAI                { $$ = creer_feuilleNB(1); }
+|FAUX                   { $$ = creer_feuilleNB(0); }
 |ID                     { $$ = creer_feuilleID($1); }
 
 | EXP '+' EXP            { $$ = creer_noeudOP('+', $1, $3); }
@@ -184,17 +188,21 @@ EXP : '(' EXP ')'            { $$ = $2; }
 
 | EXP '>' EXP {$$ = creer_noeudOP('>',$1 ,$3);}
 
-| EXP DIFF EXP {$$ = creer_noeudOP(DIFF,$1 ,$3);}
+| EXP DIFF EXP {$$ = creer_noeudOP(OP_DIFF,$1 ,$3);}
 
-| EXP INFEGAL EXP {$$ = creer_noeudOP(INFEGAL,$1 ,$3);}
+| EXP INFEGAL EXP {$$ = creer_noeudOP(OP_INF_EG,$1 ,$3);}
 
-| EXP SUPEGAL EXP {$$ = creer_noeudOP(SUPEGAL,$1 ,$3);}
+| EXP SUPEGAL EXP {$$ = creer_noeudOP(OP_SUP_EG,$1 ,$3);}
 
 | EXP EGAL EXP {$$ = creer_noeudOP('=', $1 ,$3);}
 
 | EXP OU EXP {$$ = creer_noeudOP('|',$1 ,$3);}
 
 | EXP ET EXP {$$ = creer_noeudOP('&',$1 ,$3);}
+
+| NON EXP     {$$ = creer_noeudOP('!',$2 ,NULL);}
+
+
 
 
 
@@ -229,7 +237,7 @@ int main( int argc, char * argv[] ) {
 
   //_____________________________la on modifier 
 
-  int init = 128;
+  int init = 5;
   int registre = 2;
   fprintf(exefile, "LOAD #%-7d ;\n", init);
   fprintf(exefile, "STORE %-6d ; deput pile\n", registre);
@@ -251,7 +259,7 @@ int main( int argc, char * argv[] ) {
   //print_asa(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
   codegen(ARBRE_ABSTRAIT);
-  ts_print(TABLE_SYMBOLES);
+  
 
   fprintf(exefile, "STOP ; ");
   

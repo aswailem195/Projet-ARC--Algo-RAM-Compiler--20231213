@@ -55,29 +55,31 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     NB = 258,                      /* NB  */
-    ID = 259,                      /* ID  */
-    PROGRAMME = 260,               /* PROGRAMME  */
-    DEBUT = 261,                   /* DEBUT  */
-    FIN = 262,                     /* FIN  */
-    VAR = 263,                     /* VAR  */
-    ECRIRE = 264,                  /* ECRIRE  */
-    LIRE = 265,                    /* LIRE  */
-    TQ = 266,                      /* TQ  */
-    FAIRE = 267,                   /* FAIRE  */
-    FTQ = 268,                     /* FTQ  */
-    SI = 269,                      /* SI  */
-    ALORS = 270,                   /* ALORS  */
-    SINON = 271,                   /* SINON  */
-    FSI = 272,                     /* FSI  */
-    ALGO = 273,                    /* ALGO  */
-    AFF = 274,                     /* AFF  */
-    OU = 275,                      /* OU  */
-    ET = 276,                      /* ET  */
-    NON = 277,                     /* NON  */
-    EGAL = 278,                    /* EGAL  */
-    SUPEGAL = 279,                 /* SUPEGAL  */
-    INFEGAL = 280,                 /* INFEGAL  */
-    DIFF = 281                     /* DIFF  */
+    VRAI = 259,                    /* VRAI  */
+    FAUX = 260,                    /* FAUX  */
+    ID = 261,                      /* ID  */
+    PROGRAMME = 262,               /* PROGRAMME  */
+    DEBUT = 263,                   /* DEBUT  */
+    FIN = 264,                     /* FIN  */
+    VAR = 265,                     /* VAR  */
+    ECRIRE = 266,                  /* ECRIRE  */
+    LIRE = 267,                    /* LIRE  */
+    NON = 268,                     /* NON  */
+    TQ = 269,                      /* TQ  */
+    FAIRE = 270,                   /* FAIRE  */
+    FTQ = 271,                     /* FTQ  */
+    SI = 272,                      /* SI  */
+    ALORS = 273,                   /* ALORS  */
+    SINON = 274,                   /* SINON  */
+    FSI = 275,                     /* FSI  */
+    ALGO = 276,                    /* ALGO  */
+    AFF = 277,                     /* AFF  */
+    OU = 278,                      /* OU  */
+    ET = 279,                      /* ET  */
+    EGAL = 280,                    /* EGAL  */
+    SUPEGAL = 281,                 /* SUPEGAL  */
+    INFEGAL = 282,                 /* INFEGAL  */
+    DIFF = 283                     /* DIFF  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -86,14 +88,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 25 "src/parser.y"
+#line 28 "src/parser.y"
 
   int nb;
   struct asa * tree;
   char id[32];
  
 
-#line 97 "src/parser.h"
+#line 99 "src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

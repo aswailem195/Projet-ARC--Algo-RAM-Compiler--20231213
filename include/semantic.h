@@ -5,6 +5,7 @@
 #include "asa.h"
 #include "codegen.h"
 
+
 extern table_symb TABLE_SYMBOLES;
 
 
@@ -26,10 +27,13 @@ void semantic_LIST_INST(asa * p) ;
 void semantic_INST(asa * p) ;
 void semantic_AFF(asa * p) ;
 void semanticINST_LIRE(asa *p) ;
-
-
-
 void semantic_DECLA_VAR(asa * p) ;
+
+
+void semantic_STRUCT_TQ(asa * p);
+void semantic_STRUCT_SI(asa * p);
+void semantic_DEC_FON(asa * p);
+void semantic_PARAM(asa * p);
 
 
 

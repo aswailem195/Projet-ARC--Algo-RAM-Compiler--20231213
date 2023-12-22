@@ -1,61 +1,27 @@
-LOAD #128     ;
+LOAD #5       ;
 STORE 2      ; deput pile
 STORE 3 ; sommet pile 
-INC 3         ;
-INC 3         ;
-LOAD #5       ;
-INC 3         ;
+INC 3         ; DECLA_VA
+DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
+LOAD #0       ; codeNB
+INC 3         ;  codeOP ! 
+JUMZ 10 ;
+LOAD #0;
 STORE @3      ;
-LOAD #1        ; momo
+LOAD #1;
+STORE @3      ;
+DEC 3         ;
+INC 3         ; AFF
+STORE @3      ;
+LOAD #0        ;codeID toto
 ADD 2 ;
-STORE 1 ;  fincodeID
-LOAD @1 ;  fincodeID
+STORE 1 ;  
+LOAD @1 ;  
 LOAD @3       ;
-STORE @1  ; AFF
-LOAD #6       ;
-INC 3         ;
-STORE @3      ;
-LOAD #0        ; toto
+STORE @1  ; 
+LOAD #0        ;codeID toto
 ADD 2 ;
-STORE 1 ;  fincodeID
-LOAD @1 ;  fincodeID
-LOAD @3       ;
-STORE @1  ; AFF
-LOAD #100     ;
-INC 3         ;
-STORE @3      ;
-LOAD #7       ;
-INC 3         ;
-STORE @3      ;
-LOAD #3       ;
-INC 3         ;
-STORE @3      ;
-LOAD #5       ;
-INC 3         ;
-STORE @3      ;
-LOAD #0        ; toto
-ADD 2 ;
-STORE 1 ;  fincodeID
-LOAD @1 ;  fincodeID
-ADD @3        ;
-DEC 3         ;
-ADD @3        ;
-DEC 3         ;
-DIV @3        ;
-DEC 3         ;
-MUL @3        ;
-DEC 3         ;
-INC 3         ;
-STORE @3      ;
-LOAD #1        ; momo
-ADD 2 ;
-STORE 1 ;  fincodeID
-LOAD @1 ;  fincodeID
-LOAD @3       ;
-STORE @1  ; AFF
-LOAD #1        ; momo
-ADD 2 ;
-STORE 1 ;  fincodeID
-LOAD @1 ;  fincodeID
+STORE 1 ;  
+LOAD @1 ;  
 WRITE ; 
 STOP ; 

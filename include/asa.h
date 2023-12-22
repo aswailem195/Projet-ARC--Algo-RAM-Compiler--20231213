@@ -1,6 +1,13 @@
 #ifndef ASA_H
 #define ASA_H
 
+
+//macro
+#define  OP_INF_EG  'S'
+#define OP_SUP_EG 'N'
+#define  OP_DIFF  'D'
+
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

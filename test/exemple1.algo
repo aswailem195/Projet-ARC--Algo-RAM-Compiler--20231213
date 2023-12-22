@@ -1,8 +1,13 @@
+//testcomentair 
 PROGRAMME()
-VAR toto ,momo
+//testcomentair 
+VAR toto 
 DEBUT
-	momo <- 5
-      toto <- 6
-      momo <-((toto +5+3)/7)*100
-      ECRIRE( momo)
+
+     toto <- NON FAUX
+     ECRIRE(toto)
+      
+    
+
+
 FIN

@@ -31,12 +31,14 @@
 CHIFFRE  [0-9]
 NOMBRE   [0-9]+
 IDENT    [a-z]+
+COMENTAIR \/\/.*\n  
 
 
 %%
 
 {NOMBRE}        {  yylval.nb = atoi(yytext); return NB; }
 {IDENT}         { strcpy(yylval.id, yytext); return ID; }
+{COMENTAIR}     { /* ignorer les comentair  */  } 
 "PROGRAMME"     { return PROGRAMME; } /*Pour qu'il reconnaisse le mot PROGRAMME dans exemple1*/
 "DEBUT"         { return DEBUT; } /*Pour reconnaitre le mot DEBUT dans exemple1*/
 "FIN"           { return FIN; } /* Pour reconnaitre le mot FIN dans l'exemple1 */
@@ -79,6 +81,10 @@ IDENT    [a-z]+
 "FAIRE" {return FAIRE;}
 "TQ" {return TQ ;}
 "ALGO"  {return ALGO ;}
+
+"FAUX"  {return FAUX  ;}
+"VRAI"   {return VRAI ;}
+"NON"    {return NON ;}
 
 
 .         {           
