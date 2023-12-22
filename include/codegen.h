@@ -19,6 +19,8 @@ void codeDECLA_VAR(asa * p ) ;
 void codeMAIN(asa *p ) ;
 void codeIST_ECRIRE(asa *p ) ;
 void codeINST_LIRE(asa *p) ;
+void codeSTRUCT_SI(asa * p) ;
+void codeSTRUCT_TQ(asa * p) ;
 
 void codeID(asa * p) ;
 #endif

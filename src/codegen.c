@@ -48,6 +48,13 @@ void codegen(asa *p) {
   case typeLIST_INST:
     codeLIST_INST(p);
     break;
+  case typeSTRUCT_SI:
+    codeSTRUCT_SI(p);
+    break;
+  case typeSTRUCT_TQ:
+   codeSTRUCT_TQ(p);
+    break;
+  
 
   case typeAFF:
     codeAFF(p);
@@ -59,6 +66,33 @@ void codegen(asa *p) {
 }
 
 //________________________________
+void codeSTRUCT_TQ(asa *p) {
+  int Buffer = CODELEN ;
+  codegen(p->struct_tq.condition) ;
+  fprintf(exefile, "JUMZ %d ;  STRUCT_TQ \n",CODELEN+1-1+p->struct_tq.inst->codelen+2);
+  CODELEN++ ;
+  codegen(p->struct_tq.inst) ;
+  fprintf(exefile, "JUMP %d ;  STRUCT TQ fin \n",Buffer);
+  CODELEN++;
+
+
+
+
+}
+
+void codeSTRUCT_SI(asa * p){ 
+  
+  codegen(p->struct_si.condition);
+  fprintf(exefile, "JUMZ %d ;  STRUCT_SI \n",CODELEN+1-1+p->struct_si.inst_si->codelen+2);
+  CODELEN++ ;
+  codegen(p->struct_si.inst_si) ;
+  fprintf(exefile, "JUMP %d ;  STRUCT_SI NON \n",CODELEN+1-1+p->struct_si.inst_si_non->codelen);
+  CODELEN += 1;
+  codegen(p->struct_si.inst_si_non) ;
+
+
+  
+}
 
 void codeINST_LIRE(asa *p) {
 

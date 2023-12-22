@@ -1,14 +1,17 @@
 //testcomentair 
 PROGRAMME()
 //testcomentair 
-VAR  mo   
+VAR  taille ,i  
 DEBUT
 
+     taille <- 10
+     i <- 0
      
-     mo <- 0 OU 0
+	TQ i < taille FAIRE
+	   ECRIRE(i)
+	   i <- i+1
+	FTQ
 
-     
-     ECRIRE(mo)
       
     
 

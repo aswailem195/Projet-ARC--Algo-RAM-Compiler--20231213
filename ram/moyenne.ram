@@ -1,0 +1,13 @@
+LOAD #0     ; ACC &larr; 0
+STORE 1     ; R[1] &larr; ACC   
+STORE 2     ; R[2] &larr; ACC   
+READ        ; ACC &larr; ENTREE[i++]
+JUMZ 9      ; SI ACC = 0 SAUTER A L'INSTRUCTION #8
+ADD 2       ; ACC &larr; ACC + R[2]
+STORE 2     ; R[2] &larr; ACC
+INC 1       ; R[1] &larr; R[1] + 1
+JUMP 3      ; SAUTER A L'INSTRUCTION #2
+LOAD 2      ; ACC &larr; R[2]
+DIV 1       ; ACC &larr; ACC / R[1]
+WRITE       ; SORTIE[j++] &larr; ACC
+STOP        ; ARRET

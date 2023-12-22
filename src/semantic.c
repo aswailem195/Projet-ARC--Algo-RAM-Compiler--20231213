@@ -81,13 +81,12 @@ void semantic_LIST_INST(asa *p) {
     return;
   }
 
-  if (p->list_inst.next) {
-    semantic(p->list_inst.next);
-    p->codelen += p->list_inst.next->codelen;
-  }
-
+  
+  semantic(p->list_inst.next);
   semantic(p->list_inst.INST);
-  p->codelen += p->list_inst.INST->codelen;
+
+  p->codelen = (p->list_inst.INST ? p->list_inst.INST->codelen : 0) +
+               (p->list_inst.next ? p->list_inst.next->codelen : 0);
 }
 
 void semantic_LIST_DECLA(asa *p) {

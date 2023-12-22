@@ -1,0 +1,25 @@
+LOAD #5       ;
+STORE 2      ; deput pile
+STORE 3 ; sommet pile 
+INC 3         ; DECLA_VA
+DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
+LOAD #3       ; codeNB
+INC 3         ; codeOP
+STORE @3      ;
+LOAD #5       ; codeNB
+ADD @3        ;
+DEC 3         ;
+INC 3         ; AFF
+STORE @3      ;
+LOAD #0        ;codeID mo
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+LOAD @3       ;
+STORE @1  ; 
+LOAD #0        ;codeID mo
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+WRITE ; 
+STOP ; 

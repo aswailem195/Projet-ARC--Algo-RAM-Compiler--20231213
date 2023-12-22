@@ -2,25 +2,66 @@ LOAD #5       ;
 STORE 2      ; deput pile
 STORE 3 ; sommet pile 
 INC 3         ; DECLA_VA
+INC 3         ; DECLA_VA
 DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
-LOAD #0       ; codeNB
-JUMG 11 ;
-LOAD #0       ; codeNB
-JUMG 11 ;
-LOAD #0;
-JUMP 12     ;
-LOAD #1;
+DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
+LOAD #10      ; codeNB
 INC 3         ; AFF
 STORE @3      ;
-LOAD #0        ;codeID mo
+LOAD #0        ;codeID taille
 ADD 2 ;
 STORE 1 ;  
 LOAD @1 ;  
 LOAD @3       ;
 STORE @1  ; 
-LOAD #0        ;codeID mo
+LOAD #0       ; codeNB
+INC 3         ; AFF
+STORE @3      ;
+LOAD #1        ;codeID i
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+LOAD @3       ;
+STORE @1  ; 
+LOAD #0        ;codeID taille
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+INC 3         ; codeOP > 
+STORE @3      ;
+LOAD #1        ;codeID i
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+SUB @3        ;
+JUML 39 ;
+LOAD #0;
+JUMP 40     ;
+LOAD #1;
+STORE @3      ;
+DEC 3         ;
+JUMZ 66 ;  STRUCT_TQ 
+LOAD #1        ;codeID i
 ADD 2 ;
 STORE 1 ;  
 LOAD @1 ;  
 WRITE ; 
+LOAD #1       ; codeNB
+INC 3         ; codeOP
+STORE @3      ;
+LOAD #1        ;codeID i
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+ADD @3        ;
+DEC 3         ;
+INC 3         ; AFF
+STORE @3      ;
+LOAD #1        ;codeID i
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+LOAD @3       ;
+STORE @1  ; 
+JUMP 25 ;  STRUCT TQ fin 
 STOP ; 
