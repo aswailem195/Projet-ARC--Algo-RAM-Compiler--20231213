@@ -269,7 +269,7 @@ void semantic_OP(asa *p) {
     semantic(p->op.noeud[0]);
     semantic(p->op.noeud[1]);
     p->codelen = (p->op.noeud[0] ? p->op.noeud[0]->codelen : 0) +
-                 (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) + 4;
+                 (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) + 9;
   
     break;
   case '!' :
@@ -279,6 +279,16 @@ void semantic_OP(asa *p) {
                  (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) + 7;
   
     break;
+  case '&' :
+  case '|' :
+    
+    semantic(p->op.noeud[0]);
+    semantic(p->op.noeud[1]);
+    p->codelen = (p->op.noeud[0] ? p->op.noeud[0]->codelen : 0) +
+                 (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) + 5;
+  
+    break;
+  
   
 
 

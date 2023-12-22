@@ -4,22 +4,21 @@ STORE 3 ; sommet pile
 INC 3         ; DECLA_VA
 DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
 LOAD #0       ; codeNB
-INC 3         ;  codeOP ! 
-JUMZ 10 ;
+JUMG 11 ;
+LOAD #0       ; codeNB
+JUMG 11 ;
 LOAD #0;
-STORE @3      ;
+JUMP 12     ;
 LOAD #1;
-STORE @3      ;
-DEC 3         ;
 INC 3         ; AFF
 STORE @3      ;
-LOAD #0        ;codeID toto
+LOAD #0        ;codeID mo
 ADD 2 ;
 STORE 1 ;  
 LOAD @1 ;  
 LOAD @3       ;
 STORE @1  ; 
-LOAD #0        ;codeID toto
+LOAD #0        ;codeID mo
 ADD 2 ;
 STORE 1 ;  
 LOAD @1 ;  

@@ -195,15 +195,142 @@ void codeOP(asa *p) {
   case '!':
     codegen(p->op.noeud[0]);
     fprintf(exefile, "INC %-9d ;  codeOP ! \n", RAM_OS_ADR_REG);
-    fprintf(exefile, "JUMZ %d ;\n",CODELEN+3-1+2);//3 les suit  1 le primier incide=0 dans RAM 2 inst suter  
+    fprintf(exefile, "JUMZ %d ;\n",
+            CODELEN + 3 - 1 +
+                2); // 3 les suit  1 le primier incide=0 dans RAM 2 inst suter
     fprintf(exefile, "LOAD #0;\n");
-    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
     fprintf(exefile, "LOAD #1;\n");
     fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
     fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
     CODELEN += 7;
 
     break;
+  case '>':
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUMG %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+    case '<':
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUML %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+    case '=':
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUMZ %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+
+
+    case OP_INF_EG:
+     codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUMG %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+
+
+    case OP_SUP_EG:
+     codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUML %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+
+    case OP_DIFF :
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "INC %-9d ; codeOP > \n", RAM_OS_ADR_REG);
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=2;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "SUB @%-8d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "JUMZ %d ;\n", CODELEN +2 + 3-1 );
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +4 + 2-1);
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "STORE @%-6d ;\n", RAM_OS_ADR_REG);
+    fprintf(exefile, "DEC %-9d ;\n", RAM_OS_ADR_REG);
+    CODELEN +=7;
+    break;
+     case '&' :
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "JUMZ %d ;\n", CODELEN +1+p->op.noeud[0]->codelen + 4-1 );
+    CODELEN +=1;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "JUMZ %d ;\n", CODELEN +1 + 3-1 );
+    fprintf(exefile, "LOAD #1;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +3 + 2-1);
+    fprintf(exefile, "LOAD #0;\n");
+
+    break;
+
+     case '|' :
+    codegen(p->op.noeud[1]);
+    fprintf(exefile, "JUMG %d ;\n", CODELEN +1+p->op.noeud[0]->codelen + 4-1 );
+    CODELEN +=1;
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "JUMG %d ;\n", CODELEN +1 + 3-1 );
+    fprintf(exefile, "LOAD #0;\n");
+    fprintf(exefile, "JUMP %-6d ;\n", CODELEN +3 + 2-1);
+    fprintf(exefile, "LOAD #1;\n");
+
+    break;
+
+
+
+
+
+
+
 
   default:
     break;

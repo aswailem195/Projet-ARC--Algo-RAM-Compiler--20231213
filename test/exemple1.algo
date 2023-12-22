@@ -1,11 +1,14 @@
 //testcomentair 
 PROGRAMME()
 //testcomentair 
-VAR toto 
+VAR  mo   
 DEBUT
 
-     toto <- NON FAUX
-     ECRIRE(toto)
+     
+     mo <- 0 OU 0
+
+     
+     ECRIRE(mo)
       
     
 
