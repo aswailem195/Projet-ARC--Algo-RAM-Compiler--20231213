@@ -28,7 +28,7 @@
 typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typePROG ,
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
-typeMAIN ,typeDEC_FON , typePARAM} typeNoeud;
+typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC } typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -137,6 +137,16 @@ typedef struct {
   struct asa * LIST_DECLA;
 }noeudPARAM;
 
+
+typedef struct {
+  struct asa * INST;
+}noeudRENVOYER ;
+
+typedef struct {
+  struct asa *ID;
+  struct asa * PARAM ;
+}noeudAPPFONC ;
+
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -162,6 +172,8 @@ typedef struct asa{
     noeudMAIN  main ;
     noeudDEC_FON dec_fon;
     noeudPARAM param;
+    noeudRENVOYER renvoyer ;
+    noeudAPPFONC appfonc ;
   };
 } asa;
 
@@ -190,6 +202,8 @@ asa * creer_noeudSTRUCT_SI(asa* p1 ,asa* p2 ,asa* p3);
 asa * creer_noeudMAIN( asa* p1 ,asa* p2 ,asa* p3 );
 asa * creer_noeudDEC_FON(char* id ,asa* p2 ,asa* p3, asa* p4);
 asa * creer_noeudPARAM(asa* p1 );
+asa * creer_noeudRENVOYER(asa* p1) ;
+asa * creer_noeudAPPFONC (char* id ,asa* p2);
 
 
 

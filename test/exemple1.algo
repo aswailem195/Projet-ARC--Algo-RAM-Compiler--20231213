@@ -1,19 +1,17 @@
-//testcomentair 
+ALGO selection( )
+DEBUT	
+     RENVOYER 5
+FIN
+
 PROGRAMME()
 //testcomentair 
-VAR  taille ,i  
+VAR  taille ,i  , momo
 DEBUT
 
-     taille <- 10
-     i <- 0
+
+
+     momo <- selection()
      
-	TQ i < taille FAIRE
-	   ECRIRE(i)
-	   i <- i+1
-	FTQ
-
-      
-    
-
+     ECRIRE(momo)
 
 FIN

@@ -35,16 +35,16 @@
 %locations
 
 %type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS DECLA_TAB DECLA_POIN
-%type <tree> INST_ECRIRE INST_LIRE 
-%type <tree> STRUCT_TQ STRUCT_SI
-%type <tree> LIS_DEC_FON DEC_FON PROG PARAM
+%type <tree> INST_ECRIRE INST_LIRE INST_RENVOYER
+%type <tree> STRUCT_TQ STRUCT_SI 
+%type <tree> LIS_DEC_FON DEC_FON PROG PARAM APPFONC 
 
 
 %token <nb> NB VRAI FAUX 
 %token <id> ID
 %token PROGRAMME DEBUT FIN VAR ECRIRE LIRE NON  
 %start PROGRAMME_ALGO
-%token TQ FAIRE FTQ SI ALORS SINON FSI
+%token TQ FAIRE FTQ SI ALORS SINON FSI RENVOYER
 %token  ALGO
 
 %right AFF
@@ -95,6 +95,10 @@ FIN SEP   {$$ = creer_noeudPROG( $5 ,$8 );}
 
 SEP: '\n' | SEP '\n'  
 
+;
+
+
+INST_RENVOYER: RENVOYER EXP  {$$ = creer_noeudRENVOYER($2);}
 ;
 
 ////___________________________TQ _____________________
@@ -148,6 +152,7 @@ DECLA_POIN : '@' ID   {$$ = creer_noeudDECLA_POIN( $2 );}
 
 LIST_INST : INST SEP {$$  = creer_noeudLIST_INST( $1,NULL );}
 |INST SEP LIST_INST   {$$  = creer_noeudLIST_INST( $1,$3 );}
+|%empty
 
 ;
 
@@ -157,18 +162,22 @@ INST : AFFECT  {$$= $1 ;}
 |INST_LIRE {$$= $1 ;}
 |STRUCT_TQ {$$= $1 ;}
 |STRUCT_SI {$$= $1 ;}
+|INST_RENVOYER  {$$= $1 ;}
 ;
 
 //___________________________affictation _____________________
 AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
       | ID AFF AFFECT      { $$ = creer_noeudAffic($1, $3); }
       ;
-
+//___________________________APPFONC _____________________
+APPFONC : ID '(' PARAM ')' { $$ = creer_noeudAPPFONC ($1, $3); }
+;
 
 
 
 //___________________________EXP_____________________
 EXP : '(' EXP ')'            { $$ = $2; }
+|APPFONC       {$$ = $1;}
 |NB                 { $$ = creer_feuilleNB(yyval.nb); }
 |VRAI                { $$ = creer_feuilleNB(1); }
 |FAUX                   { $$ = creer_feuilleNB(0); }

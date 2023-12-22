@@ -9,6 +9,16 @@ void codegen(asa *p) {
     return;
 
   switch (p->type) {
+
+  case typeAPPFONC:
+    codeAPPFONC(p);
+    break;
+
+  case typeDEC_FON:
+    codeDEC_FON(p);
+    break;
+
+
   case typePROG:
     codePROG(p);
     break;
@@ -66,6 +76,51 @@ void codegen(asa *p) {
 }
 
 //________________________________
+
+
+void codeAPPFONC(asa * p){
+  /* on stock la valeur de instrction pour revien */ 
+
+  fprintf(exefile, "LOAD # %-9d ; APPLFON \n", CODELEN) ;
+  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_EMPILER_ADR) ;
+  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN) ;
+
+  /**/
+  int adr = p->memadr; 
+  fprintf(exefile, "JUMP @%-9d ; FIN DE FON \n", adr) ;
+
+
+}
+void codeDEC_FON(asa * p){
+  
+  /* la case mem pour la fonction dans la pile, parmi les indices
+   de début des instructions de la fonction 
+  */
+
+  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN+6-1) ;//6 instraction suivant 
+  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+  fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+
+  /* stokeer le fin de fonction utile pour le jumb*/
+  
+  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN+p->codelen) ;
+  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_EMPILER_ADR) ;
+  CODELEN+= 5 ;
+  /* */
+  codegen(p->dec_fon.PARAM);
+  /* */ 
+  codegen(p->dec_fon.DECS) ;
+  /**/
+  codegen(p->dec_fon.LIST_INST) ; 
+
+  fprintf(exefile, "JUMP @%-9d ; FIN DE FON \n", RAM_OS_EMPILER_ADR) ;
+
+
+
+
+
+
+}
 void codeSTRUCT_TQ(asa *p) {
   int Buffer = CODELEN ;
   codegen(p->struct_tq.condition) ;
@@ -169,6 +224,9 @@ void codeDECLA_VAR(asa *p) {
   // fprintf(exefile, "LOAD #%-8d ; %s\n", adr,p->id.nom);
   // fprintf(exefile, "ADD 2 ;\n");
   // fprintf(exefile, "STORE 1 ;  fincodeID\n");
+
+
+  // decla variable ce alloer de espace dans le pile 
   fprintf(exefile, "INC %-9d ; DECLA_VA\n", RAM_OS_ADR_REG); // 3
   CODELEN += 1;
   // codegen(p->decla_var.ID);

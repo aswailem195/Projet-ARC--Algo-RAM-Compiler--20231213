@@ -10,6 +10,18 @@ static char buffer[32];
 static char TABULATION[256] = "";
 static int indent = 0;
 
+asa * creer_noeudRENVOYER(asa* p1) {
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeRENVOYER;
+  p->renvoyer.INST= p1;
+  return p;
+
+}
+
 asa *creer_feuilleNB(int val) {
   asa *p;
 
@@ -264,6 +276,21 @@ asa * creer_noeudPARAM(asa* p1 ){
 
 }
 
+asa * creer_noeudAPPFONC (char* id ,asa* p2){
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeAPPFONC;
+  
+  p->appfonc.ID= creer_feuilleID(id) ; 
+  p->appfonc.PARAM= p2 ; 
+  
+  return p;
+
+}
+
 
 //_________________________________free______________
 void free_asa(asa *p) {
@@ -428,7 +455,13 @@ void print_asa_dot_node(FILE *output, asa *p) {
     fprintf(output, "PARAM\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
 
+  case typeRENVOYER:
+    fprintf(output, "RENVOYER\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
 
+   case typeAPPFONC:
+    fprintf(output, "APPFONC\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
   //__________________________________________________________________________________ 
   default:
     fprintf(output, "UNKNOWN");
@@ -591,7 +624,19 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_edge(output, p, p->param.LIST_DECLA);
     print_asa_dot_recursive(output, p->param.LIST_DECLA);
     break;
+  case typeRENVOYER :
+    print_asa_dot_edge(output, p, p->renvoyer.INST);
+    print_asa_dot_recursive(output, p->renvoyer.INST);
+    break;
+case typeAPPFONC :
+    print_asa_dot_edge(output, p, p->appfonc.ID);
+    print_asa_dot_recursive(output, p->appfonc.ID);
 
+    print_asa_dot_edge(output, p, p->appfonc.PARAM);
+    print_asa_dot_recursive(output, p->appfonc.PARAM);
+    break;
+
+  
 
 
 

@@ -72,14 +72,15 @@ extern int yydebug;
     ALORS = 273,                   /* ALORS  */
     SINON = 274,                   /* SINON  */
     FSI = 275,                     /* FSI  */
-    ALGO = 276,                    /* ALGO  */
-    AFF = 277,                     /* AFF  */
-    OU = 278,                      /* OU  */
-    ET = 279,                      /* ET  */
-    EGAL = 280,                    /* EGAL  */
-    SUPEGAL = 281,                 /* SUPEGAL  */
-    INFEGAL = 282,                 /* INFEGAL  */
-    DIFF = 283                     /* DIFF  */
+    RENVOYER = 276,                /* RENVOYER  */
+    ALGO = 277,                    /* ALGO  */
+    AFF = 278,                     /* AFF  */
+    OU = 279,                      /* OU  */
+    ET = 280,                      /* ET  */
+    EGAL = 281,                    /* EGAL  */
+    SUPEGAL = 282,                 /* SUPEGAL  */
+    INFEGAL = 283,                 /* INFEGAL  */
+    DIFF = 284                     /* DIFF  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -95,7 +96,7 @@ union YYSTYPE
   char id[32];
  
 
-#line 99 "src/parser.h"
+#line 100 "src/parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

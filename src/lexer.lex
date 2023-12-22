@@ -72,6 +72,7 @@ COMENTAIR \/\/.*\n
 
 "ECRIRE"  {return ECRIRE ;}
 "LIRE"   {return LIRE ;}
+"RENVOYER" {return RENVOYER ;}
 
 "FSI"   {return FSI;}
 "SINON"  {return SINON ; }
