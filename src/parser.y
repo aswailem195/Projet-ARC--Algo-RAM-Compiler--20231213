@@ -246,7 +246,7 @@ int main( int argc, char * argv[] ) {
 
   //_____________________________la on modifier 
 
-  int init = 5;
+  int init = 10;
   int registre = 2;
   fprintf(exefile, "LOAD #%-7d ;\n", init);
   fprintf(exefile, "STORE %-6d ; deput pile\n", registre);

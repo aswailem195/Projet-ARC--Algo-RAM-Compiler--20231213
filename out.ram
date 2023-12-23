@@ -1,11 +1,12 @@
-LOAD #5       ;
+LOAD #10      ;
 STORE 2      ; deput pile
 STORE 3 ; sommet pile 
-LOAD # 8         ; DECLA_FON 
-STORE 3         ; DECLA_FON 
+LOAD #8         ; DECLA_FON debut inst de fonction  
+STORE @3         ; DECLA_FON 
 INC 3         ; DECLA_FON 
-LOAD # 8         ; DECLA_FON 
-STORE 5         ; DECLA_FON 
+LOAD #10        ;  
+STORE 5         ;  
+LOAD #5       ; codeNB
 JUMP @5         ; FIN DE FON 
 INC 3         ; DECLA_VA
 INC 3         ; DECLA_VA
@@ -13,10 +14,13 @@ INC 3         ; DECLA_VA
 DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
 DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
 DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
-LOAD # 14        ; APPLFON 
-STORE 5         ; DECLA_FON 
-LOAD # 14        ; DECLA_FON 
-JUMP @0         ; FIN DE FON 
+LOAD #23        ; APPLFON 
+STORE 5         ; 
+LOAD #0        ;codeID selection
+ADD 2 ;
+STORE 1 ;  
+LOAD @1 ;  
+JUMP @0 ; FIN DE FON 
 INC 3         ; AFF
 STORE @3      ;
 LOAD #0        ;codeID momo

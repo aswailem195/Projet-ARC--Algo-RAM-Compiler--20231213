@@ -23,6 +23,7 @@ void codeSTRUCT_SI(asa * p) ;
 void codeSTRUCT_TQ(asa * p) ;
 void codeDEC_FON(asa * p) ;
 void  codeAPPFONC(asa * p);
+void codeRENVOYER(asa * p) ;
 
 void codeID(asa * p) ;
 #endif

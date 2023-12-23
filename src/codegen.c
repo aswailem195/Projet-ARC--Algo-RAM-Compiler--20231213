@@ -10,6 +10,10 @@ void codegen(asa *p) {
 
   switch (p->type) {
 
+  case typeRENVOYER:
+    codeRENVOYER(p);
+    break;
+
   case typeAPPFONC:
     codeAPPFONC(p);
     break;
@@ -76,18 +80,23 @@ void codegen(asa *p) {
 }
 
 //________________________________
-
+void codeRENVOYER(asa * p) {
+ /* on consider que a la fin de coden de inst le resulta rest dans acc */
+  codegen(p->renvoyer.INST) ;
+}
 
 void codeAPPFONC(asa * p){
   /* on stock la valeur de instrction pour revien */ 
 
-  fprintf(exefile, "LOAD # %-9d ; APPLFON \n", CODELEN) ;
-  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_EMPILER_ADR) ;
-  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN) ;
+  fprintf(exefile, "LOAD #%-9d ; APPLFON \n", CODELEN + p->codelen+2-1) ;//3 pour inst suivant 1 apres le 3 - indic comence a 0 
+  fprintf(exefile, "STORE %-9d ; \n", RAM_OS_EMPILER_ADR) ;
+  
 
   /**/
   int adr = p->memadr; 
-  fprintf(exefile, "JUMP @%-9d ; FIN DE FON \n", adr) ;
+  codegen(p->appfonc.ID) ;
+
+  fprintf(exefile, "JUMP @0 ; FIN DE FON \n" ) ;
 
 
 }
@@ -96,15 +105,16 @@ void codeDEC_FON(asa * p){
   /* la case mem pour la fonction dans la pile, parmi les indices
    de début des instructions de la fonction 
   */
-
-  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN+6-1) ;//6 instraction suivant 
-  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+  // lode de debut de inst de fonction 
+  fprintf(exefile, "LOAD #%-9d ; DECLA_FON debut inst de fonction  \n", CODELEN+6-1) ;//6 instraction suivant 
+  fprintf(exefile, "STORE @%-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+  // c'est  le decla de fonction  
   fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
 
   /* stokeer le fin de fonction utile pour le jumb*/
   
-  fprintf(exefile, "LOAD # %-9d ; DECLA_FON \n", CODELEN+p->codelen) ;
-  fprintf(exefile, "STORE %-9d ; DECLA_FON \n", RAM_OS_EMPILER_ADR) ;
+  fprintf(exefile, "LOAD #%-9d ;  \n", CODELEN+p->codelen+1-1) ;
+  fprintf(exefile, "STORE %-9d ;  \n", RAM_OS_EMPILER_ADR) ;
   CODELEN+= 5 ;
   /* */
   codegen(p->dec_fon.PARAM);
@@ -112,6 +122,7 @@ void codeDEC_FON(asa * p){
   codegen(p->dec_fon.DECS) ;
   /**/
   codegen(p->dec_fon.LIST_INST) ; 
+
 
   fprintf(exefile, "JUMP @%-9d ; FIN DE FON \n", RAM_OS_EMPILER_ADR) ;
 

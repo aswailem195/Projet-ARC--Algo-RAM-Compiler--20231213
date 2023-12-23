@@ -22,17 +22,17 @@ void  semantic_APPFONC(asa *p) {
   }
 
 
-  //on doner le fonction le adr dans le pile 
+  //on donne la fonction l'adr dans le pile 
 
   //y->adr = SOMMETpile ++ ;
 
 //sementique suivant 
-  semantic(p->appfonc.ID);
-  semantic(p->appfonc.PARAM) ;
+ semantic(p->appfonc.ID);
+  //semantic(p->appfonc.PARAM) ;
 // 
 
   p->codelen = (p->appfonc.ID? p->appfonc.ID->codelen : 0)+
-  (p->appfonc.PARAM? p->appfonc.PARAM->codelen : 0)+1;
+  (p->appfonc.PARAM? p->appfonc.PARAM->codelen : 0)+3;
 
 
 }
@@ -84,15 +84,15 @@ void semantic_DEC_FON(asa *p) {
   strcpy(CTXT, p->dec_fon.ID->id.nom);
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
 
-  semantic(p->dec_fon.ID);
+  //semantic(p->dec_fon.ID);
   semantic(p->dec_fon.PARAM);
   semantic(p->dec_fon.DECS);
   semantic(p->dec_fon.LIST_INST);
 
-  p->codelen = (p->dec_fon.ID ? p->dec_fon.ID->codelen : 0) +
+  p->codelen += (p->dec_fon.ID ? p->dec_fon.ID->codelen : 0) +
                (p->dec_fon.PARAM ? p->dec_fon.PARAM->codelen : 0) +
                (p->dec_fon.DECS ? p->dec_fon.DECS->codelen : 0) +
-               (p->dec_fon.LIST_INST ? p->dec_fon.LIST_INST->codelen : 0)
+               (p->dec_fon.LIST_INST ? p->dec_fon.LIST_INST->codelen : 0) +6
 
       ;
 }
@@ -102,7 +102,7 @@ void semantic_PARAM(asa *p) {
     return;
   }
   semantic(p->param.LIST_DECLA);
-  p->codelen += p->param.LIST_DECLA->codelen;
+  p->codelen +=(p->param.LIST_DECLA ? p->param.LIST_DECLA->codelen : 0) ;
 }
 
 void semanticINST_LIRE(asa *p) {
@@ -111,7 +111,6 @@ void semanticINST_LIRE(asa *p) {
   }
 
   // verification de ID
-
   p->codelen += 6;
   semantic(p->inst_lire.ID);
 }
@@ -124,7 +123,7 @@ void semanticINST_ECRIRE(asa *p) {
   // verification de ID
 
   semantic(p->inst_ecrire.EXP);
-  p->codelen = p->inst_ecrire.EXP->codelen + 1;
+  p->codelen = (p->inst_ecrire.EXP ? p->inst_ecrire.EXP->codelen :0 ) + 1;
 }
 void semantic_LIST_INST(asa *p) {
   if (!p) {
@@ -174,7 +173,7 @@ void semantic_DECLA_VAR(asa *p) {
   char *id = p->decla_var.ID->id.nom;
 
   if (ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT) != NULL) {
-    printf("dans DECLA_VAR tu essayer de decla %s qui est deja declare\n", id);
+    printf(" tu essais de declarer %s qu'a deja declare dans DECLA_VAR  \n", id);
   }
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
 
@@ -204,7 +203,7 @@ void semantic_MAIN(asa *p) {
   p->codelen = (p->main.DEC ? p->main.DEC->codelen : 0) +
                (p->main.PROG ? p->main.PROG->codelen : 0) +
                (p->main.DEC_FN ? p->main.DEC_FN->codelen : 0) +
-               4; // 1 STOP 3 pour init
+               4; // 1 STOP et 3 pour init
 }
 
 void semantic_AFF(asa *p) {
@@ -212,8 +211,8 @@ void semantic_AFF(asa *p) {
     return;
   }
 
-  // on cherche si le id exist dans local ou pas is non on recherche dans global
-  // si non on retuen error
+  // on cherche si le id exist dans local ou pas;  sinon on recherche dans global
+  // sinon on retuen error
 
   char *id = p->affect.id->id.nom;
   symbole *y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT);
@@ -221,7 +220,8 @@ void semantic_AFF(asa *p) {
     y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, "GLOBAL");
     if (!y) {
 
-      printf("id de AFF exist pas \n  ");
+      printf("id de AFF n'exist pas \n  ");
+      error_semantic(id);
       return;
     }
   }
