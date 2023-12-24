@@ -37,11 +37,14 @@ typedef  enum {t_AFF ,t_EXP} t_INST ;
 
 typedef struct {
   int val;
+  
 } feuilleNb;
 
 //L'identificateur
 typedef struct {
   char nom[32];
+  char *ctxt ; // pour indiqer la port de variable 
+  char * type ;  // pour int , point t , p 
 } feuilleId;
 
 

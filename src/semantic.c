@@ -2,10 +2,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 
 char CTXT[32] = "GLOBAL";
-int SOMMETpile = 0;
+int VLOCAL = 0; 
+int VGLOBAL = 5 ;
 
 
 void  semantic_APPFONC(asa *p) {
@@ -20,13 +22,14 @@ void  semantic_APPFONC(asa *p) {
     error_semantic("fonction appler ne pas declarer \n ") ;
     return ;
   }
-
+ 
 
   //on donne la fonction l'adr dans le pile 
 
-  //y->adr = SOMMETpile ++ ;
+  //y->adr = VLOCAL ++ ;
 
 //sementique suivant 
+p->appfonc.ID->id.ctxt = "GLOBAL" ;
  semantic(p->appfonc.ID);
   //semantic(p->appfonc.PARAM) ;
 // 
@@ -80,9 +83,13 @@ void semantic_DEC_FON(asa *p) {
   char * id = p->dec_fon.ID->id.nom ;
   symbole* y = ts_ajouter_identificateur(TABLE_SYMBOLES, CTXT, id, 'f',
                             1);
-  y->adr = SOMMETpile++ ;
+  y->adr = VGLOBAL++ ;
   strcpy(CTXT, p->dec_fon.ID->id.nom);
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
+  p->dec_fon.ID->id.ctxt = "GLOBAL" ;
+  p->dec_fon.ID->id.type = "F" ;
+  p->dec_fon.ID->memadr =y->adr ;
+
 
   //semantic(p->dec_fon.ID);
   semantic(p->dec_fon.PARAM);
@@ -166,30 +173,53 @@ void semantic_DECS(asa *p) {
                (p->decs.next ? p->decs.next->codelen : 0);
 }
 
+
+
 void semantic_DECLA_VAR(asa *p) {
-  if (!p) {
-    return;
-  }
-  char *id = p->decla_var.ID->id.nom;
+    if (!p) {
+        return;
+    }
 
-  if (ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT) != NULL) {
-    printf(" tu essais de declarer %s qu'a deja declare dans DECLA_VAR  \n", id);
-  }
-  ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
+    // on cherche si l'identifiant est déjà déclaré ou non
+    char *id = p->decla_var.ID->id.nom;
+    if (ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT) != NULL) {
+        printf("Tu essaies de déclarer %s qui est déjà déclaré dans DECLA_VAR\n", id);
+        error_semantic("DECLA_VAR");
+    }
 
-  // on agmunt et mit le place de vaiable dans le pile
-  symbole *y = ts_ajouter_identificateur(TABLE_SYMBOLES, CTXT, id, 'e', 1);
-  y->adr = SOMMETpile;
-  p->decla_var.ID->memadr = SOMMETpile++;
+    ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
 
-  if (p->decla_var.inst_mis) {
-    semantic(p->decla_var.inst_mis);
-  }
-  if (p->decla_var.ID) {
-    // semantic(p->decla_var.ID); on plus bisond parce on decla
-  }
-  p->codelen = (p->decla_var.ID ? p->decla_var.ID->codelen : 0) +
-               (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen : 0) + 1;
+    // on incrémente et attribue l'emplacement de la variable dans la pile
+    symbole *y = ts_ajouter_identificateur(TABLE_SYMBOLES, CTXT, id, TYPE_ENTIER, 1);
+    if (strcmp(CTXT, "GLOBAL") == 0) { 
+      y->adr = VGLOBAL;
+        p->decla_var.ID->memadr = VGLOBAL++;
+        // mettre les informations dans la feuille de l'identifiant
+      p->decla_var.ID->id.ctxt = "GLOBAL";
+      p->decla_var.ID->id.type = "e";
+        
+    } else {
+      y->adr = VLOCAL;
+        p->decla_var.ID->memadr = VLOCAL++;
+        // mettre les informations dans la feuille de l'identifiant
+      
+      p->decla_var.ID->id.ctxt = "locale";
+      p->decla_var.ID->id.type = "e";
+        
+    }
+
+    
+
+    if (p->decla_var.inst_mis) {
+        semantic(p->decla_var.inst_mis);
+    }
+
+    if (p->decla_var.ID) {
+        // semantic(p->decla_var.ID); pas nécessaire car c'est une déclaration
+    }
+
+    p->codelen = (p->decla_var.ID ? p->decla_var.ID->codelen : 0) +
+                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen : 0) + 1;
 }
 void semantic_MAIN(asa *p) {
   if (!p) {
@@ -218,6 +248,7 @@ void semantic_AFF(asa *p) {
   symbole *y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT);
   if (!y) {
     y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, "GLOBAL");
+    p->affect.id->id.ctxt = "GLOBAL";
     if (!y) {
 
       printf("id de AFF n'exist pas \n  ");
@@ -227,6 +258,8 @@ void semantic_AFF(asa *p) {
   }
 
   // p->affect.id->memadr = y->adr ;
+  p->decla_var.ID->id.ctxt = "locale";
+  //strcpy(p->decla_var.ID->id.type, y->type) ;
 
   semantic(p->affect.id);
   semantic(p->affect.droit);
@@ -287,9 +320,25 @@ void semantic_ID(asa *p) {
 
   // char *id = p->id.nom;
   // if (ts_rechercher_identificateur(TABLE_SYMBOLES, id, CTXT))
-  if (p) {
-    p->codelen = 4;
-  }
+symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->id.nom , "GLOBAL") ;
+ if ( y ){
+  p->id.ctxt ="GLOBAL" ;
+  //strcpy(p->id.ctxt ,"GLOBAL") ;
+  p->codelen = 1; 
+  p->memadr = y->adr ;
+    
+
+ }else {
+  symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->id.nom ,CTXT) ;
+  p->id.ctxt ="locale" ;
+  
+  //strcpy(p->id.ctxt ,"locale") ;
+  p->codelen = 4;
+  p->memadr = y->adr ;
+ }
+
+
+  
   // char *id = p->id.nom;
 
   /*

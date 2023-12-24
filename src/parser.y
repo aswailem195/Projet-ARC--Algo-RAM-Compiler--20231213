@@ -70,7 +70,7 @@ PROGRAMME_ALGO : DECS
 
 LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON
 |DEC_FON SEP 
-|%empty 
+|%empty   {$$ =NULL ;}
 ;
 
 DEC_FON:ALGO ID '(' PARAM ')' SEP 
@@ -81,7 +81,7 @@ DEC_FON:ALGO ID '(' PARAM ')' SEP
 ;
 
 PARAM : LIST_DECLA     {$$ = creer_noeudPARAM( $1 );}
-|%empty
+|%empty                 {$$ = creer_noeudPARAM( NULL );}
 ;
 
 //_____________________
@@ -92,7 +92,6 @@ DEBUT SEP
 LIST_INST 
 FIN SEP   {$$ = creer_noeudPROG( $5 ,$8 );}
 ;
-
 SEP: '\n' | SEP '\n'  
 
 ;
@@ -128,7 +127,7 @@ INST_ECRIRE :ECRIRE '(' EXP ')' {$$ = creer_noeudINST_ECRIRE($3);}
 
 DECS : VAR LIST_DECLA SEP    {$$ = creer_noeudDECS($2,NULL);}
     | VAR LIST_DECLA SEP DECS {$$ = creer_noeudDECS($2,$4);}
-    |%empty
+    |%empty                    {$$= NULL;}
     ; 
 
 LIST_DECLA : DECLA_VAR     {$$ = creer_noeudLIST_DECLA($1,NULL);}
@@ -152,7 +151,7 @@ DECLA_POIN : '@' ID   {$$ = creer_noeudDECLA_POIN( $2 );}
 
 LIST_INST : INST SEP {$$  = creer_noeudLIST_INST( $1,NULL );}
 |INST SEP LIST_INST   {$$  = creer_noeudLIST_INST( $1,$3 );}
-|%empty
+|%empty               {$$ = NULL; }
 
 ;
 
@@ -256,13 +255,15 @@ int main( int argc, char * argv[] ) {
 
 
   TABLE_SYMBOLES = ts_init_table(CTXTglo) ;
+  
   semantic(ARBRE_ABSTRAIT);
-  
-
-
-  
-
   print_asa_dot( ARBRE_ABSTRAIT);
+  
+
+
+  
+
+  
 
   
   //print_asa(ARBRE_ABSTRAIT);

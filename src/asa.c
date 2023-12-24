@@ -260,6 +260,7 @@ asa * creer_noeudDEC_FON(char* id ,asa* p2 ,asa* p3, asa *p4){
   p->dec_fon.DECS = p3 ; 
   p->dec_fon.LIST_INST = p4 ;  
   
+  
   return p;
 }
 asa * creer_noeudPARAM(asa* p1 ){
@@ -390,13 +391,16 @@ void error_asa(const char *s) {
 //___________________________PRINT ASA dot _____________________
 
 void print_asa_dot_node(FILE *output, asa *p) {
+  if (p == NULL) {
+    return;
+  }
   fprintf(output, "node%p [label=\"", p);
   switch (p->type) {
   case typeNB:
     fprintf(output, "NB\\n%d \n tailcode:%d adr:%d \\n", p->nb.val,p->codelen ,p->memadr);
     break;
   case typeID:
-    fprintf(output, "ID\\n%s\n tailcode:%d adr:%d \\n", p->id.nom,p->codelen ,p->memadr);
+    fprintf(output, "ID\\n%s\n tailcode:%d  \n adr:%d ctxt :%s type : %s \\n", p->id.nom,p->codelen ,p->memadr,p->id.ctxt,p->id.type);
     break;
 
   case typeOP:
@@ -448,9 +452,10 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeMAIN:
     fprintf(output, "MAIN\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
+    
   case typeDEC_FON:
     fprintf(output, "DEC_FON\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
-    break;
+    break; 
   case typePARAM:
     fprintf(output, "PARAM\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
@@ -470,6 +475,7 @@ void print_asa_dot_node(FILE *output, asa *p) {
 }
 
 void print_asa_dot_edge(FILE *output, asa *parent, asa *child) {
+
   if (child) {
     fprintf(output, "node%p -> node%p;\n", parent, child);
   }
@@ -497,16 +503,19 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_recursive(output, p->affect.id);
 
     print_asa_dot_edge(output, p, p->affect.droit);
+    
     print_asa_dot_recursive(output, p->affect.droit);
     break;
   case typeINST:
     print_asa_dot_edge(output, p, p->inst.INST);
-
+    
     print_asa_dot_recursive(output, p->inst.INST);
 
     break;
   case typeLIST_INST:
     print_asa_dot_edge(output, p, p->list_inst.INST);
+
+    
     print_asa_dot_recursive(output, p->list_inst.INST);
 
     print_asa_dot_edge(output, p, p->list_inst.next);
@@ -528,6 +537,7 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_recursive(output, p->prog.DECLA);
 
     print_asa_dot_edge(output, p, p->prog.INST);
+    
     print_asa_dot_recursive(output, p->prog.INST);
     break;
   case typeDECS:
@@ -602,6 +612,7 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_recursive(output, p->main.DEC_FN);
 
     print_asa_dot_edge(output, p, p->main.PROG);
+    
     print_asa_dot_recursive(output, p->main.PROG);
     break;
 
@@ -624,6 +635,7 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_edge(output, p, p->param.LIST_DECLA);
     print_asa_dot_recursive(output, p->param.LIST_DECLA);
     break;
+  
   case typeRENVOYER :
     print_asa_dot_edge(output, p, p->renvoyer.INST);
     print_asa_dot_recursive(output, p->renvoyer.INST);
@@ -633,6 +645,7 @@ case typeAPPFONC :
     print_asa_dot_recursive(output, p->appfonc.ID);
 
     print_asa_dot_edge(output, p, p->appfonc.PARAM);
+    
     print_asa_dot_recursive(output, p->appfonc.PARAM);
     break;
 

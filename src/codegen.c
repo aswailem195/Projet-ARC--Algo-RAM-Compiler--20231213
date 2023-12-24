@@ -1,6 +1,8 @@
 #include "../include/codegen.h"
 #include <stdio.h>
 
+char CTXTC[32] = "GLOBAL";
+
 int CODELEN = 3;
 int nb_VAR_Fonctio;
 void codegen(asa *p) {
@@ -88,7 +90,7 @@ void codeRENVOYER(asa * p) {
 void codeAPPFONC(asa * p){
   /* on stock la valeur de instrction pour revien */ 
 
-  fprintf(exefile, "LOAD #%-9d ; APPLFON \n", CODELEN + p->codelen+2-1) ;//3 pour inst suivant 1 apres le 3 - indic comence a 0 
+  fprintf(exefile, "LOAD #%-9d ; APPLFON stock la valeur de instrction pour revien\n", CODELEN + p->codelen+2-1) ;//3 pour inst suivant 1 apres le 3 - indic comence a 0 
   fprintf(exefile, "STORE %-9d ; \n", RAM_OS_EMPILER_ADR) ;
   
 
@@ -96,7 +98,7 @@ void codeAPPFONC(asa * p){
   int adr = p->memadr; 
   codegen(p->appfonc.ID) ;
 
-  fprintf(exefile, "JUMP @0 ; FIN DE FON \n" ) ;
+  fprintf(exefile, "JUMP @0       ; FIN DE FON \n" ) ;
 
 
 }
@@ -107,7 +109,7 @@ void codeDEC_FON(asa * p){
   */
   // lode de debut de inst de fonction 
   fprintf(exefile, "LOAD #%-9d ; DECLA_FON debut inst de fonction  \n", CODELEN+6-1) ;//6 instraction suivant 
-  fprintf(exefile, "STORE @%-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+  fprintf(exefile, "STORE @%-9d ; DECLA_FON \n", p->dec_fon.ID->memadr) ;
   // c'est  le decla de fonction  
   fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
 
@@ -222,12 +224,18 @@ void codeIST_ECRIRE(asa *p) {
 void codeID(asa *p) {
 
   int adr = p->memadr; // on va modifirer apes
+  //printf("fffff %s" ,p->id.ctxt) ;
 
-  fprintf(exefile, "LOAD #%-8d ;codeID %s\n", adr, p->id.nom);
-  fprintf(exefile, "ADD 2 ;\n");
-  fprintf(exefile, "STORE 1 ;  \n");
-  fprintf(exefile, "LOAD @1 ;  \n");
-  CODELEN += 4;
+if (strcmp(p->id.ctxt, "locale") == 0) {
+    fprintf(exefile, "LOAD #%-8d ;codeID %s\n", adr, p->id.nom);
+    fprintf(exefile, "ADD 2 ;\n");
+    fprintf(exefile, "STORE 1 ;  \n");
+    fprintf(exefile, "LOAD @1 ;  \n");
+    CODELEN += 4;
+} else {
+    fprintf(exefile, "LOAD @%-8d ;codeID %s\n", p->memadr, p->id.nom);
+    CODELEN += 1;
+}
 }
 
 void codeDECLA_VAR(asa *p) {
