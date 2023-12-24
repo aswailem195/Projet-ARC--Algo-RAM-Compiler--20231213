@@ -7,7 +7,7 @@
 
 char CTXT[32] = "GLOBAL";
 int VLOCAL = 0; 
-int VGLOBAL = 5 ;
+int VGLOBAL = 10 ;
 
 
 void  semantic_APPFONC(asa *p) {
@@ -84,6 +84,7 @@ void semantic_DEC_FON(asa *p) {
   symbole* y = ts_ajouter_identificateur(TABLE_SYMBOLES, CTXT, id, 'f',
                             1);
   y->adr = VGLOBAL++ ;
+  VLOCAL =0 ;
   strcpy(CTXT, p->dec_fon.ID->id.nom);
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
   p->dec_fon.ID->id.ctxt = "GLOBAL" ;
@@ -155,7 +156,7 @@ void semantic_LIST_DECLA(asa *p) {
     semantic(p->list_decla.next);
   }
   p->codelen = (p->list_decla.next ? p->list_decla.next->codelen : 0) +
-               (p->list_decla.DEC ? p->list_decla.DEC->codelen : 0) + 1;
+               (p->list_decla.DEC ? p->list_decla.DEC->codelen : 0) ;
 }
 
 void semantic_DECS(asa *p) {
@@ -228,6 +229,7 @@ void semantic_MAIN(asa *p) {
 
   semantic(p->main.DEC);
   semantic(p->main.DEC_FN);
+  VLOCAL =0 ;
 
   semantic(p->main.PROG);
   p->codelen = (p->main.DEC ? p->main.DEC->codelen : 0) +

@@ -107,17 +107,23 @@ void codeDEC_FON(asa * p){
   /* la case mem pour la fonction dans la pile, parmi les indices
    de début des instructions de la fonction 
   */
+
+
   // lode de debut de inst de fonction 
   fprintf(exefile, "LOAD #%-9d ; DECLA_FON debut inst de fonction  \n", CODELEN+6-1) ;//6 instraction suivant 
-  fprintf(exefile, "STORE @%-9d ; DECLA_FON \n", p->dec_fon.ID->memadr) ;
-  // c'est  le decla de fonction  
-  fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+  fprintf(exefile, "STORE %-9d ; on le stock dans le sdr de fonc  \n", p->dec_fon.ID->memadr) ;
 
-  /* stokeer le fin de fonction utile pour le jumb*/
-  
+ /* stokeer le fin de fonction utile pour le jumb*/
   fprintf(exefile, "LOAD #%-9d ;  \n", CODELEN+p->codelen+1-1) ;
   fprintf(exefile, "STORE %-9d ;  \n", RAM_OS_EMPILER_ADR) ;
-  CODELEN+= 5 ;
+  fprintf(exefile, "JUMP @%-9d ; jumb pour ne touch le ins de fonction qund dec\n", RAM_OS_EMPILER_ADR) ;
+
+  CODELEN+= 5;
+
+  // c'est  le decla de fonction  
+  //fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
+
+
   /* */
   codegen(p->dec_fon.PARAM);
   /* */ 
@@ -127,6 +133,7 @@ void codeDEC_FON(asa * p){
 
 
   fprintf(exefile, "JUMP @%-9d ; FIN DE FON \n", RAM_OS_EMPILER_ADR) ;
+  
 
 
 
@@ -184,6 +191,7 @@ void codeMAIN(asa *p) {
 void codePROG(asa *p) {
   codegen(p->prog.DECLA);
   codegen(p->prog.INST);
+  
 }
 
 void codeDECS(asa *p) {
@@ -197,10 +205,10 @@ void codeLIST_DECLA(asa *p) {
   if (p->list_decla.next) {
     codegen(p->list_decla.next);
   }
-  fprintf(
+  /*fprintf(
       exefile,
       "DEC %-9d ; FIN DECLA_VA on a decriment le indice de sommet de pile\n",
-      RAM_OS_ADR_REG); // 3
+      RAM_OS_ADR_REG); // 3*/
   CODELEN += 1;
 }
 void codeLIST_INST(asa *p) {
@@ -233,7 +241,7 @@ if (strcmp(p->id.ctxt, "locale") == 0) {
     fprintf(exefile, "LOAD @1 ;  \n");
     CODELEN += 4;
 } else {
-    fprintf(exefile, "LOAD @%-8d ;codeID %s\n", p->memadr, p->id.nom);
+    fprintf(exefile, "LOAD %-8d ;codeID %s\n", p->memadr, p->id.nom);
     CODELEN += 1;
 }
 }

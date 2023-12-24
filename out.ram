@@ -1,18 +1,17 @@
-LOAD #10      ;
+LOAD #32      ;
 STORE 2      ; deput pile
 STORE 3 ; sommet pile 
 LOAD #8         ; DECLA_FON debut inst de fonction  
-STORE @5         ; DECLA_FON 
-INC 3         ; DECLA_FON 
+STORE 10        ; on le stock dans le sdr de fonc  
 LOAD #10        ;  
 STORE 5         ;  
+JUMP @5         ; jumb pour ne touch le ins de fonction qund dec
 LOAD #20      ; codeNB
 JUMP @5         ; FIN DE FON 
 INC 3         ; DECLA_VA
-DEC 3         ; FIN DECLA_VA on a decriment le indice de sommet de pile
 LOAD #16        ; APPLFON stock la valeur de instrction pour revien
 STORE 5         ; 
-LOAD @5        ;codeID selection
+LOAD 10       ;codeID selection
 JUMP @0       ; FIN DE FON 
 INC 3         ; AFF
 STORE @3      ;

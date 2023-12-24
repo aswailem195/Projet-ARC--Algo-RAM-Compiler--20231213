@@ -28,6 +28,7 @@ DEBUT
 	//stockage des donnees dans un tableau dynamique
 	taille <- LIRE()
 	ALLOUER( T, taille )
+	
 	i <- 0
 	TQ i < taille FAIRE
 	   T[i] <- LIRE()
