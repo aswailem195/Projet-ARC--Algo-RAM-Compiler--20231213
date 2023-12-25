@@ -209,6 +209,14 @@ void codeINST_LIRE(asa *p) {
  * _______________________________________________________*/
 
 void codeMAIN(asa *p) {
+
+  int init = 32;
+  fprintf(exefile, "LOAD #%-7d ;\n", init);
+  fprintf(exefile, "STORE %-6d ; deput pile\n", RAM_OS_STK_REG);
+  fprintf(exefile, "LOAD #%-7d ;\n", init+p->main.nb_valiable_local);
+  fprintf(exefile, "STORE %-6d  ; sommet pile \n",RAM_OS_ADR_REG);
+
+
   if (p->main.DEC) {
     codegen(p->main.DEC);
   }
@@ -216,6 +224,7 @@ void codeMAIN(asa *p) {
     codegen(p->main.L_DEC_FN);
   }
   codegen(p->main.PROG);
+  fprintf(exefile, "STOP ; ");
 }
 void codePROG(asa *p) {
   codegen(p->prog.DECLA);
@@ -273,13 +282,19 @@ void codeID(asa *p) {
 
 void codeDECLA_VAR(asa *p) {
 
-  fprintf(exefile, "INC %-9d ; CODELEN : %d DECLA_VA\n", RAM_OS_ADR_REG,
-          ++CODELEN); // 3
+  /*fprintf(exefile, "INC %-9d ; CODELEN : %d DECLA_VA\n", RAM_OS_ADR_REG,
+          ++CODELEN); // 3*/
 
   if (p->decla_var.inst_mis) {
     codegen(p->decla_var.inst_mis);
-    fprintf(exefile, "STORE @%-9d ;CODELEN : %d  DECLA_VA avec valuer\n",
-            RAM_OS_ADR_REG, ++CODELEN);
+    fprintf(exefile, "INC %-9d ; CODELEN : %d AFF\n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
+  
+   codegen(p->affect.id);
+  fprintf(exefile, "LOAD @%-7d ;CODELEN : %d\n", RAM_OS_ADR_REG,
+          ++CODELEN); // resulta de droit
+  fprintf(exefile, "DEC %-9d ;CODELEN : %d  AFF\n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @1  ;CODELEN : %d \n", ++CODELEN);
   }
 }
 /*_______________________________________AFF_______________________________________________________*/

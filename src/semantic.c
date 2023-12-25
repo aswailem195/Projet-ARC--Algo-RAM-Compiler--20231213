@@ -233,7 +233,7 @@ void semantic_DECLA_VAR(asa *p) {
     }
 
     p->codelen = (p->decla_var.ID ? p->decla_var.ID->codelen : 0) +
-                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen +1 : 0) + 1;
+                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen +5 : 0) + 1;
 }
 void semantic_MAIN(asa *p) {
   if (!p) {
@@ -245,6 +245,7 @@ void semantic_MAIN(asa *p) {
  
   semantic(p->main.L_DEC_FN);
    semantic(p->main.PROG);
+  p->main.nb_valiable_local =VLOCAL-1;
   
 
   

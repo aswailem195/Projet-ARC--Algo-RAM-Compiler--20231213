@@ -250,12 +250,7 @@ int main( int argc, char * argv[] ) {
 
   //_____________________________la on modifier 
 
-  int init = 32;
-  int registre = 2;
-  fprintf(exefile, "LOAD #%-7d ;\n", init);
-  fprintf(exefile, "STORE %-6d ; deput pile\n", registre);
-  fprintf(exefile, "LOAD #%-7d ;\n", init-1);
-  fprintf(exefile, "STORE 3 ; sommet pile \n");
+
 
 
 
@@ -277,7 +272,7 @@ int main( int argc, char * argv[] ) {
   codegen(ARBRE_ABSTRAIT);
   
 
-  fprintf(exefile, "STOP ; ");
+
   
 
 

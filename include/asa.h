@@ -127,6 +127,7 @@ typedef struct {
   struct asa *DEC;
   struct asa * L_DEC_FN ;
   struct asa * PROG;
+  int nb_valiable_local;
 }noeudMAIN ;
 
 typedef struct {

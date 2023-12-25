@@ -464,7 +464,7 @@ void print_asa_dot_node(FILE *output, asa *p) {
     fprintf(output, "STRUCT_SI\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeMAIN:
-    fprintf(output, "MAIN\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    fprintf(output, "MAIN\n tailcode:%d \n nb_val_loc :%d \\n",p->codelen ,p->main.nb_valiable_local);
     break;
     
   case typeDEC_FON:
