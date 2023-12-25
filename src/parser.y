@@ -72,8 +72,8 @@ PROGRAMME_ALGO : DECS
 
 
 //_____________________ fonction ____________________________________________
-LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON
-|DEC_FON SEP 
+LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON  {$$ = creer_noeudLIS_DEC_FON($1 ,$3 );}
+|DEC_FON SEP                            {$$ = creer_noeudLIS_DEC_FON($1 ,NULL );}
 |%empty   {$$ =NULL ;}
 ;
 

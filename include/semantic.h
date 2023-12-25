@@ -33,8 +33,17 @@ void semantic_DECLA_VAR(asa * p) ;
 void semantic_STRUCT_TQ(asa * p);
 void semantic_STRUCT_SI(asa * p);
 void semantic_DEC_FON(asa * p);
+void semantic_LIS_DEC_FON(asa *p);
 void semantic_PARAM(asa * p);
 void semantic_RENVOYER(asa * p) ;
+
+
+
+
+
+
+
+
 void error_semantic(const char *s) ;
 
 

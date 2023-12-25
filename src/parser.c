@@ -1639,350 +1639,362 @@ yyreduce:
 #line 1640 "src/parser.c"
     break;
 
+  case 3: /* LIS_DEC_FON: DEC_FON SEP LIS_DEC_FON  */
+#line 75 "src/parser.y"
+                                        {(yyval.tree) = creer_noeudLIS_DEC_FON((yyvsp[-2].tree) ,(yyvsp[0].tree) );}
+#line 1646 "src/parser.c"
+    break;
+
+  case 4: /* LIS_DEC_FON: DEC_FON SEP  */
+#line 76 "src/parser.y"
+                                        {(yyval.tree) = creer_noeudLIS_DEC_FON((yyvsp[-1].tree) ,NULL );}
+#line 1652 "src/parser.c"
+    break;
+
   case 5: /* LIS_DEC_FON: %empty  */
 #line 77 "src/parser.y"
           {(yyval.tree) =NULL ;}
-#line 1646 "src/parser.c"
+#line 1658 "src/parser.c"
     break;
 
   case 6: /* DEC_FON: ALGO ID '(' PARAM ')' SEP DECS DEBUT SEP LIST_INST FIN  */
 #line 84 "src/parser.y"
               {(yyval.tree) = creer_noeudDEC_FON((yyvsp[-9].id), (yyvsp[-7].tree), (yyvsp[-4].tree) , (yyvsp[-1].tree) );}
-#line 1652 "src/parser.c"
+#line 1664 "src/parser.c"
     break;
 
   case 7: /* PARAM: LIST_DECLA  */
 #line 87 "src/parser.y"
                        {(yyval.tree) = creer_noeudPARAM( (yyvsp[0].tree) );}
-#line 1658 "src/parser.c"
+#line 1670 "src/parser.c"
     break;
 
   case 8: /* PARAM: %empty  */
 #line 88 "src/parser.y"
                         {(yyval.tree) = creer_noeudPARAM( NULL );}
-#line 1664 "src/parser.c"
+#line 1676 "src/parser.c"
     break;
 
   case 9: /* PROG: PROGRAMME '(' ')' SEP DECS DEBUT SEP LIST_INST FIN SEP  */
 #line 97 "src/parser.y"
           {(yyval.tree) = creer_noeudPROG( (yyvsp[-5].tree) ,(yyvsp[-2].tree) );}
-#line 1670 "src/parser.c"
+#line 1682 "src/parser.c"
     break;
 
   case 12: /* INST_RENVOYER: RENVOYER EXP  */
 #line 104 "src/parser.y"
                              {(yyval.tree) = creer_noeudRENVOYER((yyvsp[0].tree));}
-#line 1676 "src/parser.c"
+#line 1688 "src/parser.c"
     break;
 
   case 13: /* STRUCT_TQ: TQ EXP FAIRE SEP LIST_INST FTQ  */
 #line 108 "src/parser.y"
                                              {(yyval.tree) = creer_noeudSTRUCT_TQ((yyvsp[-4].tree),(yyvsp[-1].tree));}
-#line 1682 "src/parser.c"
+#line 1694 "src/parser.c"
     break;
 
   case 14: /* STRUCT_SI: SI EXP ALORS SEP LIST_INST SINON SEP LIST_INST FSI  */
 #line 116 "src/parser.y"
         {(yyval.tree) = creer_noeudSTRUCT_SI((yyvsp[-7].tree), (yyvsp[-4].tree), (yyvsp[-1].tree));}
-#line 1688 "src/parser.c"
+#line 1700 "src/parser.c"
     break;
 
   case 15: /* STRUCT_SI: SI EXP ALORS SEP LIST_INST FSI  */
 #line 119 "src/parser.y"
        {(yyval.tree) = creer_noeudSTRUCT_SI((yyvsp[-4].tree), (yyvsp[-1].tree), NULL);}
-#line 1694 "src/parser.c"
+#line 1706 "src/parser.c"
     break;
 
   case 16: /* INST_LIRE: ID AFF LIRE '(' ')'  */
 #line 123 "src/parser.y"
                                 {(yyval.tree) = creer_noeudINST_LIRE((yyvsp[-4].id));}
-#line 1700 "src/parser.c"
+#line 1712 "src/parser.c"
     break;
 
   case 17: /* INST_ECRIRE: ECRIRE '(' EXP ')'  */
 #line 127 "src/parser.y"
                                 {(yyval.tree) = creer_noeudINST_ECRIRE((yyvsp[-1].tree));}
-#line 1706 "src/parser.c"
+#line 1718 "src/parser.c"
     break;
 
   case 18: /* DECS: VAR LIST_DECLA SEP  */
 #line 132 "src/parser.y"
                              {(yyval.tree) = creer_noeudDECS((yyvsp[-1].tree),NULL);}
-#line 1712 "src/parser.c"
+#line 1724 "src/parser.c"
     break;
 
   case 19: /* DECS: VAR LIST_DECLA SEP DECS  */
 #line 133 "src/parser.y"
                               {(yyval.tree) = creer_noeudDECS((yyvsp[-2].tree),(yyvsp[0].tree));}
-#line 1718 "src/parser.c"
+#line 1730 "src/parser.c"
     break;
 
   case 20: /* DECS: %empty  */
 #line 134 "src/parser.y"
                                {(yyval.tree)= NULL;}
-#line 1724 "src/parser.c"
+#line 1736 "src/parser.c"
     break;
 
   case 21: /* LIST_DECLA: DECLA_VAR  */
 #line 137 "src/parser.y"
                            {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[0].tree),NULL);}
-#line 1730 "src/parser.c"
+#line 1742 "src/parser.c"
     break;
 
   case 22: /* LIST_DECLA: DECLA_TAB  */
 #line 138 "src/parser.y"
                             {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[0].tree),NULL);}
-#line 1736 "src/parser.c"
+#line 1748 "src/parser.c"
     break;
 
   case 23: /* LIST_DECLA: DECLA_POIN  */
 #line 139 "src/parser.y"
                             {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[0].tree),NULL);}
-#line 1742 "src/parser.c"
+#line 1754 "src/parser.c"
     break;
 
   case 24: /* LIST_DECLA: DECLA_VAR ',' LIST_DECLA  */
 #line 140 "src/parser.y"
                           {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[-2].tree),(yyvsp[0].tree));}
-#line 1748 "src/parser.c"
+#line 1760 "src/parser.c"
     break;
 
   case 25: /* LIST_DECLA: DECLA_TAB ',' LIST_DECLA  */
 #line 141 "src/parser.y"
                             {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[-2].tree),(yyvsp[0].tree));}
-#line 1754 "src/parser.c"
+#line 1766 "src/parser.c"
     break;
 
   case 26: /* LIST_DECLA: DECLA_POIN ',' LIST_DECLA  */
 #line 142 "src/parser.y"
                              {(yyval.tree) = creer_noeudLIST_DECLA((yyvsp[-2].tree),(yyvsp[0].tree));}
-#line 1760 "src/parser.c"
+#line 1772 "src/parser.c"
     break;
 
   case 27: /* DECLA_VAR: ID  */
 #line 147 "src/parser.y"
                  {(yyval.tree) = creer_noeudDECLA_VAR( (yyvsp[0].id)  ,NULL );}
-#line 1766 "src/parser.c"
+#line 1778 "src/parser.c"
     break;
 
   case 28: /* DECLA_VAR: ID AFF EXP  */
 #line 148 "src/parser.y"
                 {(yyval.tree) = creer_noeudDECLA_VAR( (yyvsp[-2].id)  ,(yyvsp[0].tree) );}
-#line 1772 "src/parser.c"
+#line 1784 "src/parser.c"
     break;
 
   case 29: /* DECLA_TAB: ID '[' NB ']'  */
 #line 150 "src/parser.y"
                            {(yyval.tree) = creer_noeudDECLA_TAB( (yyvsp[-3].id)  ,(yyvsp[-1].nb) );}
-#line 1778 "src/parser.c"
+#line 1790 "src/parser.c"
     break;
 
   case 30: /* DECLA_POIN: '@' ID  */
 #line 152 "src/parser.y"
                       {(yyval.tree) = creer_noeudDECLA_POIN( (yyvsp[0].id) );}
-#line 1784 "src/parser.c"
+#line 1796 "src/parser.c"
     break;
 
   case 31: /* LIST_INST: INST SEP  */
 #line 157 "src/parser.y"
                      {(yyval.tree)  = creer_noeudLIST_INST( (yyvsp[-1].tree),NULL );}
-#line 1790 "src/parser.c"
+#line 1802 "src/parser.c"
     break;
 
   case 32: /* LIST_INST: INST SEP LIST_INST  */
 #line 158 "src/parser.y"
                       {(yyval.tree)  = creer_noeudLIST_INST( (yyvsp[-2].tree),(yyvsp[0].tree) );}
-#line 1796 "src/parser.c"
+#line 1808 "src/parser.c"
     break;
 
   case 33: /* LIST_INST: %empty  */
 #line 159 "src/parser.y"
                       {(yyval.tree) = NULL; }
-#line 1802 "src/parser.c"
+#line 1814 "src/parser.c"
     break;
 
   case 34: /* INST: AFFECT  */
 #line 163 "src/parser.y"
                {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1808 "src/parser.c"
+#line 1820 "src/parser.c"
     break;
 
   case 35: /* INST: EXP  */
 #line 164 "src/parser.y"
       {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1814 "src/parser.c"
+#line 1826 "src/parser.c"
     break;
 
   case 36: /* INST: INST_ECRIRE  */
 #line 165 "src/parser.y"
              {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1820 "src/parser.c"
+#line 1832 "src/parser.c"
     break;
 
   case 37: /* INST: INST_LIRE  */
 #line 166 "src/parser.y"
            {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1826 "src/parser.c"
+#line 1838 "src/parser.c"
     break;
 
   case 38: /* INST: STRUCT_TQ  */
 #line 167 "src/parser.y"
            {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1832 "src/parser.c"
+#line 1844 "src/parser.c"
     break;
 
   case 39: /* INST: STRUCT_SI  */
 #line 168 "src/parser.y"
            {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1838 "src/parser.c"
+#line 1850 "src/parser.c"
     break;
 
   case 40: /* INST: INST_RENVOYER  */
 #line 169 "src/parser.y"
                 {(yyval.tree)= (yyvsp[0].tree) ;}
-#line 1844 "src/parser.c"
+#line 1856 "src/parser.c"
     break;
 
   case 41: /* AFFECT: ID AFF EXP  */
 #line 173 "src/parser.y"
                         { (yyval.tree) = creer_noeudAffic((yyvsp[-2].id), (yyvsp[0].tree)); }
-#line 1850 "src/parser.c"
+#line 1862 "src/parser.c"
     break;
 
   case 42: /* AFFECT: ID AFF AFFECT  */
 #line 174 "src/parser.y"
                            { (yyval.tree) = creer_noeudAffic((yyvsp[-2].id), (yyvsp[0].tree)); }
-#line 1856 "src/parser.c"
+#line 1868 "src/parser.c"
     break;
 
   case 43: /* APPFONC: ID '(' PARAM ')'  */
 #line 177 "src/parser.y"
                            { (yyval.tree) = creer_noeudAPPFONC ((yyvsp[-3].id), (yyvsp[-1].tree)); }
-#line 1862 "src/parser.c"
+#line 1874 "src/parser.c"
     break;
 
   case 44: /* EXP: '(' EXP ')'  */
 #line 183 "src/parser.y"
                              { (yyval.tree) = (yyvsp[-1].tree); }
-#line 1868 "src/parser.c"
+#line 1880 "src/parser.c"
     break;
 
   case 45: /* EXP: APPFONC  */
 #line 184 "src/parser.y"
                {(yyval.tree) = (yyvsp[0].tree);}
-#line 1874 "src/parser.c"
+#line 1886 "src/parser.c"
     break;
 
   case 46: /* EXP: NB  */
 #line 185 "src/parser.y"
                     { (yyval.tree) = creer_feuilleNB(yyval.nb); }
-#line 1880 "src/parser.c"
+#line 1892 "src/parser.c"
     break;
 
   case 47: /* EXP: VRAI  */
 #line 186 "src/parser.y"
                      { (yyval.tree) = creer_feuilleNB(1); }
-#line 1886 "src/parser.c"
+#line 1898 "src/parser.c"
     break;
 
   case 48: /* EXP: FAUX  */
 #line 187 "src/parser.y"
                         { (yyval.tree) = creer_feuilleNB(0); }
-#line 1892 "src/parser.c"
+#line 1904 "src/parser.c"
     break;
 
   case 49: /* EXP: ID  */
 #line 188 "src/parser.y"
                         { (yyval.tree) = creer_feuilleID((yyvsp[0].id)); }
-#line 1898 "src/parser.c"
+#line 1910 "src/parser.c"
     break;
 
   case 50: /* EXP: EXP '+' EXP  */
 #line 190 "src/parser.y"
                          { (yyval.tree) = creer_noeudOP('+', (yyvsp[-2].tree), (yyvsp[0].tree)); }
-#line 1904 "src/parser.c"
+#line 1916 "src/parser.c"
     break;
 
   case 51: /* EXP: EXP '-' EXP  */
 #line 191 "src/parser.y"
                          { (yyval.tree) = creer_noeudOP('-', (yyvsp[-2].tree), (yyvsp[0].tree)); }
-#line 1910 "src/parser.c"
+#line 1922 "src/parser.c"
     break;
 
   case 52: /* EXP: EXP '*' EXP  */
 #line 192 "src/parser.y"
                          { (yyval.tree) = creer_noeudOP('*', (yyvsp[-2].tree), (yyvsp[0].tree)); }
-#line 1916 "src/parser.c"
+#line 1928 "src/parser.c"
     break;
 
   case 53: /* EXP: EXP '/' EXP  */
 #line 193 "src/parser.y"
                          { (yyval.tree) = creer_noeudOP('/', (yyvsp[-2].tree), (yyvsp[0].tree)); }
-#line 1922 "src/parser.c"
+#line 1934 "src/parser.c"
     break;
 
   case 54: /* EXP: EXP '%' EXP  */
 #line 194 "src/parser.y"
                          { (yyval.tree) = creer_noeudOP('%', (yyvsp[-2].tree), (yyvsp[0].tree)); }
-#line 1928 "src/parser.c"
+#line 1940 "src/parser.c"
     break;
 
   case 55: /* EXP: EXP '<' EXP  */
 #line 200 "src/parser.y"
               {(yyval.tree) = creer_noeudOP('<',(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1934 "src/parser.c"
+#line 1946 "src/parser.c"
     break;
 
   case 56: /* EXP: EXP '>' EXP  */
 #line 202 "src/parser.y"
               {(yyval.tree) = creer_noeudOP('>',(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1940 "src/parser.c"
+#line 1952 "src/parser.c"
     break;
 
   case 57: /* EXP: EXP DIFF EXP  */
 #line 204 "src/parser.y"
                {(yyval.tree) = creer_noeudOP(OP_DIFF,(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1946 "src/parser.c"
+#line 1958 "src/parser.c"
     break;
 
   case 58: /* EXP: EXP INFEGAL EXP  */
 #line 206 "src/parser.y"
                   {(yyval.tree) = creer_noeudOP(OP_INF_EG,(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1952 "src/parser.c"
+#line 1964 "src/parser.c"
     break;
 
   case 59: /* EXP: EXP SUPEGAL EXP  */
 #line 208 "src/parser.y"
                   {(yyval.tree) = creer_noeudOP(OP_SUP_EG,(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1958 "src/parser.c"
+#line 1970 "src/parser.c"
     break;
 
   case 60: /* EXP: EXP EGAL EXP  */
 #line 210 "src/parser.y"
                {(yyval.tree) = creer_noeudOP('=', (yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1964 "src/parser.c"
+#line 1976 "src/parser.c"
     break;
 
   case 61: /* EXP: EXP OU EXP  */
 #line 212 "src/parser.y"
              {(yyval.tree) = creer_noeudOP('|',(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1970 "src/parser.c"
+#line 1982 "src/parser.c"
     break;
 
   case 62: /* EXP: EXP ET EXP  */
 #line 214 "src/parser.y"
              {(yyval.tree) = creer_noeudOP('&',(yyvsp[-2].tree) ,(yyvsp[0].tree));}
-#line 1976 "src/parser.c"
+#line 1988 "src/parser.c"
     break;
 
   case 63: /* EXP: NON EXP  */
 #line 216 "src/parser.y"
               {(yyval.tree) = creer_noeudOP('!',(yyvsp[0].tree) ,NULL);}
-#line 1982 "src/parser.c"
+#line 1994 "src/parser.c"
     break;
 
 
-#line 1986 "src/parser.c"
+#line 1998 "src/parser.c"
 
       default: break;
     }

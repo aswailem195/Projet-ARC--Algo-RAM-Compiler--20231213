@@ -242,7 +242,7 @@ asa * creer_noeudMAIN( asa* p1 ,asa* p2 ,asa* p3 ){
 
   p->type = typeMAIN;
   p->main.DEC= p1;
-  p->main.DEC_FN =p2 ;
+  p->main.L_DEC_FN =p2 ;
   p->main.PROG= p3 ;  
   
   return p;
@@ -287,6 +287,20 @@ asa * creer_noeudAPPFONC (char* id ,asa* p2){
   
   p->appfonc.ID= creer_feuilleID(id) ; 
   p->appfonc.PARAM= p2 ; 
+  
+  return p;
+
+}
+asa * creer_noeudLIS_DEC_FON(asa* p1 ,asa* p2){
+  asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeLIS_DEC_FON;
+  
+  p->lis_dec_fon.dec_fon =p1 ;
+  p->lis_dec_fon.next= p2 ; 
   
   return p;
 
@@ -467,6 +481,11 @@ void print_asa_dot_node(FILE *output, asa *p) {
    case typeAPPFONC:
     fprintf(output, "APPFONC\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
+
+
+case typeLIS_DEC_FON :
+    fprintf(output, "LIS_DEC_FON\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
   //__________________________________________________________________________________ 
   default:
     fprintf(output, "UNKNOWN");
@@ -608,8 +627,8 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     print_asa_dot_edge(output, p, p->main.DEC);
     print_asa_dot_recursive(output, p->main.DEC);
 
-    print_asa_dot_edge(output, p, p->main.DEC_FN);
-    print_asa_dot_recursive(output, p->main.DEC_FN);
+    print_asa_dot_edge(output, p, p->main.L_DEC_FN);
+    print_asa_dot_recursive(output, p->main.L_DEC_FN);
 
     print_asa_dot_edge(output, p, p->main.PROG);
     
@@ -647,6 +666,14 @@ case typeAPPFONC :
     print_asa_dot_edge(output, p, p->appfonc.PARAM);
     
     print_asa_dot_recursive(output, p->appfonc.PARAM);
+    break;
+  case typeLIS_DEC_FON :
+    print_asa_dot_edge(output, p, p->lis_dec_fon.dec_fon);
+    print_asa_dot_recursive(output, p->lis_dec_fon.dec_fon);
+
+    print_asa_dot_edge(output, p, p->lis_dec_fon.next);
+    
+    print_asa_dot_recursive(output, p->lis_dec_fon.next);
     break;
 
   

@@ -76,6 +76,19 @@ void semantic_STRUCT_SI(asa *p) {
       (p->struct_si.inst_si_non ? p->struct_si.inst_si_non->codelen : 0) + 2;
 }
 
+void semantic_LIS_DEC_FON(asa *p){ 
+  if (!p) {
+    return;
+  }
+  semantic(p->lis_dec_fon.dec_fon) ;
+  
+  strcpy(CTXT, "GLOBAL") ;
+  semantic(p->lis_dec_fon.next) ;
+  p->codelen += (p->lis_dec_fon.dec_fon ? p->lis_dec_fon.dec_fon->codelen : 0 ) +
+(p->lis_dec_fon.next ? p->lis_dec_fon.next->codelen : 0 ) ;
+
+}
+
 void semantic_DEC_FON(asa *p) {
   if (!p) {
     return;
@@ -84,7 +97,7 @@ void semantic_DEC_FON(asa *p) {
   symbole* y = ts_ajouter_identificateur(TABLE_SYMBOLES, CTXT, id, 'f',
                             1);
   y->adr = VGLOBAL++ ;
-  VLOCAL =0 ;
+  
   strcpy(CTXT, p->dec_fon.ID->id.nom);
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
   p->dec_fon.ID->id.ctxt = "GLOBAL" ;
@@ -228,14 +241,17 @@ void semantic_MAIN(asa *p) {
   }
 
   semantic(p->main.DEC);
-  semantic(p->main.DEC_FN);
-  VLOCAL =0 ;
+ 
+ 
+  semantic(p->main.L_DEC_FN);
+   semantic(p->main.PROG);
+  
 
-  semantic(p->main.PROG);
+  
   p->codelen = (p->main.DEC ? p->main.DEC->codelen : 0) +
                (p->main.PROG ? p->main.PROG->codelen : 0) +
-               (p->main.DEC_FN ? p->main.DEC_FN->codelen : 0) +
-               5; // 1 STOP et 3 pour init
+               (p->main.L_DEC_FN ? p->main.L_DEC_FN->codelen : 0) +
+               5; // 1 STOP et 4 pour init
 }
 
 void semantic_AFF(asa *p) {
@@ -496,6 +512,10 @@ void semantic(asa *p) {
   case typeAPPFONC:
     semantic_APPFONC(p);
     break;
+  case typeLIS_DEC_FON:
+    semantic_LIS_DEC_FON(p);
+    break;
+
   default:
     break;
   }
