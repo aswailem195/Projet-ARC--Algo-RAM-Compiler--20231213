@@ -947,77 +947,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 73 "src/lexer.lex"
+#line 74 "src/lexer.lex"
 {return ECRIRE ;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 74 "src/lexer.lex"
+#line 75 "src/lexer.lex"
 {return LIRE ;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 75 "src/lexer.lex"
+#line 76 "src/lexer.lex"
 {return RENVOYER ;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 77 "src/lexer.lex"
+#line 78 "src/lexer.lex"
 {return FSI;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 78 "src/lexer.lex"
+#line 79 "src/lexer.lex"
 {return SINON ; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 79 "src/lexer.lex"
+#line 80 "src/lexer.lex"
 {return ALORS;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 80 "src/lexer.lex"
+#line 81 "src/lexer.lex"
 {return SI;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 81 "src/lexer.lex"
+#line 82 "src/lexer.lex"
 {return FTQ; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 82 "src/lexer.lex"
+#line 83 "src/lexer.lex"
 {return FAIRE;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 83 "src/lexer.lex"
+#line 84 "src/lexer.lex"
 {return TQ ;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 84 "src/lexer.lex"
+#line 85 "src/lexer.lex"
 {return ALGO ;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 86 "src/lexer.lex"
+#line 87 "src/lexer.lex"
 {return FAUX  ;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 87 "src/lexer.lex"
+#line 88 "src/lexer.lex"
 {return VRAI ;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 88 "src/lexer.lex"
+#line 89 "src/lexer.lex"
 {return NON ;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 91 "src/lexer.lex"
+#line 92 "src/lexer.lex"
 {           
 	    sprintf(errmsg,charerr, yytext[0]);
             yyerror(errmsg);
@@ -1026,7 +1026,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 97 "src/lexer.lex"
+#line 98 "src/lexer.lex"
 ECHO;
 	YY_BREAK
 #line 1032 "src/lexer.c"
@@ -2005,7 +2005,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 97 "src/lexer.lex"
+#line 98 "src/lexer.lex"
 
  
 

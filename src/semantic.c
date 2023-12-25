@@ -220,7 +220,7 @@ void semantic_DECLA_VAR(asa *p) {
     }
 
     p->codelen = (p->decla_var.ID ? p->decla_var.ID->codelen : 0) +
-                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen : 0) + 1;
+                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen +1 : 0) + 1;
 }
 void semantic_MAIN(asa *p) {
   if (!p) {
@@ -235,7 +235,7 @@ void semantic_MAIN(asa *p) {
   p->codelen = (p->main.DEC ? p->main.DEC->codelen : 0) +
                (p->main.PROG ? p->main.PROG->codelen : 0) +
                (p->main.DEC_FN ? p->main.DEC_FN->codelen : 0) +
-               4; // 1 STOP et 3 pour init
+               5; // 1 STOP et 3 pour init
 }
 
 void semantic_AFF(asa *p) {
@@ -266,7 +266,7 @@ void semantic_AFF(asa *p) {
   semantic(p->affect.id);
   semantic(p->affect.droit);
   p->codelen = (p->affect.id ? p->affect.id->codelen : 0) +
-               (p->affect.droit ? p->affect.droit->codelen : 0) + 4;
+               (p->affect.droit ? p->affect.droit->codelen : 0) + 5;
 }
 
 void semantic_INST(asa *p) {

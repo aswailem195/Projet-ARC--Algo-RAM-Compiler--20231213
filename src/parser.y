@@ -61,13 +61,17 @@
 %%
 
 
+//_____________________ main  PROGRAMME_ALGO ___________________________________________
+
 PROGRAMME_ALGO : DECS
                  LIS_DEC_FON
                  PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 ); ARBRE_ABSTRAIT=$$; }
 ;
+//_______________________ins alloer_______________________________________
 
 
 
+//_____________________ fonction ____________________________________________
 LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON
 |DEC_FON SEP 
 |%empty   {$$ =NULL ;}
@@ -84,7 +88,7 @@ PARAM : LIST_DECLA     {$$ = creer_noeudPARAM( $1 );}
 |%empty                 {$$ = creer_noeudPARAM( NULL );}
 ;
 
-//_____________________
+//_____________________ PROG____________________________________________
 PROG :
 PROGRAMME '(' ')'  SEP
 DECS
@@ -140,7 +144,8 @@ LIST_DECLA : DECLA_VAR     {$$ = creer_noeudLIST_DECLA($1,NULL);}
  
 ;
 
-DECLA_VAR : ID   {$$ = creer_noeudDECLA_VAR( $1  ,NULL );}     
+DECLA_VAR : ID   {$$ = creer_noeudDECLA_VAR( $1  ,NULL );}    
+| ID AFF EXP    {$$ = creer_noeudDECLA_VAR( $1  ,$3 );} 
 ;
 DECLA_TAB : ID '[' NB ']'  {$$ = creer_noeudDECLA_TAB( $1  ,$3 );}    
 ;
@@ -249,6 +254,7 @@ int main( int argc, char * argv[] ) {
   int registre = 2;
   fprintf(exefile, "LOAD #%-7d ;\n", init);
   fprintf(exefile, "STORE %-6d ; deput pile\n", registre);
+  fprintf(exefile, "LOAD #%-7d ;\n", init-1);
   fprintf(exefile, "STORE 3 ; sommet pile \n");
 
 

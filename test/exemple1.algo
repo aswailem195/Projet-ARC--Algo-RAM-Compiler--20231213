@@ -1,15 +1,14 @@
-ALGO selection( )
-DEBUT
-
-
-     RENVOYER 20
-FIN
-
 PROGRAMME()
 //testcomentair 
-VAR momo
+VAR momo ,toto <- 3  
 DEBUT
-     momo <- selection()
-     ECRIRE(momo)
+      
+      momo <- 10
+      SI momo = 10 ALORS
+	      ECRIRE(toto)
+      SINON
+       ECRIRE(momo)
+
+	FSI
 
 FIN

@@ -1,29 +1,45 @@
 LOAD #32      ;
 STORE 2      ; deput pile
+LOAD #31      ;
 STORE 3 ; sommet pile 
-LOAD #8         ; DECLA_FON debut inst de fonction  
-STORE 10        ; on le stock dans le sdr de fonc  
-LOAD #10        ;  
-STORE 5         ;  
-JUMP @5         ; jumb pour ne touch le ins de fonction qund dec
-LOAD #20      ; codeNB
-JUMP @5         ; FIN DE FON 
-INC 3         ; DECLA_VA
-LOAD #16        ; APPLFON stock la valeur de instrction pour revien
-STORE 5         ; 
-LOAD 10       ;codeID selection
-JUMP @0       ; FIN DE FON 
-INC 3         ; AFF
-STORE @3      ;
-LOAD #0        ;codeID momo
-ADD 2 ;
-STORE 1 ;  
-LOAD @1 ;  
-LOAD @3       ;
-STORE @1  ; 
-LOAD #0        ;codeID momo
-ADD 2 ;
-STORE 1 ;  
-LOAD @1 ;  
-WRITE ; 
+INC 3         ; CODELEN : 4 DECLA_VA
+INC 3         ; CODELEN : 5 DECLA_VA
+LOAD #3       ;CODELEN : 6 codeNB
+STORE @3         ;CODELEN : 7  DECLA_VA avec valuer
+LOAD #10      ;CODELEN : 8 codeNB
+INC 3         ; CODELEN : 9 AFF
+STORE @3      ;CODELEN : 10 
+LOAD #0        ; CODELEN : 11  codeID locale momo
+ADD 2 ; CODELEN : 12
+STORE 1 ; CODELEN : 13  
+LOAD @1 ; CODELEN : 14 
+LOAD @3       ;CODELEN : 15
+DEC 3         ;CODELEN : 16  AFF
+STORE @1  ;CODELEN : 17 
+LOAD #10      ;CODELEN : 18 codeNB
+INC 3         ; CODELEN : 19 codeOP > 
+STORE @3      ;CODELEN : 20 
+LOAD #0        ; CODELEN : 21  codeID locale momo
+ADD 2 ; CODELEN : 22
+STORE 1 ; CODELEN : 23  
+LOAD @1 ; CODELEN : 24 
+SUB @3        ;CODELEN : 25 
+JUMZ 29 ;CODELEN : 26 
+LOAD #0; CODELEN : 27 
+JUMP 30     ;CODELEN : 28 
+LOAD #1; CODELEN : 29 
+STORE @3      ;CODELEN : 30 
+DEC 3         ; CODELEN : 31 
+JUMZ 39 ; CODELEN : 32 STRUCT_SI 
+LOAD #1        ; CODELEN : 33  codeID locale toto
+ADD 2 ; CODELEN : 34
+STORE 1 ; CODELEN : 35  
+LOAD @1 ; CODELEN : 36 
+WRITE ; CODELEN : 37 
+JUMP 44 ; CODELEN : 38 STRUCT_SI NON 
+LOAD #0        ; CODELEN : 39  codeID locale momo
+ADD 2 ; CODELEN : 40
+STORE 1 ; CODELEN : 41  
+LOAD @1 ; CODELEN : 42 
+WRITE ; CODELEN : 43 
 STOP ; 

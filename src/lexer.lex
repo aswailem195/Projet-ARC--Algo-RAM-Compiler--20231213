@@ -70,6 +70,7 @@ COMENTAIR \/\/.*\n
 
 
 
+
 "ECRIRE"  {return ECRIRE ;}
 "LIRE"   {return LIRE ;}
 "RENVOYER" {return RENVOYER ;}
