@@ -39,7 +39,7 @@ void semantic_RENVOYER(asa * p) ;
 
 void semantic_PON(asa *p) ;
 void  semantic_INT(asa *p) ;
-void semantic_LIST_PARAM(asa *p,char *nom_F) ;
+void semantic_L_PARM_APPL(asa *p,char *nom_F) ;
 
 
 

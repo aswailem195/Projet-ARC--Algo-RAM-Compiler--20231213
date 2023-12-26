@@ -316,7 +316,7 @@ int main( int argc, char * argv[] ) {
   
   //print_asa(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
-  codegen(ARBRE_ABSTRAIT);
+  //codegen(ARBRE_ABSTRAIT);
   
 
 

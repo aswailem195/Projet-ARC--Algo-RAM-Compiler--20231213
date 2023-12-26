@@ -33,7 +33,7 @@ typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_V
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
 typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON ,
-typeINT ,typePON ,typeLIST_VAR ,typeALLOCATION ,typeINDICX_RECU ,  typeINDICX_SORT} typeNoeud;
+typeINT ,typePON ,typeL_PARM_APPL ,typeALLOCATION ,typeINDICX_RECU ,  typeINDICX_SORT} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -178,7 +178,7 @@ typedef struct {
 typedef struct {
   struct asa * var;
   struct asa * next  ;
-}noeudLIST_VAR;
+}noeudL_PARM_APPL; // LIST de parametre dans la apple de fonction 
 
 
 typedef struct {
@@ -228,7 +228,7 @@ typedef struct asa{
     noeudLIS_DEC_FON lis_dec_fon ;
     noeudINT ent ;
     noeudPON pon ;
-    noeudLIST_VAR list_var ;
+    noeudL_PARM_APPL list_var ;
     noeudALLOCATION allocation ;
    noeudINDICX_SORT indicx_sort ;
    noeudINDICX_RECU indicx_recu ;

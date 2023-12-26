@@ -19,8 +19,8 @@ void codegen(asa *p) {
    case typeINT:
     codeINT(p);
     break;
-   case typeLIST_VAR:
-    codeLIST_PARAM(p);
+   case typeL_PARM_APPL:
+    codeL_PARM_APPL(p);
     break;
 
   case typeAPPFONC:
@@ -113,7 +113,7 @@ void codeINT(asa *p) {
 
 }
 
-void codeLIST_PARAM(asa *p) { 
+void codeL_PARM_APPL(asa *p) { 
   codegen(p->list_var.var) ;
   codegen(p->list_var.next) ;
   
@@ -213,21 +213,15 @@ void codeSTRUCT_SI(asa *p) {
   codegen(p->struct_si.condition);
 
   CODELEN++;
-  fprintf(exefile, "JUMZ %d ; CODELEN : %d STRUCT_SI \n",
-          CODELEN + p->struct_si.inst_si->codelen + 2, CODELEN);
-
+  fprintf(exefile, "JUMZ %d ; CODELEN : %d STRUCT_SI \n",CODELEN + p->struct_si.inst_si->codelen + 2, CODELEN);
   codegen(p->struct_si.inst_si);
 
   // ou on est + l'inst lui meme + ins de si  non -1 pource que on comencer par0
 
-  int taill_inst =
-      (p->struct_si.inst_si_non ? p->struct_si.inst_si_non->codelen : 0);
-  // printf("code  %d   %d   %d\n",CODELEN ,taill_inst
-  // ,p->struct_si.inst_si_non->codelen) ;
+  int taill_inst =(p->struct_si.inst_si_non ? p->struct_si.inst_si_non->codelen : 0);
+  
   CODELEN += 1;
-  fprintf(exefile, "JUMP %d ; CODELEN : %d STRUCT_SI NON \n",
-          CODELEN + taill_inst + 1, CODELEN);
-
+  fprintf(exefile, "JUMP %d ; CODELEN : %d STRUCT_SI NON \n",CODELEN + taill_inst + 1, CODELEN);
   codegen(p->struct_si.inst_si_non);
 }
 /*_______________________________________lire_______________________________________________________*/
@@ -235,14 +229,12 @@ void codeSTRUCT_SI(asa *p) {
 void codeINST_LIRE(asa *p) {
 
   // ID <- LIRE()
-  codegen(
-      p->inst_lire.ID); // raminer la address du  ID  et stocke dans adress 1
+  codegen(p->inst_lire.ID); // raminer la address du  ID  et stocke dans adress 1
   fprintf(exefile, "READ ; CODELEN : %d  INST_LIRE\n", ++CODELEN);
   fprintf(exefile, "STORE @1 ; CODELEN : %d \n", ++CODELEN);
 }
 
-/*_______________________________________main
- * _______________________________________________________*/
+/*_______________________________________main_______________________________________________________*/
 
 void codeMAIN(asa *p) {
 

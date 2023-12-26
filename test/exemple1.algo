@@ -1,9 +1,8 @@
 PROGRAMME()
 //testcomentair 
-VAR momo ,toto <- 3  
-DEBUT
-      
-      ECRIRE(-8)
-      t[0] <- 3
-      toto <- t[0]
+VAR @t
+DEBUT 
+
+      ALLOUER(t , 5)
+
 FIN
