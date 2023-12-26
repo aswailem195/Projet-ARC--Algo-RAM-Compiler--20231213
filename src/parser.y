@@ -38,7 +38,7 @@
 %type <tree> INST_ECRIRE INST_LIRE INST_RENVOYER
 %type <tree> STRUCT_TQ STRUCT_SI 
 %type <tree> LIS_DEC_FON DEC_FON PROG PARAM APPFONC LIST_VAR  PON  INT PARAM_F
-%type <tree>  ALLOCATION 
+%type <tree>  ALLOCATION  INDICX_RECU INDICX_SORT
 
 %token <nb> NB VRAI FAUX  
 %token <id> ID
@@ -77,6 +77,17 @@ PROGRAMME_ALGO : DECS
 ALLOCATION :
 ALLOUER '(' ID ',' EXP ')'           {$$ = creer_noeudALLOCATION($3 ,$5 );}       
 ; 
+
+/*_______________________________indexation de tableau___________________________*/
+//comme T[i] <- 5  consider comme id 
+INDICX_RECU :ID'[' EXP']' AFF INDICX_RECU    {$$ = creer_noeudINDICX_RECU($1 ,$3,$6 );}
+|ID'[' EXP']' AFF EXP               {$$ = creer_noeudINDICX_RECU($1 ,$3,$6  );}
+;
+
+//comme  +T[i]+5  consider comme EXP 
+INDICX_SORT :ID'[' EXP']'        {$$ = creer_noeudINDICX_SORT($1 ,$3 );}
+;
+
 
 /*_____________________ fonction ____________________________________________*/
 LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON  {$$ = creer_noeudLIS_DEC_FON($1 ,$3 );}
@@ -199,11 +210,14 @@ INST : AFFECT  {$$= $1 ;}
 |STRUCT_SI {$$= $1 ;}
 |INST_RENVOYER  {$$= $1 ;}
 |ALLOCATION   {$$= $1 ;}
+|APPFONC       {$$ = $1;}
+|INDICX_RECU  {$$ = $1;}
 ;
 
 /*___________________________affictation _____________________*/
 AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
       | ID AFF AFFECT      { $$ = creer_noeudAffic($1, $3); }
+      
       ;
 /*___________________________APPFONC _____________________*/
 APPFONC : ID '(' PARAM ')' { $$ = creer_noeudAPPFONC ($1, $3); }
@@ -213,7 +227,7 @@ APPFONC : ID '(' PARAM ')' { $$ = creer_noeudAPPFONC ($1, $3); }
 
 /*___________________________EXP_____________________*/
 EXP : '(' EXP ')'            { $$ = $2; }
-|APPFONC       {$$ = $1;}
+|INDICX_SORT   {$$ = $1;}
 |NB                 { $$ = creer_feuilleNB(yyval.nb); }
 |VRAI                { $$ = creer_feuilleNB(1); }
 |FAUX                   { $$ = creer_feuilleNB(0); }

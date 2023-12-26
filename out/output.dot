@@ -1,56 +1,100 @@
 digraph ASA {
-node0x558bf71adb00 [label="MAIN
- tailcode:20 
+node0x563851e02e70 [label="MAIN
+ tailcode:29 
  nb_val_ :1 \n", shape=box];
-node0x558bf71adb00 -> node0x558bf71adab0;
-node0x558bf71adab0 [label="PROG
- tailcode:15 
+node0x563851e02e70 -> node0x563851e02e20;
+node0x563851e02e20 [label="PROG
+ tailcode:24 
  adr:0 \n", shape=box];
-node0x558bf71adab0 -> node0x558bf71ad920;
-node0x558bf71ad920 [label="DECS
+node0x563851e02e20 -> node0x563851e02920;
+node0x563851e02920 [label="DECS
  tailcode:10 
  adr:0 \n", shape=box];
-node0x558bf71ad920 -> node0x558bf71ad8d0;
-node0x558bf71ad8d0 [label="LIST_DECLA
+node0x563851e02920 -> node0x563851e028d0;
+node0x563851e028d0 [label="LIST_DECLA
  tailcode:10 
  adr:0 \n", shape=box];
-node0x558bf71ad8d0 -> node0x558bf71ad6f0;
-node0x558bf71ad6f0 [label="DECLA_VAR
+node0x563851e028d0 -> node0x563851e026f0;
+node0x563851e026f0 [label="DECLA_VAR
  tailcode:1 
  adr:0 \n", shape=box];
-node0x558bf71ad6f0 -> node0x558bf71ad740;
-node0x558bf71ad740 [label="ID\nmomo
+node0x563851e026f0 -> node0x563851e02740;
+node0x563851e02740 [label="ID\nmomo
  tailcode:0  
  adr:0 ctxt :locale
  type : (101) \n", shape=box];
-node0x558bf71ad8d0 -> node0x558bf71ad880;
-node0x558bf71ad880 [label="LIST_DECLA
+node0x563851e028d0 -> node0x563851e02880;
+node0x563851e02880 [label="LIST_DECLA
  tailcode:9 
  adr:0 \n", shape=box];
-node0x558bf71ad880 -> node0x558bf71ad7e0;
-node0x558bf71ad7e0 [label="DECLA_VAR
+node0x563851e02880 -> node0x563851e027e0;
+node0x563851e027e0 [label="DECLA_VAR
  tailcode:9 
  adr:0 \n", shape=box];
-node0x558bf71ad7e0 -> node0x558bf71ad830;
-node0x558bf71ad830 [label="ID\ntoto
+node0x563851e027e0 -> node0x563851e02830;
+node0x563851e02830 [label="ID\ntoto
  tailcode:0  
  adr:1 ctxt :locale
  type : (101) \n", shape=box];
-node0x558bf71ad7e0 -> node0x558bf71ad790;
-node0x558bf71ad790 [label="NB\n3 
+node0x563851e027e0 -> node0x563851e02790;
+node0x563851e02790 [label="NB\n3 
  tailcode:1 adr:0 \n", shape=box];
-node0x558bf71adab0 -> node0x558bf71ada60;
-node0x558bf71ada60 [label="LIST_INST
+node0x563851e02e20 -> node0x563851e02dd0;
+node0x563851e02dd0 [label="LIST_INST
+ tailcode:14 
+ adr:0 \n", shape=box];
+node0x563851e02dd0 -> node0x563851e02a10;
+node0x563851e02a10 [label="INST_ECRIRE
  tailcode:5 
  adr:0 \n", shape=box];
-node0x558bf71ada60 -> node0x558bf71ada10;
-node0x558bf71ada10 [label="INST_ECRIRE
- tailcode:5 
- adr:0 \n", shape=box];
-node0x558bf71ada10 -> node0x558bf71ad9c0;
-node0x558bf71ad9c0 [label="OP\nU 
+node0x563851e02a10 -> node0x563851e029c0;
+node0x563851e029c0 [label="OP\nU 
  tailcode:4 adr:0 \n", shape=box];
-node0x558bf71ad9c0 -> node0x558bf71ad970;
-node0x558bf71ad970 [label="NB\n8 
+node0x563851e029c0 -> node0x563851e02970;
+node0x563851e02970 [label="NB\n8 
  tailcode:1 adr:0 \n", shape=box];
+node0x563851e02dd0 -> node0x563851e02d80;
+node0x563851e02d80 [label="LIST_INST
+ tailcode:9 
+ adr:0 \n", shape=box];
+node0x563851e02d80 -> node0x563851e02b00;
+node0x563851e02b00 [label="INDICX_RECU
+ tailcode:0 
+ ID[nb]<-EXP \n", shape=box];
+node0x563851e02b00 -> node0x563851e02b50;
+node0x563851e02b50 [label="ID\nt
+ tailcode:0  
+ adr:0 ctxt :(null)
+ type : (0) \n", shape=box];
+node0x563851e02b00 -> node0x563851e02a60;
+node0x563851e02a60 [label="NB\n0 
+ tailcode:0 adr:0 \n", shape=box];
+node0x563851e02b00 -> node0x563851e02ab0;
+node0x563851e02ab0 [label="NB\n3 
+ tailcode:0 adr:0 \n", shape=box];
+node0x563851e02d80 -> node0x563851e02d30;
+node0x563851e02d30 [label="LIST_INST
+ tailcode:9 
+ adr:0 \n", shape=box];
+node0x563851e02d30 -> node0x563851e02c90;
+node0x563851e02c90 [label="AFF
+ tailcode:9 
+ adr:0 \n", shape=box];
+node0x563851e02c90 -> node0x563851e02ce0;
+node0x563851e02ce0 [label="ID\ntoto
+ tailcode:4  
+ adr:1 ctxt :locale
+ type : (0) \n", shape=box];
+node0x563851e02c90 -> node0x563851e02bf0;
+node0x563851e02bf0 [label="INDICX_SORT
+ tailcode:0 
+ adr:0 \n", shape=box];
+node0x563851e02bf0 -> node0x563851e02c40;
+node0x563851e02c40 [label="ID\nt
+ tailcode:0  
+ adr:0 ctxt :(null)
+ type : (0) \n", shape=box];
+node0x563851e02bf0 -> node0x563851e02ba0;
+node0x563851e02ba0 [label="NB\n0 
+ tailcode:0 adr:0 \n", shape=box];
 }

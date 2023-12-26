@@ -4,4 +4,6 @@ VAR momo ,toto <- 3
 DEBUT
       
       ECRIRE(-8)
+      t[0] <- 3
+      toto <- t[0]
 FIN

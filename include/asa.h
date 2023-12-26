@@ -33,7 +33,7 @@ typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_V
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
 typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON ,
-typeINT ,typePON ,typeLIST_VAR ,typeALLOCATION} typeNoeud;
+typeINT ,typePON ,typeLIST_VAR ,typeALLOCATION ,typeINDICX_RECU ,  typeINDICX_SORT} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -186,6 +186,18 @@ typedef struct {
   struct asa * taille ;
 }noeudALLOCATION ;
 
+typedef struct {
+  struct asa * id;
+  struct asa * index ;
+  struct asa * exp ;
+
+}noeudINDICX_RECU ;
+
+
+typedef struct {
+  struct asa * id;
+  struct asa * index ;
+}noeudINDICX_SORT ;
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -218,6 +230,9 @@ typedef struct asa{
     noeudPON pon ;
     noeudLIST_VAR list_var ;
     noeudALLOCATION allocation ;
+   noeudINDICX_SORT indicx_sort ;
+   noeudINDICX_RECU indicx_recu ;
+    
   };
 } asa;
 
@@ -252,6 +267,8 @@ asa * creer_noeudLIS_DEC_FON(asa* p1 ,asa* p2);
 asa* creer_noeudLIST_VAR(asa* p1 ,asa* p2) ;
 asa* creer_noeudINT(char* id) ;
 asa* creer_noeudPON(char* id) ;
+asa*  creer_noeudINDICX_SORT(char* id ,asa* p2 ); 
+asa* creer_noeudINDICX_RECU(char* id ,asa* p2,asa*  p3 ) ;
 
 
 asa* creer_noeudALLOCATION(char* id ,asa* p2); 

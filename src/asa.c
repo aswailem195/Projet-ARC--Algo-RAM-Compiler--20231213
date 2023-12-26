@@ -344,6 +344,35 @@ asa *creer_noeudALLOCATION(char *id, asa *p2) {
   return p;
 }
 
+asa*  creer_noeudINDICX_SORT(char* id ,asa* p2 ){
+    asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeINDICX_SORT;
+  p->indicx_sort.index= p2;
+  p->indicx_sort.id = creer_feuilleID(id);
+
+  return p;
+
+}
+asa* creer_noeudINDICX_RECU(char* id ,asa* p2,asa* p3 ) {
+    asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeINDICX_RECU;
+  p->indicx_recu.index = p2;
+  p->indicx_recu.exp =p3 ;
+
+  p->indicx_recu.id= creer_feuilleID(id);
+
+  return p;
+
+}
+
 //_________________________________free______________
 void free_asa(asa *p) {
   if (!p)
@@ -553,6 +582,15 @@ void print_asa_dot_node(FILE *output, asa *p) {
 
   case typeLIS_DEC_FON:
     fprintf(output, "LIS_DEC_FON\n tailcode:%d \n adr:%d \\n", p->codelen,
+            p->memadr);
+    break;
+
+  case typeINDICX_RECU:
+    fprintf(output, "INDICX_RECU\n tailcode:%d \n ID[nb]<-EXP \\n", p->codelen
+            );
+    break;
+  case typeINDICX_SORT:
+    fprintf(output, "INDICX_SORT\n tailcode:%d \n adr:%d \\n", p->codelen,
             p->memadr);
     break;
   //__________________________________________________________________________________
@@ -767,6 +805,24 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     print_asa_dot_edge(output, p, p->allocation.taille);
     print_asa_dot_recursive(output, p->allocation.taille);
+
+    break;
+  case typeINDICX_RECU:
+    print_asa_dot_edge(output, p, p->indicx_recu.id);
+    print_asa_dot_recursive(output, p->indicx_recu.id);
+
+    print_asa_dot_edge(output, p, p->indicx_recu.index);
+    print_asa_dot_recursive(output, p->indicx_recu.index);
+    print_asa_dot_edge(output, p, p->indicx_recu.exp);
+    print_asa_dot_recursive(output, p->indicx_recu.exp);
+
+    break;
+  case typeINDICX_SORT:
+    print_asa_dot_edge(output, p, p->indicx_sort.id);
+    print_asa_dot_recursive(output, p->indicx_sort.id);
+
+    print_asa_dot_edge(output, p, p->indicx_sort.index);
+    print_asa_dot_recursive(output, p->indicx_sort.index);
 
     break;
 
