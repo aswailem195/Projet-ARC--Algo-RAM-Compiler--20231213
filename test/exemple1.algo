@@ -1,20 +1,7 @@
-ALGO pairs(n)
-VAR i <- 20 
-DEBUT
-	TQ i > n FAIRE
-	   SI  i%2 = 0 ALORS 
-            ECRIRE(i)  
-	   FSI
-	   i <- i-1
-	FTQ
-FIN
 PROGRAMME()
 //testcomentair 
 VAR momo ,toto <- 3  
 DEBUT
-      pairs(toto)
-      ECRIRE(momo)
       
-
-
+      ECRIRE(-8)
 FIN

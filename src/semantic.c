@@ -127,7 +127,7 @@ int type = c->liste_symbole[0].type ;
     }
 
     NB_VAR++ ;
-  p->codelen = (p->ent.id ? p->ent.id->codelen : 0)+6;
+  p->codelen = (p->ent.id ? p->ent.id->codelen : 0)+7;
   
 
 
@@ -590,6 +590,16 @@ void semantic_OP(asa *p) {
                  (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) + 5;
 
     break;
+
+    case M_UN:
+
+    semantic(p->op.noeud[0]);
+    semantic(p->op.noeud[1]);
+    p->codelen = (p->op.noeud[0] ? p->op.noeud[0]->codelen : 0) +
+                 (p->op.noeud[1] ? p->op.noeud[1]->codelen : 0) +3;
+
+    break;
+
   }
 }
 

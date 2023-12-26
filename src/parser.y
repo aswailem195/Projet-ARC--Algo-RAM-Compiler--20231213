@@ -38,14 +38,17 @@
 %type <tree> INST_ECRIRE INST_LIRE INST_RENVOYER
 %type <tree> STRUCT_TQ STRUCT_SI 
 %type <tree> LIS_DEC_FON DEC_FON PROG PARAM APPFONC LIST_VAR  PON  INT PARAM_F
-
+%type <tree>  ALLOCATION 
 
 %token <nb> NB VRAI FAUX  
 %token <id> ID
 %token PROGRAMME DEBUT FIN VAR ECRIRE LIRE NON  
 %start PROGRAMME_ALGO
 %token TQ FAIRE FTQ SI ALORS SINON FSI RENVOYER
-%token  ALGO   
+%token  ALGO
+
+%token  ALLOUER
+
 
 %right AFF
 %left OU
@@ -61,17 +64,21 @@
 %%
 
 
-//_____________________ main  PROGRAMME_ALGO ___________________________________________
+
+
+/*_____________________ main  PROGRAMME_ALGO ___________________________________________*/
 
 PROGRAMME_ALGO : DECS
                  LIS_DEC_FON
                  PROG   {$$ = creer_noeudMAIN( $1 ,$2 , $3 ); ARBRE_ABSTRAIT=$$; }
 ;
-//_______________________ins alloer_______________________________________
+/*____________________pointor__________________________________*/
 
+ALLOCATION :
+ALLOUER '(' ID ',' EXP ')'           {$$ = creer_noeudALLOCATION($3 ,$5 );}       
+; 
 
-
-//_____________________ fonction ____________________________________________
+/*_____________________ fonction ____________________________________________*/
 LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON  {$$ = creer_noeudLIS_DEC_FON($1 ,$3 );}
 |DEC_FON SEP                            {$$ = creer_noeudLIS_DEC_FON($1 ,NULL );}
 |%empty   {$$ =NULL ;}
@@ -112,7 +119,7 @@ PON : '@' ID              {$$ = creer_noeudPON( $2 );}
 
 
 
-//_____________________ PROG____________________________________________
+/*_____________________ PROG____________________________________________*/
 PROG :
 PROGRAMME '(' ')'  SEP
 DECS
@@ -128,10 +135,10 @@ SEP: '\n' | SEP '\n'
 INST_RENVOYER: RENVOYER EXP  {$$ = creer_noeudRENVOYER($2);}
 ;
 
-////___________________________TQ _____________________
+/*___________________________TQ _____________________*/
 STRUCT_TQ : TQ EXP FAIRE SEP LIST_INST  FTQ  {$$ = creer_noeudSTRUCT_TQ($2,$5);}
 ;
-////___________________________si _____________________
+/*___________________________si _____________________*/
 STRUCT_SI: 
   SI EXP ALORS SEP 
       LIST_INST
@@ -143,15 +150,15 @@ STRUCT_SI:
   FSI  {$$ = creer_noeudSTRUCT_SI($2, $5, NULL);}
 ;
 
-////___________________________LIRE _____________________
+/*___________________________LIRE _____________________*/
 INST_LIRE : ID AFF LIRE '(' ')' {$$ = creer_noeudINST_LIRE($1);}
 ;
-////___________________________ECRIRE _____________________
+/*___________________________ECRIRE _____________________*/
 
 INST_ECRIRE :ECRIRE '(' EXP ')' {$$ = creer_noeudINST_ECRIRE($3);}
 ;
 
-//___________________________declaration _____________________
+/*___________________________declaration _____________________*/
 
 DECS : VAR LIST_DECLA SEP    {$$ = creer_noeudDECS($2,NULL);}
     | VAR LIST_DECLA SEP DECS {$$ = creer_noeudDECS($2,$4);}
@@ -176,7 +183,7 @@ DECLA_TAB : ID '[' NB ']'  {$$ = creer_noeudDECLA_TAB( $1  ,$3 );}
 DECLA_POIN : '@' ID   {$$ = creer_noeudDECLA_POIN( $2 );}
 ;
 
-//___________________________inistraction _____________________
+/*___________________________inistraction _____________________*/
 
 LIST_INST : INST SEP {$$  = creer_noeudLIST_INST( $1,NULL );}
 |INST SEP LIST_INST   {$$  = creer_noeudLIST_INST( $1,$3 );}
@@ -191,26 +198,26 @@ INST : AFFECT  {$$= $1 ;}
 |STRUCT_TQ {$$= $1 ;}
 |STRUCT_SI {$$= $1 ;}
 |INST_RENVOYER  {$$= $1 ;}
+|ALLOCATION   {$$= $1 ;}
 ;
 
-//___________________________affictation _____________________
+/*___________________________affictation _____________________*/
 AFFECT: ID AFF EXP      { $$ = creer_noeudAffic($1, $3); }
       | ID AFF AFFECT      { $$ = creer_noeudAffic($1, $3); }
       ;
-//___________________________APPFONC _____________________
+/*___________________________APPFONC _____________________*/
 APPFONC : ID '(' PARAM ')' { $$ = creer_noeudAPPFONC ($1, $3); }
 ;
 
 
 
-//___________________________EXP_____________________
+/*___________________________EXP_____________________*/
 EXP : '(' EXP ')'            { $$ = $2; }
 |APPFONC       {$$ = $1;}
 |NB                 { $$ = creer_feuilleNB(yyval.nb); }
 |VRAI                { $$ = creer_feuilleNB(1); }
 |FAUX                   { $$ = creer_feuilleNB(0); }
 |ID                     { $$ = creer_feuilleID($1); }
-
 | EXP '+' EXP            { $$ = creer_noeudOP('+', $1, $3); }
 | EXP '-' EXP            { $$ = creer_noeudOP('-', $1, $3); }
 | EXP '*' EXP            { $$ = creer_noeudOP('*', $1, $3); }
@@ -238,6 +245,8 @@ EXP : '(' EXP ')'            { $$ = $2; }
 | EXP ET EXP {$$ = creer_noeudOP('&',$1 ,$3);}
 
 | NON EXP     {$$ = creer_noeudOP('!',$2 ,NULL);}
+
+| '-' EXP     {$$ = creer_noeudOP(M_UN,$2 ,NULL);}
 
 
 

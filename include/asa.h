@@ -7,6 +7,10 @@
 #define OP_SUP_EG 'N'
 #define  OP_DIFF  'D'
 
+#define   M_UN    'U'
+
+
+
 
 #include <string.h>
 #include <stdio.h>
@@ -29,7 +33,7 @@ typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_V
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
 typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON ,
-typeINT ,typePON ,typeLIST_VAR} typeNoeud;
+typeINT ,typePON ,typeLIST_VAR ,typeALLOCATION} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -48,7 +52,7 @@ typedef struct {
   int  type ;  // pour int , point t , p 
   //utile pour l'app de fonc par variable 
 
-  
+
   int adr ; //le meme
   int adr_app;//la adress de applant 
 } feuilleId;
@@ -176,6 +180,12 @@ typedef struct {
   struct asa * next  ;
 }noeudLIST_VAR;
 
+
+typedef struct {
+  struct asa * id;
+  struct asa * taille ;
+}noeudALLOCATION ;
+
 //_____________________asa_____________________
 typedef struct asa{
   typeNoeud type;
@@ -207,6 +217,7 @@ typedef struct asa{
     noeudINT ent ;
     noeudPON pon ;
     noeudLIST_VAR list_var ;
+    noeudALLOCATION allocation ;
   };
 } asa;
 
@@ -242,6 +253,8 @@ asa* creer_noeudLIST_VAR(asa* p1 ,asa* p2) ;
 asa* creer_noeudINT(char* id) ;
 asa* creer_noeudPON(char* id) ;
 
+
+asa* creer_noeudALLOCATION(char* id ,asa* p2); 
 
 
 

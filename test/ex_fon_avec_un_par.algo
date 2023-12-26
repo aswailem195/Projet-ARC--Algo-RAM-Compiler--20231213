@@ -11,7 +11,7 @@ FIN
 PROGRAMME()
 //testcomentair 
 VAR momo ,toto <- 3  
-DEBUT
+DEBUT 
       pairs(toto)
       ECRIRE(momo)
       

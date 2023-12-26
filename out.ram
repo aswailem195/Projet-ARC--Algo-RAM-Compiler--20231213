@@ -1,110 +1,20 @@
 LOAD #32      ;
 STORE 2      ; deput pile
-LOAD #35      ;
+LOAD #33      ;
 STORE 3       ; sommet pile 
-LOAD #20      ;CODELEN : 4 codeNB
+LOAD #3       ;CODELEN : 4 codeNB
 INC 3         ; CODELEN : 5 AFF
 STORE @3      ;CODELEN : 6 
-LOAD #1        ; CODELEN : 7  codeID locale i
+LOAD #1        ; CODELEN : 7  codeID locale toto
 ADD 2 ; CODELEN : 8
 STORE 1 ; CODELEN : 9  
 LOAD @1 ; CODELEN : 10 
 LOAD @3       ;CODELEN : 11
 DEC 3         ;CODELEN : 12  AFF
 STORE @1  ;CODELEN : 13 
-LOAD #19        ;CODELEN : 14  DECLA_FON debut inst de fonction  
-STORE 10        ; CODELEN : 15 on le stock dans le sdr de fonc  
-LOAD #83        ;CODELEN : 16  
-STORE 5         ;CODELEN : 17  
-JUMP @5         ;CODELEN : 18  jumb pour ne touch le ins de fonction qund dec
-LOAD #0        ; CODELEN : 19  codeID locale n
-ADD 2 ; CODELEN : 20
-STORE 1 ; CODELEN : 21  
-LOAD @1 ; CODELEN : 22 
-INC 3         ;CODELEN : 23  codeOP > 
-STORE @3      ;CODELEN : 24 
-LOAD #1        ; CODELEN : 25  codeID locale i
-ADD 2 ; CODELEN : 26
-STORE 1 ; CODELEN : 27  
-LOAD @1 ; CODELEN : 28 
-SUB @3        ;CODELEN : 29 
-JUMG 33 ;CODELEN : 30 
-LOAD #0;CODELEN : 31 
-JUMP 34     ;CODELEN : 32 
-LOAD #1;CODELEN : 33 
-STORE @3      ;CODELEN : 34 
-DEC 3         ;CODELEN : 35
-JUMZ 82 ; CODELEN : 36  STRUCT_TQ 
-LOAD #0       ;CODELEN : 37 codeNB
-INC 3         ; CODELEN : 38 codeOP = 
-STORE @3      ;CODELEN : 39 
-LOAD #2       ;CODELEN : 40 codeNB
-INC 3         ; CODELEN : 41 codeOP
-STORE @3      ;CODELEN : 42
-LOAD #1        ; CODELEN : 43  codeID locale i
-ADD 2 ; CODELEN : 44
-STORE 1 ; CODELEN : 45  
-LOAD @1 ; CODELEN : 46 
-MOD @3        ; CODELEN : 47 
-DEC 3         ; CODELEN : 48 
-SUB @3        ;CODELEN : 49 
-JUMZ 53 ;CODELEN : 50 
-LOAD #0; CODELEN : 51 
-JUMP 54     ;CODELEN : 52 
-LOAD #1; CODELEN : 53 
-STORE @3      ;CODELEN : 54 
-DEC 3         ; CODELEN : 55 
-JUMZ 63 ; CODELEN : 56 STRUCT_SI 
-LOAD #1        ; CODELEN : 57  codeID locale i
-ADD 2 ; CODELEN : 58
-STORE 1 ; CODELEN : 59  
-LOAD @1 ; CODELEN : 60 
-WRITE ; CODELEN : 61 
-JUMP 63 ; CODELEN : 62 STRUCT_SI NON 
-LOAD #1       ;CODELEN : 63 codeNB
-INC 3         ; CODELEN : 64 codeOP
-STORE @3      ;CODELEN : 65
-LOAD #1        ; CODELEN : 66  codeID locale i
-ADD 2 ; CODELEN : 67
-STORE 1 ; CODELEN : 68  
-LOAD @1 ; CODELEN : 69 
-SUB @3        ; CODELEN : 70 
-DEC 3         ; CODELEN : 71 
-INC 3         ; CODELEN : 72 AFF
-STORE @3      ;CODELEN : 73 
-LOAD #1        ; CODELEN : 74  codeID locale i
-ADD 2 ; CODELEN : 75
-STORE 1 ; CODELEN : 76  
-LOAD @1 ; CODELEN : 77 
-LOAD @3       ;CODELEN : 78
-DEC 3         ;CODELEN : 79  AFF
-STORE @1  ;CODELEN : 80 
-JUMP 19 ;CODELEN : 81  STRUCT TQ fin 
-JUMP @5         ;CODELEN : 82 FIN DE FON 
-LOAD #3       ;CODELEN : 83 codeNB
-INC 3         ; CODELEN : 84 AFF
-STORE @3      ;CODELEN : 85 
-LOAD #3        ; CODELEN : 86  codeID locale toto
-ADD 2 ; CODELEN : 87
-STORE 1 ; CODELEN : 88  
-LOAD @1 ; CODELEN : 89 
-LOAD @3       ;CODELEN : 90
-DEC 3         ;CODELEN : 91  AFF
-STORE @1  ;CODELEN : 92 
-LOAD #0         ;CODELEN : 93  apple de fonction par valeur  
-ADD 2 ;CODELEN : 94   
-STORE 1 ;CODELEN : 95  
-LOAD #3         ;CODELEN : 96    
-ADD 2 ;CODELEN : 97   
-LOAD @0 3         ;CODELEN : 98    
-STORE @1 ;CODELEN : 99  
-LOAD #104       ;CODELEN : 100 APPLFON stock la valeur de instrction pour revien
-STORE 5         ;CODELEN : 101 
-LOAD 10       ; CODELEN : 102 codeID global  pairs
-JUMP @0       ;CODELEN : 103 FIN DE FON 
-LOAD #2        ; CODELEN : 104  codeID locale momo
-ADD 2 ; CODELEN : 105
-STORE 1 ; CODELEN : 106  
-LOAD @1 ; CODELEN : 107 
-WRITE ; CODELEN : 108 
+LOAD #8       ;CODELEN : 14 codeNB
+STORE 1 ;CODELEN : 15  
+LOAD #0; CODELEN : 16 
+SUB 1         ; CODELEN : 17
+WRITE ; CODELEN : 18 
 STOP ; 

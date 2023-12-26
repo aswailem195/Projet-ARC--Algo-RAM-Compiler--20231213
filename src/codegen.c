@@ -542,7 +542,16 @@ void codeOP(asa *p) {
 
     break;
 
+    case M_UN:
+    
+    codegen(p->op.noeud[0]);
+    fprintf(exefile, "STORE %d ;CODELEN : %d  \n",RAM_OS_TMP_REG, ++CODELEN);
+    fprintf(exefile, "LOAD #0; CODELEN : %d \n", ++CODELEN);
+    fprintf(exefile, "SUB %-8d  ; CODELEN : %d\n", RAM_OS_TMP_REG, ++CODELEN);
+    break;
+
   default:
+
     break;
   }
 

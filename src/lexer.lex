@@ -88,6 +88,8 @@ COMENTAIR \/\/.*\n
 "VRAI"   {return VRAI ;}
 "NON"    {return NON ;}
 
+"ALLOUER" {return ALLOUER ;}
+
 
 .         {           
 	    sprintf(errmsg,charerr, yytext[0]);
