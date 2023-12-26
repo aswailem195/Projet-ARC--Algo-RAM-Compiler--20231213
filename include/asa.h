@@ -28,7 +28,8 @@
 typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_VAR,typePROG ,
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
-typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON } typeNoeud;
+typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON ,
+typeINT ,typePON ,typeLIST_VAR} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -44,7 +45,12 @@ typedef struct {
 typedef struct {
   char nom[32];
   char *ctxt ; // pour indiqer la port de variable 
-  char * type ;  // pour int , point t , p 
+  int  type ;  // pour int , point t , p 
+  //utile pour l'app de fonc par variable 
+
+  
+  int adr ; //le meme
+  int adr_app;//la adress de applant 
 } feuilleId;
 
 
@@ -138,7 +144,7 @@ typedef struct {
 }noeudDEC_FON;
 
 typedef struct {
-  struct asa * LIST_DECLA;
+  struct asa * LIST_VAR;
 }noeudPARAM;
 
 
@@ -148,13 +154,27 @@ typedef struct {
 
 typedef struct {
   struct asa *ID;
-  struct asa * PARAM ;
+  struct asa * LIST_PARAM ;
 }noeudAPPFONC ;
 
 typedef struct {
   struct asa *dec_fon;
   struct asa * next  ;
 }noeudLIS_DEC_FON ;
+
+typedef struct {
+  struct asa *id ;
+}noeudINT ;
+
+
+typedef struct {
+  struct asa *id ;
+}noeudPON ;
+
+typedef struct {
+  struct asa * var;
+  struct asa * next  ;
+}noeudLIST_VAR;
 
 //_____________________asa_____________________
 typedef struct asa{
@@ -184,6 +204,9 @@ typedef struct asa{
     noeudRENVOYER renvoyer ;
     noeudAPPFONC appfonc ;
     noeudLIS_DEC_FON lis_dec_fon ;
+    noeudINT ent ;
+    noeudPON pon ;
+    noeudLIST_VAR list_var ;
   };
 } asa;
 
@@ -215,6 +238,10 @@ asa * creer_noeudPARAM(asa* p1 );
 asa * creer_noeudRENVOYER(asa* p1) ;
 asa * creer_noeudAPPFONC (char* id ,asa* p2);
 asa * creer_noeudLIS_DEC_FON(asa* p1 ,asa* p2);
+asa* creer_noeudLIST_VAR(asa* p1 ,asa* p2) ;
+asa* creer_noeudINT(char* id) ;
+asa* creer_noeudPON(char* id) ;
+
 
 
 

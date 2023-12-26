@@ -37,15 +37,15 @@
 %type <tree> PROGRAMME_ALGO PROGRAMME EXP AFFECT INST LIST_INST DECLA_VAR LIST_DECLA DECS DECLA_TAB DECLA_POIN
 %type <tree> INST_ECRIRE INST_LIRE INST_RENVOYER
 %type <tree> STRUCT_TQ STRUCT_SI 
-%type <tree> LIS_DEC_FON DEC_FON PROG PARAM APPFONC 
+%type <tree> LIS_DEC_FON DEC_FON PROG PARAM APPFONC LIST_VAR  PON  INT PARAM_F
 
 
-%token <nb> NB VRAI FAUX 
+%token <nb> NB VRAI FAUX  
 %token <id> ID
 %token PROGRAMME DEBUT FIN VAR ECRIRE LIRE NON  
 %start PROGRAMME_ALGO
 %token TQ FAIRE FTQ SI ALORS SINON FSI RENVOYER
-%token  ALGO
+%token  ALGO   
 
 %right AFF
 %left OU
@@ -77,16 +77,40 @@ LIS_DEC_FON : DEC_FON SEP  LIS_DEC_FON  {$$ = creer_noeudLIS_DEC_FON($1 ,$3 );}
 |%empty   {$$ =NULL ;}
 ;
 
-DEC_FON:ALGO ID '(' PARAM ')' SEP 
+DEC_FON:ALGO ID '(' PARAM_F ')' SEP 
       DECS 
       DEBUT SEP
       LIST_INST 
       FIN     {$$ = creer_noeudDEC_FON($2, $4, $7 , $10 );}
 ;
 
-PARAM : LIST_DECLA     {$$ = creer_noeudPARAM( $1 );}
-|%empty                 {$$ = creer_noeudPARAM( NULL );}
+
+
+/* pour le declar   */
+PARAM_F :LIST_DECLA       { $$ = $1;}
+|%empty                   {$$= NULL ;}
 ;
+
+
+/* pour lappele   */
+PARAM : LIST_VAR     {$$ = $1;}
+|%empty                 {$$ = NULL ;}
+;
+LIST_VAR :INT ','LIST_VAR   {$$ = creer_noeudLIST_VAR( $1 ,$3 );}
+|PON ','LIST_VAR            {$$ = creer_noeudLIST_VAR( $1 ,$3 );}
+|INT                            {$$ = creer_noeudLIST_VAR( $1 ,NULL );}
+|PON                         {$$ = creer_noeudLIST_VAR( $1 ,NULL );}               
+;
+
+
+INT : ID                 {$$ = creer_noeudINT( $1);}
+;
+PON : '@' ID              {$$ = creer_noeudPON( $2 );}
+;
+
+
+
+
 
 //_____________________ PROG____________________________________________
 PROG :

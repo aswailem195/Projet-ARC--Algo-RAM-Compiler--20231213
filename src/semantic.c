@@ -9,33 +9,190 @@ char CTXT[32] = "GLOBAL";
 int VLOCAL = 0; 
 int VGLOBAL = 10 ;
 
+/*utile pour apple de fonction */
+char NOMFONAPPLE [32] = "" ;
+int NB_VAR = 0 ;
+
+
+
+
+
+void semantic_PON(asa *p){
+     if (!p) {
+    return;
+  }
+
+  p->ent.id->id.type = 'p' ;
+  p->ent.id->id.type = 'e' ;
+  symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->ent.id->id.nom , "GLOBAL") ;
+ if ( y ){
+  p->ent.id->id.ctxt ="GLOBAL" ;
+  
+  p->codelen = 1; 
+  p->memadr = y->adr ;
+    
+
+ }else {
+   y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->ent.id->id.nom ,CTXT) ;
+   if (y){
+    p->ent.id->id.ctxt ="locale" ;
+  
+
+   }
+   else {
+     printf ("%s " ,p->ent.id->id.nom) ;
+   error_semantic("apple de variable non  declare" ) ;
+   }
+  
+ }
+
+  /*veriver le paramit on cher dans le sympol e de contexte*/
+
+contexte* c = ts_rechercher_contexte(TABLE_SYMBOLES, NOMFONAPPLE) ; 
+if (c->liste_symbole == NULL) {
+        error_semantic("parmaitre ") ;
+
+      
+      }
+int type = c->liste_symbole[0].type ;
+    printf("type : %d ",type) ; 
+
+  if (type != TYPE_PTR) {
+      printf("type parmaitre de fonction %s typ1 :%c type2 %c :" ,NOMFONAPPLE,type, TYPE_PTR);
+      error_semantic("parmaitre ") ; 
+    }
+
+  NB_VAR++ ;
+
+
+}
+void  semantic_INT(asa *p){
+  
+     if (!p) {
+    return;
+  }
+
+
+  p->ent.id->id.type = 'e' ;
+  symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->ent.id->id.nom , "GLOBAL") ;
+ if ( y ){
+  p->ent.id->id.ctxt ="GLOBAL" ;
+  
+  p->codelen = 1; 
+  p->memadr = y->adr ;
+  p->ent.id->id.adr = y->adr ;
+
+
+  
+    
+
+ }else {
+   y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->ent.id->id.nom ,CTXT) ;
+   if (y){
+    p->ent.id->id.ctxt ="locale" ;
+    p->ent.id->id.adr = y->adr ;
+  
+
+   }
+   else {
+    printf ("%s " ,p->ent.id->id.nom) ;
+   error_semantic("apple de variable non  declare" ) ;
+   }
+  
+ }
+
+
+
+  /*veriver le paramit on cher dans le sympol e de contexte*/
+
+contexte* c = ts_rechercher_contexte(TABLE_SYMBOLES, NOMFONAPPLE) ; 
+if (c->liste_symbole == NULL) {
+        error_semantic("parmaitre ") ;
+      }
+
+  /*copier le adre de applant et de lui meme*/ 
+  
+  printf("test addr lui meme %d \n" ,p->ent.id->id.adr) ;
+  p->ent.id->id.adr_app =c->liste_symbole[0].adr ;
+  printf("test addr lui meme %d \n" ,p->ent.id->id.adr_app) ;
+
+
+  
+int type = c->liste_symbole[0].type ;
+    printf("type : %d ",type) ; 
+
+  if (type != TYPE_ENTIER) {
+      printf("type parmaitre de fonction %s typ1 :%c type2 %c :" ,NOMFONAPPLE,type, TYPE_ENTIER);
+      error_semantic("parmaitre ") ; 
+    }
+
+    NB_VAR++ ;
+  p->codelen = (p->ent.id ? p->ent.id->codelen : 0)+6;
+  
+
+
+
+}
+
+void semantic_LIST_PARAM(asa *p,char *nom_F){ 
+     if (!p) {
+    return;
+  }
+   semantic(p->list_var.var);
+   //printf("nomm %s" ,p->list_var.var->ent.id->id.nom) ;
+   semantic_LIST_PARAM(p->list_var.next,nom_F);
+
+
+
+  p->codelen = (p->list_var.var? p->list_var.var->codelen : 0)+
+  (p->list_var.next? p->list_decla.next->codelen : 0);
+
+
+  
+
+
+
+}
 
 void  semantic_APPFONC(asa *p) {
     if (!p) {
     return;
   }
-  // on cherche si le fonction deja decalrer 
+  /* on cherche si le fonction deja decalrer */
   char *id = p->appfonc.ID->id.nom;
+  strcpy(NOMFONAPPLE , id) ;
+  
   symbole* y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, "GLOBAL") ;
   if (!y){ 
     printf("fonction  %s\n",id ) ;
     error_semantic("fonction appler ne pas declarer \n ") ;
     return ;
   }
- 
+  
 
   //on donne la fonction l'adr dans le pile 
 
   //y->adr = VLOCAL ++ ;
 
 //sementique suivant 
-p->appfonc.ID->id.ctxt = "GLOBAL" ;
- semantic(p->appfonc.ID);
-  //semantic(p->appfonc.PARAM) ;
-// 
+ p->appfonc.ID->id.ctxt = "GLOBAL" ;
+ semantic(p->appfonc.ID );
+ semantic_LIST_PARAM(p->appfonc.LIST_PARAM ,id) ;
+
+
 
   p->codelen = (p->appfonc.ID? p->appfonc.ID->codelen : 0)+
-  (p->appfonc.PARAM? p->appfonc.PARAM->codelen : 0)+3;
+  (p->appfonc.LIST_PARAM? p->appfonc.LIST_PARAM->codelen : 0)+3;
+
+
+//semantic(p->appfonc.PARAM->param.)
+
+  
+
+
+
+
+
 
 
 }
@@ -101,7 +258,7 @@ void semantic_DEC_FON(asa *p) {
   strcpy(CTXT, p->dec_fon.ID->id.nom);
   ts_ajouter_contexte(TABLE_SYMBOLES, CTXT);
   p->dec_fon.ID->id.ctxt = "GLOBAL" ;
-  p->dec_fon.ID->id.type = "F" ;
+  p->dec_fon.ID->id.type = TYPE_FCT ;
   p->dec_fon.ID->memadr =y->adr ;
 
 
@@ -122,8 +279,8 @@ void semantic_PARAM(asa *p) {
   if (!p) {
     return;
   }
-  semantic(p->param.LIST_DECLA);
-  p->codelen +=(p->param.LIST_DECLA ? p->param.LIST_DECLA->codelen : 0) ;
+  semantic(p->param.LIST_VAR);
+  p->codelen +=(p->param.LIST_VAR ? p->param.LIST_VAR->codelen : 0) ;
 }
 
 void semanticINST_LIRE(asa *p) {
@@ -210,7 +367,7 @@ void semantic_DECLA_VAR(asa *p) {
         p->decla_var.ID->memadr = VGLOBAL++;
         // mettre les informations dans la feuille de l'identifiant
       p->decla_var.ID->id.ctxt = "GLOBAL";
-      p->decla_var.ID->id.type = "e";
+      p->decla_var.ID->id.type = TYPE_ENTIER;
         
     } else {
       y->adr = VLOCAL;
@@ -218,7 +375,7 @@ void semantic_DECLA_VAR(asa *p) {
         // mettre les informations dans la feuille de l'identifiant
       
       p->decla_var.ID->id.ctxt = "locale";
-      p->decla_var.ID->id.type = "e";
+      p->decla_var.ID->id.type = TYPE_ENTIER;
         
     }
 
@@ -233,7 +390,7 @@ void semantic_DECLA_VAR(asa *p) {
     }
 
     p->codelen = (p->decla_var.ID ? p->decla_var.ID->codelen : 0) +
-                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen +5 : 0) + 1;
+                  (p->decla_var.inst_mis ? p->decla_var.inst_mis->codelen +7 : 0) + 1;
 }
 void semantic_MAIN(asa *p) {
   if (!p) {
@@ -348,12 +505,18 @@ symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->id.nom , "GLOBAL") 
     
 
  }else {
-  symbole * y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->id.nom ,CTXT) ;
-  p->id.ctxt ="locale" ;
+   y = ts_rechercher_identificateur(TABLE_SYMBOLES,p->id.nom ,CTXT) ;
+   if (y){
+    p->id.ctxt ="locale" ;
   
   //strcpy(p->id.ctxt ,"locale") ;
   p->codelen = 4;
   p->memadr = y->adr ;
+   }
+   else {
+   error_semantic("apple de variable de declare") ;
+   }
+  
  }
 
 
@@ -432,9 +595,10 @@ void semantic_OP(asa *p) {
 
 
 
-void error_semantic(const char *s) {
+int  error_semantic(const char *s) {
   fprintf(stderr, TXT_BOLD TXT_RED "[erreur SEM]" TXT_NULL " %s", s);
   exit(1);
+  return -1 ;
 }
 
 void semantic(asa *p) {
@@ -516,6 +680,14 @@ void semantic(asa *p) {
   case typeLIS_DEC_FON:
     semantic_LIS_DEC_FON(p);
     break;
+ 
+  case typeINT :
+    semantic_INT(p);
+    break;
+  case typePON :
+    semantic_PON(p);
+    break;
+
 
   default:
     break;

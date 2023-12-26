@@ -26,5 +26,9 @@ void  codeAPPFONC(asa * p);
 void codeRENVOYER(asa * p) ;
 void codeLIS_DEC_FON(asa *p) ;
 
+
+void codeLIST_PARAM(asa *p) ;
+void codeINT(asa *p) ;
+
 void codeID(asa * p) ;
 #endif

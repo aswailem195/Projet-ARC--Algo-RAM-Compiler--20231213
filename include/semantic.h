@@ -37,6 +37,9 @@ void semantic_LIS_DEC_FON(asa *p);
 void semantic_PARAM(asa * p);
 void semantic_RENVOYER(asa * p) ;
 
+void semantic_PON(asa *p) ;
+void  semantic_INT(asa *p) ;
+void semantic_LIST_PARAM(asa *p,char *nom_F) ;
 
 
 
@@ -44,7 +47,8 @@ void semantic_RENVOYER(asa * p) ;
 
 
 
-void error_semantic(const char *s) ;
+
+int  error_semantic(const char *s) ;
 
 
 

@@ -271,7 +271,7 @@ asa * creer_noeudPARAM(asa* p1 ){
 
   p->type = typePARAM;
   
-  p->param.LIST_DECLA= p1 ;  
+  p->param.LIST_VAR= p1 ;  
   
   return p;
 
@@ -286,7 +286,7 @@ asa * creer_noeudAPPFONC (char* id ,asa* p2){
   p->type = typeAPPFONC;
   
   p->appfonc.ID= creer_feuilleID(id) ; 
-  p->appfonc.PARAM= p2 ; 
+  p->appfonc.LIST_PARAM= p2 ; 
   
   return p;
 
@@ -303,6 +303,57 @@ asa * creer_noeudLIS_DEC_FON(asa* p1 ,asa* p2){
   p->lis_dec_fon.next= p2 ; 
   
   return p;
+
+}
+
+asa* creer_noeudLIST_VAR(asa* p1 ,asa* p2){
+    asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeLIST_VAR;
+  
+  p->list_var.var =p1 ;
+  p->list_var.next= p2 ; 
+  
+  return p;
+
+}
+asa* creer_noeudINT(char* id ) {
+      asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typeINT;
+  
+  
+  p->ent.id =creer_feuilleID(id);
+  p->ent.id->id.type=TYPE_ENTIER;
+
+  
+  
+  return p;
+
+
+
+}
+asa* creer_noeudPON(char* id) {
+        asa *p;
+
+  if ((p = malloc(sizeof(asa))) == NULL)
+    error_asa("echec allocation mémoire");
+
+  p->type = typePON;
+  
+  p->pon.id =creer_feuilleID(id);
+  p->ent.id->id.type= TYPE_PTR;
+  
+  
+  return p;
+
+
 
 }
 
@@ -414,7 +465,8 @@ void print_asa_dot_node(FILE *output, asa *p) {
     fprintf(output, "NB\\n%d \n tailcode:%d adr:%d \\n", p->nb.val,p->codelen ,p->memadr);
     break;
   case typeID:
-    fprintf(output, "ID\\n%s\n tailcode:%d  \n adr:%d ctxt :%s type : %s \\n", p->id.nom,p->codelen ,p->memadr,p->id.ctxt,p->id.type);
+     
+    fprintf(output, "ID\\n%s\n tailcode:%d  \n adr:%d ctxt :%s\n type : (%d) \\n", p->id.nom,p->codelen ,p->memadr,p->id.ctxt,p->id.type);
     break;
 
   case typeOP:
@@ -464,7 +516,7 @@ void print_asa_dot_node(FILE *output, asa *p) {
     fprintf(output, "STRUCT_SI\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
   case typeMAIN:
-    fprintf(output, "MAIN\n tailcode:%d \n nb_val_loc :%d \\n",p->codelen ,p->main.nb_valiable_local);
+    fprintf(output, "MAIN\n tailcode:%d \n nb_val_ :%d \\n",p->codelen ,p->main.nb_valiable_local);
     break;
     
   case typeDEC_FON:
@@ -480,6 +532,15 @@ void print_asa_dot_node(FILE *output, asa *p) {
 
    case typeAPPFONC:
     fprintf(output, "APPFONC\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeINT:
+    fprintf(output, "INT\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typeLIST_VAR:
+    fprintf(output, "LIST_VAR\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
+    break;
+  case typePON:
+    fprintf(output, "PON\n tailcode:%d \n adr:%d \\n",p->codelen ,p->memadr);
     break;
 
 
@@ -651,8 +712,8 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
     break;
   
   case typePARAM :
-    print_asa_dot_edge(output, p, p->param.LIST_DECLA);
-    print_asa_dot_recursive(output, p->param.LIST_DECLA);
+    print_asa_dot_edge(output, p, p->param.LIST_VAR);
+    print_asa_dot_recursive(output, p->param.LIST_VAR);
     break;
   
   case typeRENVOYER :
@@ -663,9 +724,9 @@ case typeAPPFONC :
     print_asa_dot_edge(output, p, p->appfonc.ID);
     print_asa_dot_recursive(output, p->appfonc.ID);
 
-    print_asa_dot_edge(output, p, p->appfonc.PARAM);
+    print_asa_dot_edge(output, p, p->appfonc.LIST_PARAM);
     
-    print_asa_dot_recursive(output, p->appfonc.PARAM);
+    print_asa_dot_recursive(output, p->appfonc.LIST_PARAM);
     break;
   case typeLIS_DEC_FON :
     print_asa_dot_edge(output, p, p->lis_dec_fon.dec_fon);
@@ -674,6 +735,25 @@ case typeAPPFONC :
     print_asa_dot_edge(output, p, p->lis_dec_fon.next);
     
     print_asa_dot_recursive(output, p->lis_dec_fon.next);
+    break;
+  case typeLIST_VAR :
+    print_asa_dot_edge(output, p, p->list_var.var);
+    print_asa_dot_recursive(output, p->list_var.var);
+
+    print_asa_dot_edge(output, p, p->list_var.next);
+    
+    print_asa_dot_recursive(output, p->list_var.next);
+    break;
+  case typeINT :
+    print_asa_dot_edge(output, p, p->ent.id);
+    print_asa_dot_recursive(output, p->ent.id);
+
+   
+    break ;
+case typePON:
+    print_asa_dot_edge(output, p, p->pon.id);
+    print_asa_dot_recursive(output, p->pon.id);
+
     break;
 
   

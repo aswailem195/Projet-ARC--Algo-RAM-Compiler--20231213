@@ -16,6 +16,13 @@ void codegen(asa *p) {
     codeRENVOYER(p);
     break;
 
+   case typeINT:
+    codeINT(p);
+    break;
+   case typeLIST_VAR:
+    codeLIST_PARAM(p);
+    break;
+
   case typeAPPFONC:
     codeAPPFONC(p);
     break;
@@ -90,11 +97,38 @@ void codeRENVOYER(asa *p) {
 
 /*________________________________APPFONC____________________________*/
 
+void codeINT(asa *p) {
+ int adr = p->ent.id->id.adr ;
+ int adr_app = p->ent.id->id.adr_app ;
+ fprintf(exefile,"LOAD #%-9d ;CODELEN : %d  apple de fonction par valeur  \n", adr_app, ++CODELEN);
+ fprintf(exefile,"ADD 2 ;CODELEN : %d   \n", ++CODELEN);
+ fprintf(exefile,"STORE 1 ;CODELEN : %d  \n", ++CODELEN);
+ fprintf(exefile,"LOAD #%-9d ;CODELEN : %d    \n", adr, ++CODELEN);
+ fprintf(exefile,"ADD 2 ;CODELEN : %d   \n", ++CODELEN);
+ fprintf(exefile,"LOAD @0 %-9d ;CODELEN : %d    \n", adr, ++CODELEN);
+ fprintf(exefile,"STORE @1 ;CODELEN : %d  \n", ++CODELEN);
+
+
+
+
+}
+
+void codeLIST_PARAM(asa *p) { 
+  codegen(p->list_var.var) ;
+  codegen(p->list_var.next) ;
+  
+  
+}
+
 void codeLIS_DEC_FON(asa *p) {
   codegen(p->lis_dec_fon.dec_fon);
   codegen(p->lis_dec_fon.next);
 }
+
 void codeAPPFONC(asa *p) {
+
+
+  codegen(p->appfonc.LIST_PARAM) ;
   /* on stock la valeur de instrction pour revien */
   CODELEN++;
   
@@ -114,6 +148,8 @@ void codeAPPFONC(asa *p) {
 
   fprintf(exefile, "JUMP @0       ;CODELEN : %d FIN DE FON \n", ++CODELEN);
 }
+
+
 void codeDEC_FON(asa *p) {
 
 
