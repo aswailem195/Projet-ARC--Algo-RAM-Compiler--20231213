@@ -55,6 +55,7 @@ typedef struct {
 
   int adr ; //le meme
   int adr_app;//la adress de applant 
+  int adr_PTR  ; //si le ID est pointeu ou table il stocke sans adr dans le tas 
 } feuilleId;
 
 

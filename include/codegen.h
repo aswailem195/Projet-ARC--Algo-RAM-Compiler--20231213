@@ -26,6 +26,11 @@ void  codeAPPFONC(asa * p);
 void codeRENVOYER(asa * p) ;
 void codeLIS_DEC_FON(asa *p) ;
 
+void codeALLOCATION(asa *p) ;
+
+void codeINDICX_RECU(asa * p) ;
+void codeINDICX_SORT(asa * p) ;
+
 
 void codeL_PARM_APPL(asa *p) ;
 void codeINT(asa *p) ;

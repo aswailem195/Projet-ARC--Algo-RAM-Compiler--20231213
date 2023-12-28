@@ -297,7 +297,7 @@ asa *creer_noeudLIST_VAR(asa *p1, asa *p2) {
   if ((p = malloc(sizeof(asa))) == NULL)
     error_asa("echec allocation mémoire");
 
-  p->type = L_PARM_APPL;
+  p->type = typeL_PARM_APPL;
 
   p->list_var.var = p1;
   p->list_var.next = p2;
@@ -483,8 +483,8 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeID:
 
     fprintf(output,
-            "ID\\n%s\n tailcode:%d  \n adr:%d ctxt :%s\n type : (%d) \\n",
-            p->id.nom, p->codelen, p->memadr, p->id.ctxt, p->id.type);
+            "ID\\n%s\n tailcode:%d  \n adr:%d ctxt :%s\n type : (%d) \n adr_PTR :%d \\n",
+            p->id.nom, p->codelen, p->memadr, p->id.ctxt, p->id.type,p->id.adr_PTR);
     break;
 
   case typeOP:
@@ -568,7 +568,7 @@ void print_asa_dot_node(FILE *output, asa *p) {
   case typeINT:
     fprintf(output, "INT\n tailcode:%d \n adr:%d \\n", p->codelen, p->memadr);
     break;
-  case L_PARM_APPL:
+  case typeL_PARM_APPL:
     fprintf(output, "L_PARM_APPL\n tailcode:%d \n adr:%d \\n", p->codelen,
             p->memadr);
     break;
@@ -781,7 +781,7 @@ void print_asa_dot_recursive(FILE *output, asa *p) {
 
     print_asa_dot_recursive(output, p->lis_dec_fon.next);
     break;
-  case L_PARM_APPL:
+  case typeL_PARM_APPL:
     print_asa_dot_edge(output, p, p->list_var.var);
     print_asa_dot_recursive(output, p->list_var.var);
 

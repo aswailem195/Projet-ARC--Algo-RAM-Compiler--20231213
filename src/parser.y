@@ -81,7 +81,7 @@ ALLOUER '(' ID ',' EXP ')'           {$$ = creer_noeudALLOCATION($3 ,$5 );}
 /*_______________________________indexation de tableau___________________________*/
 //comme T[i] <- 5  consider comme id 
 INDICX_RECU :ID'[' EXP']' AFF INDICX_RECU    {$$ = creer_noeudINDICX_RECU($1 ,$3,$6 );}
-|ID'[' EXP']' AFF EXP               {$$ = creer_noeudINDICX_RECU($1 ,$3,$6  );}
+|ID'[' EXP']' AFF EXP               {$$ = creer_noeudINDICX_RECU($1 ,$3,$6  );}  
 ;
 
 //comme  +T[i]+5  consider comme EXP 
@@ -316,7 +316,7 @@ int main( int argc, char * argv[] ) {
   
   //print_asa(ARBRE_ABSTRAIT);
   ts_print(TABLE_SYMBOLES);
-  //codegen(ARBRE_ABSTRAIT);
+  codegen(ARBRE_ABSTRAIT);
   
 
 

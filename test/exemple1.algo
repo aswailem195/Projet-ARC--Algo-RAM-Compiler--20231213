@@ -1,8 +1,23 @@
 PROGRAMME()
 //testcomentair 
-VAR @t
+VAR @m ,t<-10 ,i<-0 
 DEBUT 
+	
+	ALLOUER(m,10)
+	m[0]<-10 
+	m[1]<-11
+	m[2]<-12
+	m[3]<-13
+	ECRIRE(m[0])
+	
+	ECRIRE(m[1])
+	ECRIRE(m[2])
+	ECRIRE(m[3])
+	TQ i< 4 FAIRE
+	ECRIRE(m[i])
+		
+		i<- i+1 
+	FTQ
 
-      ALLOUER(t , 5)
-
+    
 FIN

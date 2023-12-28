@@ -3,7 +3,7 @@
 
 char CTXTC[32] = "GLOBAL";
 
-int CODELEN = 3;
+int CODELEN = 5;
 int nb_VAR_Fonctio;
 void codegen(asa *p) {
 
@@ -11,6 +11,19 @@ void codegen(asa *p) {
     return;
 
   switch (p->type) {
+  
+  case typeINDICX_SORT:
+    codeINDICX_SORT(p);
+    break;
+  case typeINDICX_RECU:
+    codeINDICX_RECU(p);
+    break;
+
+
+  case typeALLOCATION:
+    codeALLOCATION(p);
+    break;
+
 
   case typeRENVOYER:
     codeRENVOYER(p);
@@ -87,6 +100,64 @@ void codegen(asa *p) {
   default:
     break;
   }
+}
+/*________________________________index______________________ */
+void codeINDICX_RECU(asa * p){
+  
+codegen(p->indicx_recu.id) ;
+  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
+  codegen(p->indicx_recu.index) ;
+  fprintf(exefile,"SUB %-9d ;CODELEN : %d    \n",RAM_OS_TMP_REG, ++CODELEN);
+  fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
+
+  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
+  codegen(p->indicx_recu.exp) ;
+  fprintf(exefile,"STORE @%-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
+
+
+
+
+
+
+}
+void codeINDICX_SORT(asa * p){
+
+  codegen(p->indicx_sort.id) ;
+  fprintf(exefile,"INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile,"STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  codegen(p->indicx_sort.index) ;
+  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
+  fprintf(exefile,"LOAD @%d;CODELEN : %d    \n",RAM_OS_ADR_REG, ++CODELEN); 
+  fprintf(exefile,"SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n",RAM_OS_TMP_REG,++CODELEN);
+  //fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
+  fprintf(exefile,"LOAD @0;CODELEN : %d    \n", ++CODELEN); 
+  fprintf(exefile,"DEC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+
+
+
+  
+}
+
+
+
+
+
+/*________________________________allocation______________________ */
+void codeALLOCATION(asa *p) {
+  /* */
+  codegen(p->allocation.id);
+  int adr_PTR= p->allocation.id->id.adr_PTR ;
+  fprintf(exefile,"LOAD #%-9d ;CODELEN : %d  allocation   \n",  adr_PTR , ++CODELEN);
+  fprintf(exefile,"SUB %-9d ;CODELEN : %d    \n", RAM_OS_TAS_REG, ++CODELEN);
+  fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
+  fprintf(exefile,"STORE @%-9d;CODELEN : %d     \n",  RAM_OS_TMP_REG  , ++CODELEN);
+
+
+}
+
+void codeDECLA_POIN(asa *p){
+  /*raminer la adrees */
+  
 }
 
 /*________________________________RENVOYER____________________________*/
@@ -237,12 +308,45 @@ void codeINST_LIRE(asa *p) {
 /*_______________________________________main_______________________________________________________*/
 
 void codeMAIN(asa *p) {
+/* J'ai considéré que la portée des variables locales restait restreinte à toute la vie 
+ * du code, mais on ne peut pas  les utiliser juste dans leur fonction
+ * gérée par le sémantique 
+ */
+/*
+ * En ce qui concerne le tas, je lui donne une adresse, mais toujours, on insère à l'adresse avant. Cela pourrait dire
+ * que son adresse est décroissante.
+ */
 
-  int init = 32;
-  fprintf(exefile, "LOAD #%-7d ;\n", init);
+/*
+ *   --
+ * ACC
+ * ---
+ * RAM OS
+ *  |
+ * ---
+ * DONNER
+ * VARIABLES GLOBALES
+ * ---
+ * PILE
+ *  |
+ *  v
+ * ---
+ * ///////////
+ * ---
+ *  ^
+ *  |
+ * TAS
+ * -----
+ */
+
+  int PILE_DEBUT_ADR = 32;
+  int TAS_DEBUT_ADR=150 ;
+  fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR);
   fprintf(exefile, "STORE %-6d ; deput pile\n", RAM_OS_STK_REG);
-  fprintf(exefile, "LOAD #%-7d ;\n", init+p->main.nb_valiable_local);
+  fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR+p->main.nb_valiable_local);
   fprintf(exefile, "STORE %-6d  ; sommet pile \n",RAM_OS_ADR_REG);
+  fprintf(exefile, "LOAD #%-7d ;\n", TAS_DEBUT_ADR);
+  fprintf(exefile, "STORE %-6d ; deput tas \n", RAM_OS_TAS_REG);
 
 
   if (p->main.DEC) {
@@ -310,8 +414,11 @@ void codeID(asa *p) {
 
 void codeDECLA_VAR(asa *p) {
 
-  /*fprintf(exefile, "INC %-9d ; CODELEN : %d DECLA_VA\n", RAM_OS_ADR_REG,
-          ++CODELEN); // 3*/
+  /* Si la déclaration est accompagnée d'une affectation, on place la valeur de l'affectation à l'adresse de la variable.
+Sinon, on ne fait rien, car on considère que toutes les variables locales ont une adresse propre avant la génération du code.
+Ainsi, on commence du sommet de la pile jusqu'au bas de la pile, en ajoutant le nombre de variables.
+*/
+
 
   if (p->decla_var.inst_mis) {
     codegen(p->decla_var.inst_mis);
