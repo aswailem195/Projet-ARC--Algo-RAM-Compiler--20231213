@@ -229,7 +229,7 @@ typedef struct asa{
     noeudLIS_DEC_FON lis_dec_fon ;
     noeudINT ent ;
     noeudPON pon ;
-    noeudL_PARM_APPL list_var ;
+    noeudL_PARM_APPL l_param_appl ;
     noeudALLOCATION allocation ;
    noeudINDICX_SORT indicx_sort ;
    noeudINDICX_RECU indicx_recu ;

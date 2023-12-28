@@ -185,8 +185,8 @@ void codeINT(asa *p) {
 }
 
 void codeL_PARM_APPL(asa *p) { 
-  codegen(p->list_var.var) ;
-  codegen(p->list_var.next) ;
+  codegen(p->l_param_appl.var) ;
+  codegen(p->l_param_appl.next) ;
   
   
 }

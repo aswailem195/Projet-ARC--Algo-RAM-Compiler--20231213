@@ -79,19 +79,28 @@ void semantic_INT(asa *p) {
     return;
   }
 
-  p->ent.id->id.type = TYPE_ENTIER;
+  //p->ent.id->id.type = TYPE_ENTIER;
+  /*au cherche le variable dans le port */
   symbole *y =ts_rechercher_identificateur(TABLE_SYMBOLES, p->ent.id->id.nom, "GLOBAL");
   if (y) {
     p->ent.id->id.ctxt = "GLOBAL";
-    p->codelen = 1;
+    
     p->memadr = y->adr;
     p->ent.id->id.adr = y->adr;
+    p->ent.id->id.type= y->type ;
+
+    p->codelen = 1;
 
   } else {
     y = ts_rechercher_identificateur(TABLE_SYMBOLES, p->ent.id->id.nom, CTXT);
     if (y) {
       p->ent.id->id.ctxt = "locale";
-      p->ent.id->id.adr = y->adr;
+    
+    p->ent.id->memadr = y->adr;
+    p->ent.id->id.adr = y->adr;
+    p->ent.id->id.type= y->type ;
+
+    p->codelen = 1;
 
     } else {
       printf("param%s ", p->ent.id->id.nom);
@@ -99,23 +108,47 @@ void semantic_INT(asa *p) {
     }
   }
 
-  /*veriver le paramit on cher dans le sympol e de contexte*/
+/*********veriver le paramit **********/
+
+
+/*on cherech  contexte de la fonction */
+
 
   contexte *c = ts_rechercher_contexte(TABLE_SYMBOLES, NOMFONAPPLE);
   if (c->liste_symbole == NULL) {
     error_semantic("parmaitre ");
   }
+  /*parcourir la table de sy pour arru=iver a la bonne symbole*/
+  symbole * sy = c->liste_symbole ;
+  int i = 0 ;
+  while (i< NB_VAR){ 
+    if(sy->next) {
+      sy =sy->next ;
+    }
+    i++;
+    
+  }
 
-  /*copier le adre de applant et de lui meme*/
-  p->ent.id->id.adr_app = c->liste_symbole[0].adr;
-  int type = c->liste_symbole[0].type;
-  printf("type : %d ", type);
-  if (type != TYPE_ENTIER) {
+
+  /*copier le adre de varalbe de fonction appler  et son type */
+  
+  int type_v_f = sy[0].type; //type variable de fonction 
+  int type_v_a = p->ent.id->id.type;//type variable de applle 
+  printf("type_v_f : %c",type_v_f) ;
+  
+
+  //printf("type : %d ", type_v_f);
+  //si il sont pas parie on affiche error
+  if (type_v_f != type_v_a) {
     printf("type parmaitre de fonction %s typ1 :%c type2 %c :", NOMFONAPPLE,
-           type, TYPE_ENTIER);
+           type_v_f, type_v_a);
     error_semantic("parmaitre ");
   }
+
+
+
   NB_VAR++;
+  p->ent.id->id.adr_app = sy[0].adr;
   p->codelen = (p->ent.id ? p->ent.id->codelen : 0) + 7;
 }
 
@@ -123,11 +156,11 @@ void semantic_LIST_PARAM(asa *p, char *nom_F) {
   if (!p) {
     return;
   }
-  semantic(p->list_var.var);
-  semantic_LIST_PARAM(p->list_var.next, nom_F);
+  semantic(p->l_param_appl.var);
+  semantic_LIST_PARAM(p->l_param_appl.next, nom_F);
 
-  p->codelen = (p->list_var.var ? p->list_var.var->codelen : 0) +
-               (p->list_var.next ? p->list_decla.next->codelen : 0);
+  p->codelen = (p->l_param_appl.var ? p->l_param_appl.var->codelen : 0) +
+               (p->l_param_appl.next ? p->list_decla.next->codelen : 0);
 }
 
 /*___________________________fonction_______________________________*/
@@ -139,7 +172,8 @@ void semantic_APPFONC(asa *p) {
   /* on cherche si le fonction deja decalrer */
   char *id = p->appfonc.ID->id.nom;
   strcpy(NOMFONAPPLE, id);
-  contexte u ;
+  NB_VAR= 0 ;
+  
 
 
   symbole *y = ts_rechercher_identificateur(TABLE_SYMBOLES, id, "GLOBAL");

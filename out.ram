@@ -1,181 +1,92 @@
 LOAD #32      ;
 STORE 2      ; deput pile
-LOAD #34      ;
+LOAD #40      ;
 STORE 3       ; sommet pile 
 LOAD #150     ;
 STORE 4      ; deput tas 
-LOAD #10      ;CODELEN : 6 codeNB
-INC 3         ; CODELEN : 7 AFF
-STORE @3      ;CODELEN : 8 
-LOAD #1        ; CODELEN : 9  codeID locale t
-ADD 2 ; CODELEN : 10
-STORE 1 ; CODELEN : 11  
-LOAD @1 ; CODELEN : 12 
-LOAD @3       ;CODELEN : 13
-DEC 3         ;CODELEN : 14  AFF
-STORE @1  ;CODELEN : 15 
-LOAD #0       ;CODELEN : 16 codeNB
-INC 3         ; CODELEN : 17 AFF
-STORE @3      ;CODELEN : 18 
-LOAD #2        ; CODELEN : 19  codeID locale i
-ADD 2 ; CODELEN : 20
-STORE 1 ; CODELEN : 21  
-LOAD @1 ; CODELEN : 22 
-LOAD @3       ;CODELEN : 23
-DEC 3         ;CODELEN : 24  AFF
-STORE @1  ;CODELEN : 25 
-LOAD #0        ; CODELEN : 26  codeID locale m
-ADD 2 ; CODELEN : 27
-STORE 1 ; CODELEN : 28  
-LOAD @1 ; CODELEN : 29 
-LOAD #0         ;CODELEN : 30  allocation   
-SUB 4         ;CODELEN : 31    
-MUL #-1;CODELEN : 32    
-STORE @1        ;CODELEN : 33     
-LOAD #0        ; CODELEN : 34  codeID locale m
-ADD 2 ; CODELEN : 35
-STORE 1 ; CODELEN : 36  
-LOAD @1 ; CODELEN : 37 
-STORE 1         ;CODELEN : 38    
-LOAD #0       ;CODELEN : 39 codeNB
-SUB 1         ;CODELEN : 40    
-MUL #-1;CODELEN : 41    
-STORE 1         ;CODELEN : 42    
-LOAD #10      ;CODELEN : 43 codeNB
-STORE @1         ;CODELEN : 44    
-LOAD #0        ; CODELEN : 45  codeID locale m
-ADD 2 ; CODELEN : 46
-STORE 1 ; CODELEN : 47  
-LOAD @1 ; CODELEN : 48 
-STORE 1         ;CODELEN : 49    
-LOAD #1       ;CODELEN : 50 codeNB
-SUB 1         ;CODELEN : 51    
-MUL #-1;CODELEN : 52    
-STORE 1         ;CODELEN : 53    
-LOAD #11      ;CODELEN : 54 codeNB
-STORE @1         ;CODELEN : 55    
-LOAD #0        ; CODELEN : 56  codeID locale m
-ADD 2 ; CODELEN : 57
-STORE 1 ; CODELEN : 58  
-LOAD @1 ; CODELEN : 59 
-STORE 1         ;CODELEN : 60    
-LOAD #2       ;CODELEN : 61 codeNB
-SUB 1         ;CODELEN : 62    
-MUL #-1;CODELEN : 63    
-STORE 1         ;CODELEN : 64    
-LOAD #12      ;CODELEN : 65 codeNB
-STORE @1         ;CODELEN : 66    
-LOAD #0        ; CODELEN : 67  codeID locale m
-ADD 2 ; CODELEN : 68
-STORE 1 ; CODELEN : 69  
-LOAD @1 ; CODELEN : 70 
-STORE 1         ;CODELEN : 71    
-LOAD #3       ;CODELEN : 72 codeNB
-SUB 1         ;CODELEN : 73    
-MUL #-1;CODELEN : 74    
-STORE 1         ;CODELEN : 75    
-LOAD #13      ;CODELEN : 76 codeNB
-STORE @1         ;CODELEN : 77    
-LOAD #0        ; CODELEN : 78  codeID locale m
-ADD 2 ; CODELEN : 79
-STORE 1 ; CODELEN : 80  
-LOAD @1 ; CODELEN : 81 
-INC 3         ;CODELEN : 82    
-STORE @3         ;jjjjjjjjjjjCODELEN : 83    
-LOAD #0       ;CODELEN : 84 codeNB
-STORE 1         ;CODELEN : 85    
-LOAD @3;CODELEN : 86    
-SUB 1         ;jjjjjjjjjjjCODELEN : 87    
-LOAD @0;CODELEN : 88    
-DEC 3         ;CODELEN : 89    
-WRITE ; CODELEN : 90 
-LOAD #0        ; CODELEN : 91  codeID locale m
-ADD 2 ; CODELEN : 92
-STORE 1 ; CODELEN : 93  
-LOAD @1 ; CODELEN : 94 
-INC 3         ;CODELEN : 95    
-STORE @3         ;jjjjjjjjjjjCODELEN : 96    
-LOAD #1       ;CODELEN : 97 codeNB
-STORE 1         ;CODELEN : 98    
-LOAD @3;CODELEN : 99    
-SUB 1         ;jjjjjjjjjjjCODELEN : 100    
-LOAD @0;CODELEN : 101    
-DEC 3         ;CODELEN : 102    
-WRITE ; CODELEN : 103 
-LOAD #0        ; CODELEN : 104  codeID locale m
-ADD 2 ; CODELEN : 105
-STORE 1 ; CODELEN : 106  
-LOAD @1 ; CODELEN : 107 
-INC 3         ;CODELEN : 108    
-STORE @3         ;jjjjjjjjjjjCODELEN : 109    
-LOAD #2       ;CODELEN : 110 codeNB
-STORE 1         ;CODELEN : 111    
-LOAD @3;CODELEN : 112    
-SUB 1         ;jjjjjjjjjjjCODELEN : 113    
-LOAD @0;CODELEN : 114    
-DEC 3         ;CODELEN : 115    
-WRITE ; CODELEN : 116 
-LOAD #0        ; CODELEN : 117  codeID locale m
-ADD 2 ; CODELEN : 118
-STORE 1 ; CODELEN : 119  
-LOAD @1 ; CODELEN : 120 
-INC 3         ;CODELEN : 121    
-STORE @3         ;jjjjjjjjjjjCODELEN : 122    
-LOAD #3       ;CODELEN : 123 codeNB
-STORE 1         ;CODELEN : 124    
-LOAD @3;CODELEN : 125    
-SUB 1         ;jjjjjjjjjjjCODELEN : 126    
-LOAD @0;CODELEN : 127    
-DEC 3         ;CODELEN : 128    
-WRITE ; CODELEN : 129 
-LOAD #4       ;CODELEN : 130 codeNB
-INC 3         ;CODELEN : 131  codeOP < 
-STORE @3      ; CODELEN : 132 
-LOAD #2        ; CODELEN : 133  codeID locale i
-ADD 2 ; CODELEN : 134
-STORE 1 ; CODELEN : 135  
-LOAD @1 ; CODELEN : 136 
-SUB @3        ; CODELEN : 137
-JUML 141 ; CODELEN : 138 
-LOAD #0;CODELEN : 139 
-JUMP 142    ;CODELEN : 140 
-LOAD #1;CODELEN : 141 
-STORE @3      ;CODELEN : 142 
-DEC 3         ;CODELEN : 143 
-JUMZ 180 ; CODELEN : 144  STRUCT_TQ 
-LOAD #0        ; CODELEN : 145  codeID locale m
-ADD 2 ; CODELEN : 146
-STORE 1 ; CODELEN : 147  
-LOAD @1 ; CODELEN : 148 
-INC 3         ;CODELEN : 149    
-STORE @3         ;jjjjjjjjjjjCODELEN : 150    
-LOAD #2        ; CODELEN : 151  codeID locale i
-ADD 2 ; CODELEN : 152
-STORE 1 ; CODELEN : 153  
-LOAD @1 ; CODELEN : 154 
-STORE 1         ;CODELEN : 155    
-LOAD @3;CODELEN : 156    
-SUB 1         ;jjjjjjjjjjjCODELEN : 157    
-LOAD @0;CODELEN : 158    
-DEC 3         ;CODELEN : 159    
-WRITE ; CODELEN : 160 
-LOAD #1       ;CODELEN : 161 codeNB
-INC 3         ; CODELEN : 162 codeOP
-STORE @3      ;CODELEN : 163
-LOAD #2        ; CODELEN : 164  codeID locale i
-ADD 2 ; CODELEN : 165
-STORE 1 ; CODELEN : 166  
-LOAD @1 ; CODELEN : 167 
-ADD @3        ; CODELEN : 168 
-DEC 3         ; CODELEN : 169 
-INC 3         ; CODELEN : 170 AFF
-STORE @3      ;CODELEN : 171 
-LOAD #2        ; CODELEN : 172  codeID locale i
-ADD 2 ; CODELEN : 173
-STORE 1 ; CODELEN : 174  
-LOAD @1 ; CODELEN : 175 
-LOAD @3       ;CODELEN : 176
-DEC 3         ;CODELEN : 177  AFF
-STORE @1  ;CODELEN : 178 
-JUMP 130 ;CODELEN : 179  STRUCT TQ fin 
+LOAD #11        ;CODELEN : 6  DECLA_FON debut inst de fonction  
+STORE 10        ; CODELEN : 7 on le stock dans le sdr de fonc  
+LOAD #27        ;CODELEN : 8  
+STORE 6         ;CODELEN : 9  
+JUMP @6         ;CODELEN : 10  jumb pour ne touch le ins de fonction qund dec
+LOAD #0        ; CODELEN : 11  codeID locale m
+ADD 2 ; CODELEN : 12
+STORE 1 ; CODELEN : 13  
+LOAD @1 ; CODELEN : 14 
+WRITE ; CODELEN : 15 
+LOAD #1        ; CODELEN : 16  codeID locale n
+ADD 2 ; CODELEN : 17
+STORE 1 ; CODELEN : 18  
+LOAD @1 ; CODELEN : 19 
+WRITE ; CODELEN : 20 
+LOAD #2        ; CODELEN : 21  codeID locale i
+ADD 2 ; CODELEN : 22
+STORE 1 ; CODELEN : 23  
+LOAD @1 ; CODELEN : 24 
+WRITE ; CODELEN : 25 
+JUMP @6         ;CODELEN : 26 FIN DE FON 
+LOAD #3       ;CODELEN : 27 codeNB
+INC 3         ; CODELEN : 28 AFF
+STORE @3      ;CODELEN : 29 
+LOAD #6        ; CODELEN : 30  codeID locale buf
+ADD 2 ; CODELEN : 31
+STORE 1 ; CODELEN : 32  
+LOAD @1 ; CODELEN : 33 
+LOAD @3       ;CODELEN : 34
+DEC 3         ;CODELEN : 35  AFF
+STORE @1  ;CODELEN : 36 
+LOAD #4       ;CODELEN : 37 codeNB
+INC 3         ; CODELEN : 38 AFF
+STORE @3      ;CODELEN : 39 
+LOAD #7        ; CODELEN : 40  codeID locale k
+ADD 2 ; CODELEN : 41
+STORE 1 ; CODELEN : 42  
+LOAD @1 ; CODELEN : 43 
+LOAD @3       ;CODELEN : 44
+DEC 3         ;CODELEN : 45  AFF
+STORE @1  ;CODELEN : 46 
+LOAD #5       ;CODELEN : 47 codeNB
+INC 3         ; CODELEN : 48 AFF
+STORE @3      ;CODELEN : 49 
+LOAD #8        ; CODELEN : 50  codeID locale s
+ADD 2 ; CODELEN : 51
+STORE 1 ; CODELEN : 52  
+LOAD @1 ; CODELEN : 53 
+LOAD @3       ;CODELEN : 54
+DEC 3         ;CODELEN : 55  AFF
+STORE @1  ;CODELEN : 56 
+LOAD #0         ;CODELEN : 57  apple de fonction par valeur  
+ADD 2 ;CODELEN : 58   
+STORE 1 ;CODELEN : 59  
+LOAD #7         ;CODELEN : 60    
+ADD 2 ;CODELEN : 61   
+LOAD @0 7         ;CODELEN : 62    
+STORE @1 ;CODELEN : 63  
+LOAD #1         ;CODELEN : 64  apple de fonction par valeur  
+ADD 2 ;CODELEN : 65   
+STORE 1 ;CODELEN : 66  
+LOAD #6         ;CODELEN : 67    
+ADD 2 ;CODELEN : 68   
+LOAD @0 6         ;CODELEN : 69    
+STORE @1 ;CODELEN : 70  
+LOAD #2         ;CODELEN : 71  apple de fonction par valeur  
+ADD 2 ;CODELEN : 72   
+STORE 1 ;CODELEN : 73  
+LOAD #8         ;CODELEN : 74    
+ADD 2 ;CODELEN : 75   
+LOAD @0 8         ;CODELEN : 76    
+STORE @1 ;CODELEN : 77  
+LOAD #82        ;CODELEN : 78 APPLFON stock la valeur de instrction pour revien
+STORE 6         ;CODELEN : 79 
+LOAD 10       ; CODELEN : 80 codeID global  Selection
+JUMP @0       ;CODELEN : 81 FIN DE FON 
+INC 3         ; CODELEN : 82 AFF
+STORE @3      ;CODELEN : 83 
+LOAD #6        ; CODELEN : 84  codeID locale buf
+ADD 2 ; CODELEN : 85
+STORE 1 ; CODELEN : 86  
+LOAD @1 ; CODELEN : 87 
+LOAD @3       ;CODELEN : 88
+DEC 3         ;CODELEN : 89  AFF
+STORE @1  ;CODELEN : 90 
 STOP ; 

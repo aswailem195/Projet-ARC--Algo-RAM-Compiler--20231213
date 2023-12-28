@@ -82,6 +82,7 @@ ALLOUER '(' ID ',' EXP ')'           {$$ = creer_noeudALLOCATION($3 ,$5 );}
 //comme T[i] <- 5  consider comme id 
 INDICX_RECU :ID'[' EXP']' AFF INDICX_RECU    {$$ = creer_noeudINDICX_RECU($1 ,$3,$6 );}
 |ID'[' EXP']' AFF EXP               {$$ = creer_noeudINDICX_RECU($1 ,$3,$6  );}  
+|ID'[' EXP']' AFF INST_LIRE         {$$ = creer_noeudINDICX_RECU($1 ,$3,$6  );}  
 ;
 
 //comme  +T[i]+5  consider comme EXP 
@@ -136,7 +137,7 @@ PROGRAMME '(' ')'  SEP
 DECS
 DEBUT SEP
 LIST_INST 
-FIN SEP   {$$ = creer_noeudPROG( $5 ,$8 );}
+FIN    {$$ = creer_noeudPROG( $5 ,$8 );}
 ;
 SEP: '\n' | SEP '\n'  
 
@@ -227,6 +228,7 @@ APPFONC : ID '(' PARAM ')' { $$ = creer_noeudAPPFONC ($1, $3); }
 
 /*___________________________EXP_____________________*/
 EXP : '(' EXP ')'            { $$ = $2; }
+|APPFONC        {$$ = $1;}
 |INDICX_SORT   {$$ = $1;}
 |NB                 { $$ = creer_feuilleNB(yyval.nb); }
 |VRAI                { $$ = creer_feuilleNB(1); }

@@ -30,14 +30,14 @@
 
 CHIFFRE  [0-9]
 NOMBRE   [0-9]+
-IDENT    [a-z]+
+IDENT    [a-zA-Z][a-zA-Z0-9]*
 COMENTAIR \/\/.*\n  
 
 
 %%
 
 {NOMBRE}        {  yylval.nb = atoi(yytext); return NB; }
-{IDENT}         { strcpy(yylval.id, yytext); return ID; }
+
 {COMENTAIR}     { /* ignorer les comentair  */  } 
 "PROGRAMME"     { return PROGRAMME; } /*Pour qu'il reconnaisse le mot PROGRAMME dans exemple1*/
 "DEBUT"         { return DEBUT; } /*Pour reconnaitre le mot DEBUT dans exemple1*/
@@ -89,6 +89,7 @@ COMENTAIR \/\/.*\n
 "NON"    {return NON ;}
 
 "ALLOUER" {return ALLOUER ;}
+{IDENT}         { strcpy(yylval.id, yytext); return ID; }
 
 
 .         {           
