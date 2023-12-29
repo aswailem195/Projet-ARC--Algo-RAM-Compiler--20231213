@@ -11,7 +11,7 @@ void codegen(asa *p) {
     return;
 
   switch (p->type) {
-  
+
   case typeINDICX_SORT:
     codeINDICX_SORT(p);
     break;
@@ -19,20 +19,18 @@ void codegen(asa *p) {
     codeINDICX_RECU(p);
     break;
 
-
   case typeALLOCATION:
     codeALLOCATION(p);
     break;
-
 
   case typeRENVOYER:
     codeRENVOYER(p);
     break;
 
-   case typeINT:
+  case typeINT:
     codeINT(p);
     break;
-   case typeL_PARM_APPL:
+  case typeL_PARM_APPL:
     codeL_PARM_APPL(p);
     break;
 
@@ -102,62 +100,67 @@ void codegen(asa *p) {
   }
 }
 /*________________________________index______________________ */
-void codeINDICX_RECU(asa * p){
-  
-codegen(p->indicx_recu.id) ;
-  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
-  codegen(p->indicx_recu.index) ;
-  fprintf(exefile,"SUB %-9d ;CODELEN : %d    \n",RAM_OS_TMP_REG, ++CODELEN);
-  fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
-
-  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
-  codegen(p->indicx_recu.exp) ;
-  fprintf(exefile,"STORE @%-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
+void codeINDICX_RECU(asa *p) {
 
 
+  /*on rammin le exp et le stoker dans le sommeet de pile */
+  codegen(p->indicx_recu.exp);
+  fprintf(exefile, "INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @%-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG,
+          ++CODELEN);
+  /*on rammin le adres dans le tas  de pointeur  et le stoker dans le sommeet de
+   * pile */
+  codegen(p->indicx_recu.id);
+  fprintf(exefile, "INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG,
+          ++CODELEN);
+  /*on rammin le adres dans le tas  de pointeur  et le stoker dans le le stokage
+   * timporir */
+  codegen(p->indicx_recu.index);
+  fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
+  fprintf(exefile, "LOAD @%d;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_TMP_REG,
+          ++CODELEN);
+  fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
+  fprintf(exefile, "DEC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "LOAD @%d;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @%-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG,
+          ++CODELEN);
 
-
-
-
+  // exp
 }
-void codeINDICX_SORT(asa * p){
+void codeINDICX_SORT(asa *p) {
 
-  codegen(p->indicx_sort.id) ;
-  fprintf(exefile,"INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile,"STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  codegen(p->indicx_sort.index) ;
-  fprintf(exefile,"STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN); 
-  fprintf(exefile,"LOAD @%d;CODELEN : %d    \n",RAM_OS_ADR_REG, ++CODELEN); 
-  fprintf(exefile,"SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n",RAM_OS_TMP_REG,++CODELEN);
-  //fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
-  fprintf(exefile,"LOAD @0;CODELEN : %d    \n", ++CODELEN); 
-  fprintf(exefile,"DEC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-
-
-
+  codegen(p->indicx_sort.id);
+  // increment le pile
+  fprintf(exefile, "INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG,
+          ++CODELEN);
+  codegen(p->indicx_sort.index);
+  fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
+  fprintf(exefile, "LOAD @%d;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
+  fprintf(exefile, "SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_TMP_REG,
+          ++CODELEN);
+  // fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
   
+  fprintf(exefile, "LOAD @0;CODELEN : %d    \n", ++CODELEN);
+  fprintf(exefile, "DEC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
 }
-
-
-
-
 
 /*________________________________allocation______________________ */
 void codeALLOCATION(asa *p) {
   /* */
   codegen(p->allocation.id);
-  int adr_PTR= p->allocation.id->id.adr_PTR ;
-  fprintf(exefile,"LOAD #%-9d ;CODELEN : %d  allocation   \n",  adr_PTR , ++CODELEN);
-  fprintf(exefile,"SUB %-9d ;CODELEN : %d    \n", RAM_OS_TAS_REG, ++CODELEN);
-  fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
-  fprintf(exefile,"STORE @%-9d;CODELEN : %d     \n",  RAM_OS_TMP_REG  , ++CODELEN);
-
-
+  int adr_PTR = p->allocation.id->id.adr_PTR;
+  fprintf(exefile, "LOAD #%-9d ;CODELEN : %d  allocation   \n", adr_PTR,
+          ++CODELEN);
+  fprintf(exefile, "SUB %-9d ;CODELEN : %d    \n", RAM_OS_TAS_REG, ++CODELEN);
+  fprintf(exefile, "MUL #-1;CODELEN : %d    \n", ++CODELEN);
+  fprintf(exefile, "STORE @%-9d;CODELEN : %d     \n", RAM_OS_TMP_REG,
+          ++CODELEN);
 }
 
-void codeDECLA_POIN(asa *p){
-  /*raminer la adrees */
-  
+void codeDECLA_POIN(asa *p) { /*raminer la adrees */
 }
 
 /*________________________________RENVOYER____________________________*/
@@ -169,26 +172,38 @@ void codeRENVOYER(asa *p) {
 /*________________________________APPFONC____________________________*/
 
 void codeINT(asa *p) {
- int adr = p->ent.id->id.adr ;
- int adr_app = p->ent.id->id.adr_app ;
- fprintf(exefile,"LOAD #%-9d ;CODELEN : %d  apple de fonction par valeur  \n", adr_app, ++CODELEN);
- fprintf(exefile,"ADD 2 ;CODELEN : %d   \n", ++CODELEN);
- fprintf(exefile,"STORE 1 ;CODELEN : %d  \n", ++CODELEN);
- fprintf(exefile,"LOAD #%-9d ;CODELEN : %d    \n", adr, ++CODELEN);
- fprintf(exefile,"ADD 2 ;CODELEN : %d   \n", ++CODELEN);
- fprintf(exefile,"LOAD @0 %-9d ;CODELEN : %d    \n", adr, ++CODELEN);
- fprintf(exefile,"STORE @1 ;CODELEN : %d  \n", ++CODELEN);
+  int adr = p->ent.id->id.adr; // Adresse de la variable qui appelle la fonction
+  int adr_app =
+      p->ent.id->id.adr_app; // Adresse de la variable de la fonction appelée
+  /* Si passage par valuer , copiez la valeur de la variable qui appelle la
+   * fonction dans la variable de la fonction */
+  if (p->ent.id->id.type == TYPE_ENTIER) {
 
+    fprintf(exefile, "LOAD #%-9d ;CODELEN: %d  appel de fonction par valeur\n",
+            adr_app, ++CODELEN);
+    fprintf(exefile, "ADD 2 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "STORE 1 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "LOAD #%-9d ;CODELEN: %d\n", adr, ++CODELEN);
+    fprintf(exefile, "ADD 2 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "LOAD @0 %-9d ;CODELEN: %d\n", adr, ++CODELEN);
+    fprintf(exefile, "STORE @1 ;CODELEN: %d\n", ++CODELEN);
+  } else {
+    /* S'il par  pointeur */
 
-
-
+    fprintf(exefile, "LOAD #%-9d ;CODELEN: %d  appel de fonction par valeur\n",
+            adr_app, ++CODELEN);
+    fprintf(exefile, "ADD 2 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "STORE 1 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "LOAD #%-9d ;CODELEN: %d\n", adr, ++CODELEN);
+    fprintf(exefile, "ADD 2 ;CODELEN: %d\n", ++CODELEN);
+    fprintf(exefile, "LOAD @0 %-9d ;CODELEN: %d\n", adr, ++CODELEN);
+    fprintf(exefile, "STORE @1 ;CODELEN: %d\n", ++CODELEN);
+  }
 }
 
-void codeL_PARM_APPL(asa *p) { 
-  codegen(p->l_param_appl.var) ;
-  codegen(p->l_param_appl.next) ;
-  
-  
+void codeL_PARM_APPL(asa *p) {
+  codegen(p->l_param_appl.var);
+  codegen(p->l_param_appl.next);
 }
 
 void codeLIS_DEC_FON(asa *p) {
@@ -198,17 +213,15 @@ void codeLIS_DEC_FON(asa *p) {
 
 void codeAPPFONC(asa *p) {
 
-
-  codegen(p->appfonc.LIST_PARAM) ;
+  codegen(p->appfonc.LIST_PARAM);
   /* on stock la valeur de instrction pour revien */
   CODELEN++;
-  
 
   fprintf(exefile,
           "LOAD #%-9d ;CODELEN : %d APPLFON stock la valeur de instrction pour "
           "revien\n",
-          CODELEN  + 4,
-          CODELEN); // 3 pour inst suivant 1 apres 
+          CODELEN + 4,
+          CODELEN); // 3 pour inst suivant 1 apres
 
   fprintf(exefile, "STORE %-9d ;CODELEN : %d \n", RAM_OS_EMPILER_ADR,
           ++CODELEN);
@@ -220,10 +233,7 @@ void codeAPPFONC(asa *p) {
   fprintf(exefile, "JUMP @0       ;CODELEN : %d FIN DE FON \n", ++CODELEN);
 }
 
-
 void codeDEC_FON(asa *p) {
-
-
 
   // c'est  le decla de fonction
   // fprintf(exefile, "INC %-9d ; DECLA_FON \n", RAM_OS_ADR_REG) ;
@@ -233,25 +243,25 @@ void codeDEC_FON(asa *p) {
   /* */
   codegen(p->dec_fon.DECS);
 
-    /* la case mem pour la fonction dans la pile, parmi les indices
-   de début des instructions de la fonction
-  */
+  /* la case mem pour la fonction dans la pile, parmi les indices
+ de début des instructions de la fonction
+*/
 
   // lode de debut de inst de fonction
   CODELEN++;
   fprintf(exefile,
           "LOAD #%-9d ;CODELEN : %d  DECLA_FON debut inst de fonction  \n",
-          CODELEN + 5 , CODELEN); // 5 instraction suivant +1
-  
+          CODELEN + 5, CODELEN); // 5 instraction suivant +1
+
   fprintf(exefile,
           "STORE %-9d ; CODELEN : %d on le stock dans le sdr de fonc  \n",
           p->dec_fon.ID->memadr, ++CODELEN);
 
   /* stokeer le fin de fonction utile pour le jumb*/
   CODELEN++;
-  fprintf(exefile, "LOAD #%-9d ;CODELEN : %d  \n", CODELEN + p->dec_fon.LIST_INST->codelen + 3 +1,
-          CODELEN);
-  
+  fprintf(exefile, "LOAD #%-9d ;CODELEN : %d  \n",
+          CODELEN + p->dec_fon.LIST_INST->codelen + 3 + 1, CODELEN);
+
   fprintf(exefile, "STORE %-9d ;CODELEN : %d  \n", RAM_OS_EMPILER_ADR,
           ++CODELEN);
   fprintf(exefile,
@@ -271,10 +281,10 @@ void codeSTRUCT_TQ(asa *p) {
   codegen(p->struct_tq.condition);
   CODELEN++;
   fprintf(exefile, "JUMZ %d ; CODELEN : %d  STRUCT_TQ \n",
-          CODELEN   + p->struct_tq.inst->codelen + 2, CODELEN);
-  
+          CODELEN + p->struct_tq.inst->codelen + 2, CODELEN);
+
   codegen(p->struct_tq.inst);
-  fprintf(exefile, "JUMP %d ;CODELEN : %d  STRUCT TQ fin \n", Buffer+1,
+  fprintf(exefile, "JUMP %d ;CODELEN : %d  STRUCT TQ fin \n", Buffer + 1,
           ++CODELEN);
 }
 /*_______________________________________si_______________________________________________________*/
@@ -284,15 +294,18 @@ void codeSTRUCT_SI(asa *p) {
   codegen(p->struct_si.condition);
 
   CODELEN++;
-  fprintf(exefile, "JUMZ %d ; CODELEN : %d STRUCT_SI \n",CODELEN + p->struct_si.inst_si->codelen + 2, CODELEN);
+  fprintf(exefile, "JUMZ %d ; CODELEN : %d STRUCT_SI \n",
+          CODELEN + p->struct_si.inst_si->codelen + 2, CODELEN);
   codegen(p->struct_si.inst_si);
 
   // ou on est + l'inst lui meme + ins de si  non -1 pource que on comencer par0
 
-  int taill_inst =(p->struct_si.inst_si_non ? p->struct_si.inst_si_non->codelen : 0);
-  
+  int taill_inst =
+      (p->struct_si.inst_si_non ? p->struct_si.inst_si_non->codelen : 0);
+
   CODELEN += 1;
-  fprintf(exefile, "JUMP %d ; CODELEN : %d STRUCT_SI NON \n",CODELEN + taill_inst + 1, CODELEN);
+  fprintf(exefile, "JUMP %d ; CODELEN : %d STRUCT_SI NON \n",
+          CODELEN + taill_inst + 1, CODELEN);
   codegen(p->struct_si.inst_si_non);
 }
 /*_______________________________________lire_______________________________________________________*/
@@ -300,7 +313,8 @@ void codeSTRUCT_SI(asa *p) {
 void codeINST_LIRE(asa *p) {
 
   // ID <- LIRE()
-  codegen(p->inst_lire.ID); // raminer la address du  ID  et stocke dans adress 1
+  codegen(
+      p->inst_lire.ID); // raminer la address du  ID  et stocke dans adress 1
   fprintf(exefile, "READ ; CODELEN : %d  INST_LIRE\n", ++CODELEN);
   fprintf(exefile, "STORE @1 ; CODELEN : %d \n", ++CODELEN);
 }
@@ -308,46 +322,47 @@ void codeINST_LIRE(asa *p) {
 /*_______________________________________main_______________________________________________________*/
 
 void codeMAIN(asa *p) {
-/* J'ai considéré que la portée des variables locales restait restreinte à toute la vie 
- * du code, mais on ne peut pas  les utiliser juste dans leur fonction
- * gérée par le sémantique 
- */
-/*
- * En ce qui concerne le tas, je lui donne une adresse, mais toujours, on insère à l'adresse avant. Cela pourrait dire
- * que son adresse est décroissante.
- */
+  /* J'ai considéré que la portée des variables locales restait restreinte à
+   * toute la vie du code, mais on ne peut pas  les utiliser juste dans leur
+   * fonction gérée par le sémantique
+   */
+  /*
+   * En ce qui concerne le tas, je lui donne une adresse, mais toujours, on
+   * insère à l'adresse avant. Cela pourrait dire que son adresse est
+   * décroissante.
+   */
 
-/*
- *   --
- * ACC
- * ---
- * RAM OS
- *  |
- * ---
- * DONNER
- * VARIABLES GLOBALES
- * ---
- * PILE
- *  |
- *  v
- * ---
- * ///////////
- * ---
- *  ^
- *  |
- * TAS
- * -----
- */
+  /*
+   *   --
+   * ACC
+   * ---
+   * RAM OS
+   *  |
+   * ---
+   * DONNER
+   * VARIABLES GLOBALES
+   * ---
+   * PILE
+   *  |
+   *  v
+   * ---
+   * ///////////
+   * ---
+   *  ^
+   *  |
+   * TAS
+   * -----
+   */
 
   int PILE_DEBUT_ADR = 32;
-  int TAS_DEBUT_ADR=150 ;
+  int TAS_DEBUT_ADR = 150;
   fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR);
   fprintf(exefile, "STORE %-6d ; deput pile\n", RAM_OS_STK_REG);
-  fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR+p->main.nb_valiable_local);
-  fprintf(exefile, "STORE %-6d  ; sommet pile \n",RAM_OS_ADR_REG);
+  fprintf(exefile, "LOAD #%-7d ;\n",
+          PILE_DEBUT_ADR + p->main.nb_valiable_local);
+  fprintf(exefile, "STORE %-6d  ; sommet pile \n", RAM_OS_ADR_REG);
   fprintf(exefile, "LOAD #%-7d ;\n", TAS_DEBUT_ADR);
   fprintf(exefile, "STORE %-6d ; deput tas \n", RAM_OS_TAS_REG);
-
 
   if (p->main.DEC) {
     codegen(p->main.DEC);
@@ -414,22 +429,25 @@ void codeID(asa *p) {
 
 void codeDECLA_VAR(asa *p) {
 
-  /* Si la déclaration est accompagnée d'une affectation, on place la valeur de l'affectation à l'adresse de la variable.
-Sinon, on ne fait rien, car on considère que toutes les variables locales ont une adresse propre avant la génération du code.
-Ainsi, on commence du sommet de la pile jusqu'au bas de la pile, en ajoutant le nombre de variables.
+  /* Si la déclaration est accompagnée d'une affectation, on place la valeur de
+l'affectation à l'adresse de la variable. Sinon, on ne fait rien, car on
+considère que toutes les variables locales ont une adresse propre avant la
+génération du code. Ainsi, on commence du sommet de la pile jusqu'au bas de la
+pile, en ajoutant le nombre de variables.
 */
-
 
   if (p->decla_var.inst_mis) {
     codegen(p->decla_var.inst_mis);
-    fprintf(exefile, "INC %-9d ; CODELEN : %d AFF\n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
-  
-   codegen(p->affect.id);
-  fprintf(exefile, "LOAD @%-7d ;CODELEN : %d\n", RAM_OS_ADR_REG,
-          ++CODELEN); // resulta de droit
-  fprintf(exefile, "DEC %-9d ;CODELEN : %d  AFF\n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "STORE @1  ;CODELEN : %d \n", ++CODELEN);
+    fprintf(exefile, "INC %-9d ; CODELEN : %d AFF\n", RAM_OS_ADR_REG,
+            ++CODELEN);
+    fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
+
+    codegen(p->affect.id);
+    fprintf(exefile, "LOAD @%-7d ;CODELEN : %d\n", RAM_OS_ADR_REG,
+            ++CODELEN); // resulta de droit
+    fprintf(exefile, "DEC %-9d ;CODELEN : %d  AFF\n", RAM_OS_ADR_REG,
+            ++CODELEN);
+    fprintf(exefile, "STORE @1  ;CODELEN : %d \n", ++CODELEN);
   }
 }
 /*_______________________________________AFF_______________________________________________________*/
@@ -497,7 +515,7 @@ void codeOP(asa *p) {
     fprintf(exefile, "INC %-9d ;CODELEN : %d  codeOP > \n", RAM_OS_ADR_REG,
             ++CODELEN);
     fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
-    
+
     codegen(p->op.noeud[0]);
     fprintf(exefile, "SUB @%-8d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
     CODELEN++;
@@ -522,11 +540,11 @@ void codeOP(asa *p) {
     fprintf(exefile, "SUB @%-8d ; CODELEN : %d\n", RAM_OS_ADR_REG, ++CODELEN);
     CODELEN++;
     fprintf(exefile, "JUML %d ; CODELEN : %d \n", CODELEN + 3, CODELEN);
-    
+
     fprintf(exefile, "LOAD #0;CODELEN : %d \n", ++CODELEN);
     CODELEN++;
     fprintf(exefile, "JUMP %-6d ;CODELEN : %d \n", CODELEN + 2, CODELEN);
-    
+
     fprintf(exefile, "LOAD #1;CODELEN : %d \n", ++CODELEN);
     fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
     fprintf(exefile, "DEC %-9d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
@@ -555,8 +573,8 @@ void codeOP(asa *p) {
 
   case OP_INF_EG:
     codegen(p->op.noeud[1]);
-    fprintf(exefile, "INC %-9d ; CODELEN : %d codeOP < OP_INF_EG\n", RAM_OS_ADR_REG,
-            ++CODELEN);
+    fprintf(exefile, "INC %-9d ; CODELEN : %d codeOP < OP_INF_EG\n",
+            RAM_OS_ADR_REG, ++CODELEN);
     fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
 
     codegen(p->op.noeud[0]);
@@ -574,8 +592,8 @@ void codeOP(asa *p) {
 
   case OP_SUP_EG:
     codegen(p->op.noeud[1]);
-    fprintf(exefile, "INC %-9d ;CODELEN : %d codeOP OP_SUP_EG > \n", RAM_OS_ADR_REG,
-            ++CODELEN);
+    fprintf(exefile, "INC %-9d ;CODELEN : %d codeOP OP_SUP_EG > \n",
+            RAM_OS_ADR_REG, ++CODELEN);
     fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
 
     codegen(p->op.noeud[0]);
@@ -641,10 +659,10 @@ void codeOP(asa *p) {
 
     break;
 
-    case M_UN:
-    
+  case M_UN:
+
     codegen(p->op.noeud[0]);
-    fprintf(exefile, "STORE %d ;CODELEN : %d  \n",RAM_OS_TMP_REG, ++CODELEN);
+    fprintf(exefile, "STORE %d ;CODELEN : %d  \n", RAM_OS_TMP_REG, ++CODELEN);
     fprintf(exefile, "LOAD #0; CODELEN : %d \n", ++CODELEN);
     fprintf(exefile, "SUB %-8d  ; CODELEN : %d\n", RAM_OS_TMP_REG, ++CODELEN);
     break;

@@ -1,0 +1,26 @@
+ALGO Print(@t ,n)
+VAR i<-0 
+DEBUT 
+
+	TQ i< n FAIRE
+		ECRIRE(t[i])
+		i<- i+1 
+	FTQ
+	
+FIN
+
+PROGRAMME()
+//testcomentair 
+VAR @m ,t<-4 ,i<-0 
+DEBUT 
+	
+	ALLOUER(m,10)
+	TQ i< 4 FAIRE
+		//ECRIRE(m[i])
+		m[i]<-i
+		i<- i+1
+	FTQ
+
+	Print(m,t)
+    
+FIN

@@ -391,7 +391,7 @@ void semantic_INDICX_RECU(asa *p){
     p->indicx_recu.id->id.ctxt= "GLOBAL";
 
     // on le donner la codelen et la adr
-    p->codelen = 5;
+    p->codelen = 11;
     p->indicx_recu.id->memadr = y->adr;
     
 
@@ -401,7 +401,7 @@ void semantic_INDICX_RECU(asa *p){
        p->indicx_recu.id->id.ctxt= "locale";
 
       // on le donner la codelen et la adr
-      p->codelen =5;
+      p->codelen =11;
       p->indicx_recu.id->memadr = y->adr;
       
       
@@ -415,9 +415,9 @@ void semantic_INDICX_RECU(asa *p){
   semantic(p->indicx_recu.exp) ;
   semantic(p->indicx_recu.id) ;
   semantic(p->indicx_recu.index) ;
-  p->codelen += (p->indicx_recu.exp ? p->indicx_recu.exp->codelen : 0) +
+  p->codelen = (p->indicx_recu.exp ? p->indicx_recu.exp->codelen : 0) +
                (p->indicx_recu.id? p->indicx_recu.id->codelen: 0)+
-               (p->indicx_recu.index ? p->indicx_recu.index->codelen : 0);
+               (p->indicx_recu.index ? p->indicx_recu.index->codelen : 0)+11;
 
 
 
