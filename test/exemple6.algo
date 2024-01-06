@@ -1,0 +1,10 @@
+// variable global
+VAR g<-9
+PROGRAMME()
+VAR taille,t[5], @p
+DEBUT
+    ALLOUER( p, 10 )
+    taille <- 5+3
+    t[0] <- 1
+    p[0] <- 5
+FIN

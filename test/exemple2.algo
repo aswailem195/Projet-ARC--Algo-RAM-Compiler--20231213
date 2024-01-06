@@ -1,8 +1,10 @@
+// varable local et gestion de error
 PROGRAMME()
 VAR toto, titi, tutu
 DEBUT
 	toto <- 12
 	titi <- 5
-	tutu <- 2*(a-b)
+	//Affichage d'une erreur car a b  n'est pas déclarée.
+	//tutu <- 2*(a-b)
 	toto <- (tutu < 0)
 FIN

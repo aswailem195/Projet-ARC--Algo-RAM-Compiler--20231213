@@ -1,0 +1,21 @@
+//example FOCTION 3 PARAM
+ALGO Selection( m, n, i )
+DEBUT
+	ECRIRE(m)
+	
+	ECRIRE(n)
+	ECRIRE(i)
+	RENVOYER 5+3
+
+
+FIN
+
+PROGRAMME()
+VAR taille, @T
+VAR i , buf<-3 ,k<-4,s<-5
+DEBUT
+
+	   buf <- Selection(k,buf, s)
+	   ECRIRE(buf)
+
+FIN

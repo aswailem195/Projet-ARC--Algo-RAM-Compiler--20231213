@@ -37,8 +37,7 @@ void semantic_LIS_DEC_FON(asa *p);
 void semantic_PARAM(asa * p);
 void semantic_RENVOYER(asa * p) ;
 
-void semantic_PON(asa *p) ;
-void  semantic_INT(asa *p) ;
+void  semantic_PARAM_APPL(asa *p) ;
 void semantic_L_PARM_APPL(asa *p,char *nom_F) ;
 void semantic_ALLOCATION(asa *p) ;
 
@@ -50,6 +49,7 @@ void semantic_ALLOCATION(asa *p) ;
 
 
 int  error_semantic(const char *s) ;
+void rechercher_identificateur( char* id , char * text ) ;
 
 
 

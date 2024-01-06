@@ -2,9 +2,8 @@
 #include <stdio.h>
 
 char CTXTC[32] = "GLOBAL";
-
 int CODELEN = 5;
-int nb_VAR_Fonctio;
+
 void codegen(asa *p) {
 
   if (!p)
@@ -27,7 +26,7 @@ void codegen(asa *p) {
     codeRENVOYER(p);
     break;
 
-  case typeINT:
+  case typePARAM_APPL:
     codeINT(p);
     break;
   case typeL_PARM_APPL:
@@ -55,11 +54,17 @@ void codegen(asa *p) {
   case typeLIST_DECLA:
     codeLIST_DECLA(p);
     break;
+  case typeDECLA_POIN:
+    codeDECLA_POIN(p);
+    break;
+  case typeDECLA_TAB:
+    codeDECLA_TAB(p);
+    break;
   case typeDECLA_VAR:
     codeDECLA_VAR(p);
     break;
   case typeID:
-    printf("%d", p->type);
+    
     codeID(p);
 
     break;
@@ -99,6 +104,64 @@ void codegen(asa *p) {
     break;
   }
 }
+/*_______________________________________main_______________________________________________________*/
+
+void codeMAIN(asa *p) {
+  /* nous  considéré que la portée des variables locales restait restreinte à
+   * toute la vie du code, mais on ne peut pas  les utiliser juste dans leur
+   * fonction gérée par le sémantic.c
+   */
+  /*
+   * En ce qui concerne le tas, je lui donne une adresse, mais toujours, on
+   * insère à l'adresse avant. Cela pourrait dire que son adresse est
+   * décroissante.
+   */
+
+  /*
+   *   --
+   * ACC
+   * ---
+   * RAM OS
+   *  |
+   * ---
+   * DONNER
+   * VARIABLES GLOBALES
+   * ---
+   * PILE
+   *  |
+   *  v
+   * ---
+   * ///////////
+   * ---
+   *  ^
+   *  |
+   * TAS
+   * -----
+   */
+
+  
+  fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR);
+  fprintf(exefile, "STORE %-6d ; deput pile\n", RAM_OS_STK_REG);
+
+  fprintf(exefile, "LOAD #%-7d ;\n",PILE_DEBUT_ADR + p->main.nb_valiable_local);
+  fprintf(exefile, "STORE %-6d  ; sommet pile \n", RAM_OS_ADR_REG);
+  
+  fprintf(exefile, "LOAD #%-7d ;\n", TAS_DEBUT_ADR);
+  fprintf(exefile, "STORE %-6d ; deput tas \n", RAM_OS_TAS_REG);
+
+  if (p->main.DEC) {
+    codegen(p->main.DEC);
+  }
+  if (p->main.L_DEC_FN) {
+    codegen(p->main.L_DEC_FN);
+  }
+  codegen(p->main.PROG);
+  fprintf(exefile, "STOP ; ");
+}
+void codePROG(asa *p) {
+  codegen(p->prog.DECLA);
+  codegen(p->prog.INST);
+}
 /*________________________________index______________________ */
 void codeINDICX_RECU(asa *p) {
 
@@ -112,14 +175,14 @@ void codeINDICX_RECU(asa *p) {
    * pile */
   codegen(p->indicx_recu.id);
   fprintf(exefile, "INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG,
+  fprintf(exefile, "STORE @%-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG,
           ++CODELEN);
   /*on rammin le adres dans le tas  de pointeur  et le stoker dans le le stokage
    * timporir */
   codegen(p->indicx_recu.index);
   fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
   fprintf(exefile, "LOAD @%d;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_TMP_REG,
+  fprintf(exefile, "SUB %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG,
           ++CODELEN);
   fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
   fprintf(exefile, "DEC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
@@ -134,12 +197,12 @@ void codeINDICX_SORT(asa *p) {
   codegen(p->indicx_sort.id);
   // increment le pile
   fprintf(exefile, "INC %-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "STORE @%-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_ADR_REG,
+  fprintf(exefile, "STORE @%-9d ;CODELEN : %d    \n", RAM_OS_ADR_REG,
           ++CODELEN);
   codegen(p->indicx_sort.index);
   fprintf(exefile, "STORE %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG, ++CODELEN);
   fprintf(exefile, "LOAD @%d;CODELEN : %d    \n", RAM_OS_ADR_REG, ++CODELEN);
-  fprintf(exefile, "SUB %-9d ;jjjjjjjjjjjCODELEN : %d    \n", RAM_OS_TMP_REG,
+  fprintf(exefile, "SUB %-9d ;CODELEN : %d    \n", RAM_OS_TMP_REG,
           ++CODELEN);
   // fprintf(exefile,"MUL #-1;CODELEN : %d    \n", ++CODELEN);
   
@@ -160,8 +223,6 @@ void codeALLOCATION(asa *p) {
           ++CODELEN);
 }
 
-void codeDECLA_POIN(asa *p) { /*raminer la adrees */
-}
 
 /*________________________________RENVOYER____________________________*/
 void codeRENVOYER(asa *p) {
@@ -172,12 +233,12 @@ void codeRENVOYER(asa *p) {
 /*________________________________APPFONC____________________________*/
 
 void codeINT(asa *p) {
-  int adr = p->ent.id->id.adr; // Adresse de la variable qui appelle la fonction
+  int adr = p->param_appl.id->id.adr; // Adresse de la variable qui appelle la fonction
   int adr_app =
-      p->ent.id->id.adr_app; // Adresse de la variable de la fonction appelée
+      p->param_appl.id->id.adr_app; // Adresse de la variable de la fonction appelée
   /* Si passage par valuer , copiez la valeur de la variable qui appelle la
    * fonction dans la variable de la fonction */
-  if (p->ent.id->id.type == TYPE_ENTIER) {
+  if (p->param_appl.id->id.type == TYPE_ENTIER) {
 
     fprintf(exefile, "LOAD #%-9d ;CODELEN: %d  appel de fonction par valeur\n",
             adr_app, ++CODELEN);
@@ -227,7 +288,7 @@ void codeAPPFONC(asa *p) {
           ++CODELEN);
 
   /**/
-  int adr = p->memadr;
+
   codegen(p->appfonc.ID);
 
   fprintf(exefile, "JUMP @0       ;CODELEN : %d FIN DE FON \n", ++CODELEN);
@@ -319,64 +380,7 @@ void codeINST_LIRE(asa *p) {
   fprintf(exefile, "STORE @1 ; CODELEN : %d \n", ++CODELEN);
 }
 
-/*_______________________________________main_______________________________________________________*/
 
-void codeMAIN(asa *p) {
-  /* J'ai considéré que la portée des variables locales restait restreinte à
-   * toute la vie du code, mais on ne peut pas  les utiliser juste dans leur
-   * fonction gérée par le sémantique
-   */
-  /*
-   * En ce qui concerne le tas, je lui donne une adresse, mais toujours, on
-   * insère à l'adresse avant. Cela pourrait dire que son adresse est
-   * décroissante.
-   */
-
-  /*
-   *   --
-   * ACC
-   * ---
-   * RAM OS
-   *  |
-   * ---
-   * DONNER
-   * VARIABLES GLOBALES
-   * ---
-   * PILE
-   *  |
-   *  v
-   * ---
-   * ///////////
-   * ---
-   *  ^
-   *  |
-   * TAS
-   * -----
-   */
-
-  int PILE_DEBUT_ADR = 32;
-  int TAS_DEBUT_ADR = 150;
-  fprintf(exefile, "LOAD #%-7d ;\n", PILE_DEBUT_ADR);
-  fprintf(exefile, "STORE %-6d ; deput pile\n", RAM_OS_STK_REG);
-  fprintf(exefile, "LOAD #%-7d ;\n",
-          PILE_DEBUT_ADR + p->main.nb_valiable_local);
-  fprintf(exefile, "STORE %-6d  ; sommet pile \n", RAM_OS_ADR_REG);
-  fprintf(exefile, "LOAD #%-7d ;\n", TAS_DEBUT_ADR);
-  fprintf(exefile, "STORE %-6d ; deput tas \n", RAM_OS_TAS_REG);
-
-  if (p->main.DEC) {
-    codegen(p->main.DEC);
-  }
-  if (p->main.L_DEC_FN) {
-    codegen(p->main.L_DEC_FN);
-  }
-  codegen(p->main.PROG);
-  fprintf(exefile, "STOP ; ");
-}
-void codePROG(asa *p) {
-  codegen(p->prog.DECLA);
-  codegen(p->prog.INST);
-}
 
 void codeDECS(asa *p) {
   codegen(p->decs.DEC);
@@ -411,8 +415,6 @@ void codeIST_ECRIRE(asa *p) {
 void codeID(asa *p) {
 
   int adr = p->memadr; // on va modifirer apes
-  // printf("fffff %s" ,p->id.ctxt) ;
-
   if (strcmp(p->id.ctxt, "locale") == 0) {
     fprintf(exefile, "LOAD #%-8d ; CODELEN : %d  codeID locale %s\n", adr,
             ++CODELEN, p->id.nom);
@@ -425,7 +427,25 @@ void codeID(asa *p) {
             ++CODELEN, p->id.nom);
   }
 }
-/*_______________________________________var_______________________________________________________*/
+void codeDECLA_TAB (asa *p) {
+  
+  codegen(p->allocation.id);
+  int adr_PTR = p->decla_tab.id->id.adr_PTR;
+  fprintf(exefile, "LOAD #%-9d ;CODELEN : %d  DECLA_TAB   \n", adr_PTR,
+          ++CODELEN);
+  fprintf(exefile, "SUB %-9d ;CODELEN : %d    \n", RAM_OS_TAS_REG, ++CODELEN);
+  fprintf(exefile, "MUL #-1;CODELEN : %d    \n", ++CODELEN);
+  fprintf(exefile, "STORE @%-9d;CODELEN : %d     \n", RAM_OS_TMP_REG,
+          ++CODELEN);
+
+}
+void codeDECLA_POIN(asa *p) { /* on ne fait rien, car on
+considère que toutes les variables locales ont une adresse propre avant la
+génération du code. */
+}
+
+/*_______________________________________DECLA_VAR_______________________________________________________*/
+
 
 void codeDECLA_VAR(asa *p) {
 
@@ -436,9 +456,14 @@ génération du code. Ainsi, on commence du sommet de la pile jusqu'au bas de la
 pile, en ajoutant le nombre de variables.
 */
 
+
+
+
   if (p->decla_var.inst_mis) {
     codegen(p->decla_var.inst_mis);
-    fprintf(exefile, "INC %-9d ; CODELEN : %d AFF\n", RAM_OS_ADR_REG,
+    
+    if ( strcmp(p->decla_var.ID->id.ctxt, "locale") == 0) {
+      fprintf(exefile, "INC %-9d ; CODELEN : %d \n", RAM_OS_ADR_REG,
             ++CODELEN);
     fprintf(exefile, "STORE @%-6d ;CODELEN : %d \n", RAM_OS_ADR_REG, ++CODELEN);
 
@@ -448,6 +473,11 @@ pile, en ajoutant le nombre de variables.
     fprintf(exefile, "DEC %-9d ;CODELEN : %d  AFF\n", RAM_OS_ADR_REG,
             ++CODELEN);
     fprintf(exefile, "STORE @1  ;CODELEN : %d \n", ++CODELEN);
+    }else { 
+      fprintf(exefile, "STORE %d ;CODELEN : %d \n",p->decla_var.ID->memadr, ++CODELEN);
+    
+    }
+    
   }
 }
 /*_______________________________________AFF_______________________________________________________*/

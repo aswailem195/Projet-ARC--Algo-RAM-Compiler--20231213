@@ -1,9 +1,14 @@
+//example somme de table 
 PROGRAMME()
 VAR  T[2]
-VAR  somme
+VAR  somme , buf , l 
 DEBUT
-	T[0] <- LIRE()
-	T[1] <- LIRE()
-	somme <- T[0] + T[1]
+   l <-LIRE()
+   buf<-LIRE()
+	T[0] <- buf
+	T[1] <- l
+   ECRIRE( T[0])
+   ECRIRE( T[1])
+	somme <-( T[0] + T[1] )
 	ECRIRE( somme )
 FIN

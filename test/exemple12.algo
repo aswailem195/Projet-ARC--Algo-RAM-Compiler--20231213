@@ -7,7 +7,7 @@ DEBUT
 	T[j] <- temp
 FIN
 
-// Renvoie l'indice de la plus petite valeur du tableau 'T' entre 'i' et 'n'	
+// Renvoie l'indice de la plus petite valeur du tableau 'T' entre 'i' et 'n'
 ALGO Selection( @T, n, i )
 VAR imin <- i
 DEBUT
@@ -27,14 +27,14 @@ VAR i, imin ,buf
 DEBUT
 	//stockage des donnees dans un tableau dynamique
 	//taille <- LIRE()
-	// mon aloation just marche avec NB 
+	// mon aloation just marche avec NB
 	ALLOUER( T, 5 )
 	taille <- 5
-	
+
 	i <- 0
 	TQ i < taille FAIRE
 	   buf <- LIRE()
-	   T[i] <- buf 
+	   T[i] <- buf
 	   // a ce mement il marche just avec VAR ou NB
 	   //T[i] <- LIRE()
 	   i <- i+1
@@ -45,7 +45,9 @@ DEBUT
 	TQ i < taille FAIRE
 
 	   buf <- Selection(T, taille, i)
-	   ECHANGER( T, i, buf)
+	   SI ( T[buf] < T[i] ) ALORS
+	       ECHANGER( T, i, buf)
+	   FSI
 	   i <- i+1
 	FTQ
 
@@ -55,6 +57,6 @@ DEBUT
 	   ECRIRE(T[i])
 	   i <- i+1
 	FTQ
-	
+
 	RENVOYER 0
 FIN

@@ -122,7 +122,7 @@ LIST_VAR :INT ','LIST_VAR   {$$ = creer_noeudLIST_VAR( $1 ,$3 );}
 ;
 
 
-INT : ID                 {$$ = creer_noeudINT( $1);}
+INT : ID                 {$$ = creer_noeudPARAM_APPL( $1);}
 ;
 PON : '@' ID              {$$ = creer_noeudPON( $2 );}
 ;
@@ -137,11 +137,15 @@ PROGRAMME '(' ')'  SEP
 DECS
 DEBUT SEP
 LIST_INST 
-FIN    {$$ = creer_noeudPROG( $5 ,$8 );}
+FIN FINCODE   {$$ = creer_noeudPROG( $5 ,$8 );}
+;
+FINCODE :SEP
+|%empty 
 ;
 SEP: '\n' | SEP '\n'  
 
 ;
+
 
 
 INST_RENVOYER: RENVOYER EXP  {$$ = creer_noeudRENVOYER($2);}

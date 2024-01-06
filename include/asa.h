@@ -33,7 +33,7 @@ typedef enum {typeNB, typeOP, typeID,typeAFF ,typeINST,typeLIST_INST,typeDECLA_V
 typeDECS,typeLIST_DECLA,typeDECLA_TAB,typeDECLA_POIN,
 typeINST_ECRIRE,typeINST_LIRE,typeSTRUCT_TQ , typeSTRUCT_SI , 
 typeMAIN ,typeDEC_FON , typePARAM ,typeRENVOYER ,typeAPPFONC ,typeLIS_DEC_FON ,
-typeINT ,typePON ,typeL_PARM_APPL ,typeALLOCATION ,typeINDICX_RECU ,  typeINDICX_SORT} typeNoeud;
+typePARAM_APPL ,typePON ,typeL_PARM_APPL ,typeALLOCATION ,typeINDICX_RECU ,  typeINDICX_SORT} typeNoeud;
 
 typedef  enum {t_AFF ,t_EXP} t_INST ;
 
@@ -169,7 +169,7 @@ typedef struct {
 
 typedef struct {
   struct asa *id ;
-}noeudINT ;
+}noeudPARAM_APPL ;
 
 
 typedef struct {
@@ -227,7 +227,7 @@ typedef struct asa{
     noeudRENVOYER renvoyer ;
     noeudAPPFONC appfonc ;
     noeudLIS_DEC_FON lis_dec_fon ;
-    noeudINT ent ;
+    noeudPARAM_APPL param_appl ;
     noeudPON pon ;
     noeudL_PARM_APPL l_param_appl ;
     noeudALLOCATION allocation ;
@@ -266,7 +266,7 @@ asa * creer_noeudRENVOYER(asa* p1) ;
 asa * creer_noeudAPPFONC (char* id ,asa* p2);
 asa * creer_noeudLIS_DEC_FON(asa* p1 ,asa* p2);
 asa* creer_noeudLIST_VAR(asa* p1 ,asa* p2) ;
-asa* creer_noeudINT(char* id) ;
+asa* creer_noeudPARAM_APPL(char* id) ;
 asa* creer_noeudPON(char* id) ;
 asa*  creer_noeudINDICX_SORT(char* id ,asa* p2 ); 
 asa* creer_noeudINDICX_RECU(char* id ,asa* p2,asa*  p3 ) ;
@@ -286,7 +286,7 @@ void print_asa(asa * p);
 void print_typeOP(asa *p);
 void print_typeNB(asa *p);
 
-
+/*affichage de arbe par dot */
 void print_asa_dot_node(FILE *output, asa *p);
 void print_asa_dot_edge(FILE *output, asa *parent, asa *child) ;
 void print_asa_dot_recursive(FILE *output, asa *p);

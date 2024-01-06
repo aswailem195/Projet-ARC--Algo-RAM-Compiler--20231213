@@ -1,0 +1,14 @@
+exmple1 :  test SI   TQ 2 FONCTION
+exmple2 : varable local et gestion de error
+exmple3 :example somme de table
+exmple4 :foction sans param
+exmple5 :example fonction avec ptr
+exmple6 :  variable global
+exmple8 :example FOCTION 3 PARAM
+exmple9 :example de pointeur
+exmple10 :example de tableau
+exmple11:example de deca de varable avec valeur
+exmple12 : algo final
+
+
+

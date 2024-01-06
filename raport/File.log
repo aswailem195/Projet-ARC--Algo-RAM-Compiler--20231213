@@ -1,0 +1,405 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.12.21)  6 JAN 2024 11:26
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**File.tex
+(./File.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22>
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
+)
+(/usr/share/texmf-dist/tex/latex/listingsutf8/listingsutf8.sty
+Package: listingsutf8 2019-12-10 v1.5 Allow UTF-8 in listings input (HO)
+
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count193
+\lst@gtempboxa=\box51
+\lst@token=\toks19
+\lst@length=\count194
+\lst@currlwidth=\dimen143
+\lst@column=\count195
+\lst@pos=\count196
+\lst@lostspace=\dimen144
+\lst@width=\dimen145
+\lst@newlines=\count197
+\lst@lineno=\count198
+\lst@maxwidth=\dimen146
+
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count199
+\lst@skipnumbers=\count266
+\lst@framebox=\box52
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)))
+(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+)
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count267
+\float@exts=\toks20
+\float@box=\box53
+\@float@everytoks=\toks21
+\@floatcapt=\box54
+)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count268
+\l__pdf_internal_box=\box55
+) (./File.aux
+
+LaTeX Warning: Label `fig:asa_structure' multiply defined.
+
+
+LaTeX Warning: Label `fig:asa_structure' multiply defined.
+
+)
+\openout1 = `File.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+ (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count269
+\scratchdimen=\dimen147
+\scratchbox=\box56
+\nofMPsegments=\count270
+\nofMParguments=\count271
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count272
+\MPscratchDim=\dimen148
+\MPnumerator=\count273
+\makeMPintoPDFobject=\count274
+\everyMPtoPDFconversion=\toks23
+) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count275
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 35.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 35.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 35.
+
+Overfull \hbox (38.08313pt too wide) in paragraph at lines 39--40
+[]\OT1/cmr/m/n/10 Nous avons r^^Seussi ^^Ra com-piler le pro-gramme con-tenu da
+ns le fichier \OT1/cmtt/m/n/10 example12.algo\OT1/cmr/m/n/10 ,
+ []
+
+LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
+43.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 43.
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 43.
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 72.
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.76 VAR 
+         g<-9
+? 
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 76.
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.77 PROGRAMME(
+               )
+? 
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
+/enc/dvips/cm-super/cm-super-ts1.enc}]
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.78 VAR 
+         taille,t[5], @p
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.79 DEBUT
+          
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80     ALLOUER(
+                  p, 10 )
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.84 FIN
+        
+? 
+<asa.png, id=14, 1109.14375pt x 1228.59pt>
+File: asa.png Graphic file (type png)
+<use asa.png>
+Package pdftex.def Info: asa.png  used on input line 108.
+(pdftex.def)             Requested size: 276.00105pt x 305.72198pt.
+[2]
+Overfull \hbox (6.05038pt too wide) in paragraph at lines 125--126
+[]\OT1/cmr/m/n/10 Les fonc-tions \OT1/cmtt/m/n/10 semantic[]decla[].. \OT1/cmr/
+m/n/10 g^^Rerent la d^^Seclaration de vari-ables, qu'elles
+ []
+
+[3 <./asa.png>]
+Overfull \hbox (1.91716pt too wide) in paragraph at lines 141--142
+\OT1/cmr/m/n/10 et on stocke l'adresse de la premi^^Rere in-struc-tion de la fo
+nc-tion dans l'adresse
+ []
+
+
+Overfull \hbox (4.24132pt too wide) in paragraph at lines 141--142
+\OT1/cmr/m/n/10 de fonc-tion dans le seg-ment de donn^^Sees. Pour l'appeler, no
+us com-mencerons
+ []
+
+
+! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144             //définies 
+                              comme suit :
+? 
+
+! LaTeX Error: Invalid UTF-8 byte "A9.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144             //définies 
+                              comme suit :
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145             ALGO 
+                       ID( L_param )
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.146             DEBUT
+                       
+? 
+
+! Package xcolor Error: Undefined color `LightSeaGreen'.
+
+See the xcolor package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.148             FIN
+                     
+? 
+
+Overfull \hbox (0.94337pt too wide) in paragraph at lines 151--152
+[]\OT1/cmr/m/n/10 Le vari-able \OT1/cmtt/m/n/10 int VLOCAL \OT1/cmr/m/n/10 : po
+ur num^^Seroter les vari-ables lo-cales, com-men^^Xcant
+ []
+
+<ts.png, id=26, 1445.4pt x 671.50874pt>
+File: ts.png Graphic file (type png)
+<use ts.png>
+Package pdftex.def Info: ts.png  used on input line 158.
+(pdftex.def)             Requested size: 276.00105pt x 128.22325pt.
+[4]
+Overfull \hbox (9.75446pt too wide) in paragraph at lines 173--174
+[]\OT1/cmr/m/n/10 Registre 5: \OT1/cmtt/m/n/10 RAM[]OS[]EMPILER[]ADR 5 //pour l
+e moment je l'utilise
+ []
+
+
+Overfull \hbox (35.16428pt too wide) in paragraph at lines 174--175
+[]\OT1/cmr/m/n/10 Registre 6: \OT1/cmtt/m/n/10 VGLOBAL = 6 // Pour num^^Seroter
+ l'adresse de la variable
+ []
+
+<RAM.png, id=30, 526.21594pt x 566.115pt>
+File: RAM.png Graphic file (type png)
+<use RAM.png>
+Package pdftex.def Info: RAM.png  used on input line 183.
+(pdftex.def)             Requested size: 276.00105pt x 296.9384pt.
+[5 <./ts.png>] [6 <./RAM.png>] (./File.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4189 strings out of 477985
+ 62691 string characters out of 5840057
+ 1863388 words of memory out of 5000000
+ 24358 multiletter control sequences out of 15000+600000
+ 517680 words of font info for 51 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 61i,7n,62p,476b,1694s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on File.pdf (6 pages, 443438 bytes).
+PDF statistics:
+ 86 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+

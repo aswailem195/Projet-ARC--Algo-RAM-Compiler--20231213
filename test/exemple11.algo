@@ -1,0 +1,8 @@
+//example de deca de varable avec valeur
+VAR temp 
+PROGRAMME()
+VAR taille
+VAR i<-5, imin <- 6 ,buf 
+DEBUT
+
+FIN

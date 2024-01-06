@@ -1,0 +1,8 @@
+//example de tableau
+ PROGRAMME()
+VAR t[5] 
+DEBUT 
+   //t[5] <- 10 //Affichage error   
+   t[4] <- 5 
+   ECRIRE(t[4])
+FIN

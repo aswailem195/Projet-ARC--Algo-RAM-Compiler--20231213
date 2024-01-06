@@ -1,62 +1,31 @@
-//echange les éléments des cases d'indices i et j
-ALGO ECHANGER( @T,i,j)
-VAR temp
+// test SI   TQ 2 FONCTION
+ALGO pairs( )
+VAR i <- 20 ,n <- 3
 DEBUT
-	temp <- T[i]
-	T[i] <- T[j]
-	T[j] <- temp
+	TQ i > n FAIRE
+	   SI  i%2 = 0 ALORS
+            ECRIRE(i)
+	   FSI
+	   i <- i-1
+	FTQ
 FIN
-
-// Renvoie l'indice de la plus petite valeur du tableau 'T' entre 'i' et 'n'	
-ALGO Selection( @T, n, i )
-VAR imin <- i
+ALGO pairi( )
+VAR i <- 3 ,n <- 20
 DEBUT
-	i <- i+1
 	TQ i < n FAIRE
-	   SI T[imin] > T[i] ALORS
-	      imin <- i
+	   SI  i%2 = 0 ALORS
+            ECRIRE(i)
 	   FSI
 	   i <- i+1
 	FTQ
-	RENVOYER imin
 FIN
 
 PROGRAMME()
-VAR taille, @T
-VAR i, imin ,buf
+//testcomentair
+VAR momo ,toto <- 3
 DEBUT
-	//stockage des donnees dans un tableau dynamique
-	//taille <- LIRE()
-	// mon aloation just marche avec NB 
-	ALLOUER( T, 5 )
-	taille <- 5
-	
-	i <- 0
-	TQ i < taille FAIRE
-	   buf <- LIRE()
-	   T[i] <- buf 
-	   // a ce mement il marche just avec VAR ou NB
-	   //T[i] <- LIRE()
-	   i <- i+1
-	FTQ
+      pairi()
+      pairs()
 
-	//Tri selection
-	i <- 0
-	TQ i < taille FAIRE
 
-	   buf <- Selection(T, taille, i)
-	   SI ( T[buf] < T[i] ) ALORS
-	       ECHANGER( T, i, buf)
-	   FSI
-	   i <- i+1
-	FTQ
-
-	//Affichage du tableau trie
-	i <- 0
-	TQ i < taille FAIRE
-	   ECRIRE(T[i])
-	   i <- i+1
-	FTQ
-	
-	RENVOYER 0
 FIN

@@ -1,0 +1,12 @@
+//example de pointeur 
+VAR @p 
+PROGRAMME()
+VAR @l
+DEBUT 
+// Ici, nous n'avons pas réussi à le faire avec l'identifiant, par exemple ALLOUER(p, i)
+   ALLOUER(p,5) 
+   // Affichage d'une erreur semintic car 5 <= taille du tableau.
+   //p[5] <- 10  
+   p[4] <- 10 
+   ECRIRE(p[4])
+FIN
